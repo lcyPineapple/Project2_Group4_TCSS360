@@ -1,3 +1,4 @@
+package GUI;
 
 import java.awt.EventQueue;
 
@@ -9,6 +10,8 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import javax.swing.border.LineBorder;
@@ -20,7 +23,7 @@ import javax.swing.DefaultComboBoxModel;
 /**
  * Main console GUI that allows the user to choose up to 8 weather stations to attach to.
  * @author yolandaxu
- *
+ * @author Benjamin Munoz
  */
 public class WirelessConsole {
 
@@ -37,6 +40,51 @@ public class WirelessConsole {
 	private int outTemp = 0;
 	private int outHum = 0;
 
+	/**
+	 * Flag to indicate whether or not the 2ND 
+	 * button has been pressed.
+	 */
+	private boolean secondButtonActivated;
+	
+	/**
+	 * Enum for determining which weather variables have been selected
+	 */
+	private static enum Vars {
+	    NONE,
+	    WIND_SPEED,
+	    WIND_DIRECTION,
+	    OUTER_TEMP,
+	    INNER_TEMP,
+	    OUTER_HUMIDITY,
+	    INNER_HUMIDITY,
+	    WIND_CHILL,
+	    DEW_POINT,
+	    BAROMETRIC_PRESSURE,
+	    CURRENT_UV_INDEX,
+	    DAILY_ACCUMULATED_UV_INDEX,
+	    HEAT_INDEX,
+	    THSW_INDEX, // Temperature Humidity Sun Wind Index
+	    CURRENT_RAIN_RATE,
+	    MONTH_TO_DATE_PRECIPITATION,
+	    YEAR_TO_DATE_PRECIPITATION,
+	    DAILY_RAIN,
+	    RAIN_STORM,
+	    CURRENT_SOLAR_RADIATION,
+	    CURRENT_ET,
+	    MONTHLY_ET,
+	    YEARLY_ET,
+	};
+	
+	/**
+	 * The current variable selected
+	 */
+	private Vars currentVar;
+	
+	/**
+	 * The 2ND button
+	 */
+	private JButton secondButton;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -98,72 +146,198 @@ public class WirelessConsole {
 		frame.getContentPane().add(controlsPanel, BorderLayout.EAST);
 		controlsPanel.setLayout(new BoxLayout(controlsPanel, BoxLayout.Y_AXIS));
 		
-		JButton heatTempButton = new JButton("HEAT/TEMP");
-		heatTempButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
+		// 2ND Button
+		secondButton = new JButton("2ND");
+		secondButton.setFocusable(false);
+		deactivateSecondFunctions();
+        secondButton.addActionListener(e -> {
+            if (secondButtonActivated) {
+                deactivateSecondFunctions();
+            } else {
+                secondButtonActivated = true;
+                secondButton.setBackground(Color.GREEN);
+            }
+        });
+		controlsPanel.add(secondButton);
+		
+		// Temperature and Heat Indices button
+		JButton tempHeatButton = new JButton("TEMP/HEAT");
+		tempHeatButton.addActionListener(e -> {
+		    if (secondButtonActivated) {
+		        if (currentVar == Vars.HEAT_INDEX) {
+		            currentVar = Vars.THSW_INDEX;
+		            System.out.println("Temperature-Humidity-Sun-Wind Index selected");
+		        } else {
+		            currentVar = Vars.HEAT_INDEX;
+		            System.out.println("Heat Index selected");
+		        }
+		        deactivateSecondFunctions();
+		    } else {
+		        if (currentVar == Vars.OUTER_TEMP) {
+		            currentVar = Vars.INNER_TEMP;
+		            System.out.println("Inside temperature selected");
+		        } else {
+		            currentVar = Vars.OUTER_TEMP;
+		            System.out.println("Outside temperature selected");
+		        }
+		    }
 		});
-		controlsPanel.add(heatTempButton);
+		controlsPanel.add(tempHeatButton);
 		
-		JButton dewHumButton = new JButton("DEW/HUM");
-		controlsPanel.add(dewHumButton);
-		
-		JButton chillWindButton = new JButton("CHILL/WIND");
-		controlsPanel.add(chillWindButton);
-		
-		JButton solarRainButton = new JButton("SOLAR/RAINDAY");
-		solarRainButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
+		// Humidity and Dew Point button
+		JButton humDewButton = new JButton("HUM/DEW");
+		humDewButton.addActionListener(e -> {
+		    if (secondButtonActivated) {
+		        currentVar = Vars.DEW_POINT;
+		        System.out.println("Dew point selected");
+	            deactivateSecondFunctions();
+		    } else {
+		        if (currentVar == Vars.OUTER_HUMIDITY) {
+		            currentVar = Vars.INNER_HUMIDITY;
+		            System.out.println("Inside humidity selected");
+		        } else {
+		            currentVar = Vars.OUTER_HUMIDITY;
+		            System.out.println("Outside humidity selected");
+		        }
+		    }
 		});
-		controlsPanel.add(solarRainButton);
+		controlsPanel.add(humDewButton);
 		
-		JButton UvRainButton = new JButton("UV/RAINYR");
-		controlsPanel.add(UvRainButton);
+		// Wind and Wind Chill button
+		JButton windChillButton = new JButton("WIND/CHILL");
+		windChillButton.addActionListener(e -> {
+            if (secondButtonActivated) {
+                currentVar = Vars.WIND_CHILL;
+                System.out.println("Wind Chill selected");
+                deactivateSecondFunctions();
+            } else {
+                if (currentVar == Vars.WIND_SPEED) {
+                    currentVar = Vars.WIND_DIRECTION;
+                    System.out.println("Wind Direction selected");
+                } else {
+                    currentVar = Vars.WIND_SPEED;
+                    System.out.println("Wind Speed selected");
+                }
+            }
+        });
+		controlsPanel.add(windChillButton);
 		
-		JButton etBarButton = new JButton("ET/BAR");
-		controlsPanel.add(etBarButton);
+		// Daily Rain and Solar Radiation button
+		JButton rainSolarButton = new JButton("RAINDAY/SOLAR");
+		rainSolarButton.addActionListener(e -> {
+            if (secondButtonActivated) {
+                currentVar = Vars.CURRENT_SOLAR_RADIATION;
+                System.out.println("Current Solar Radiation selected");
+                deactivateSecondFunctions();
+            } else {
+                if (currentVar == Vars.DAILY_RAIN) {
+                    currentVar = Vars.RAIN_STORM;
+                    System.out.println("\"Rain Storm\" selected");
+                } else {
+                    currentVar = Vars.DAILY_RAIN;
+                    System.out.println("Daily rain accumulation selected");
+                }
+            }
+        });
+		controlsPanel.add(rainSolarButton);
 		
+		// Rain rates and UV Indices buttons
+		JButton rainUVButton = new JButton("RAINYR/UV");
+		rainUVButton.addActionListener(e -> {
+            if (secondButtonActivated) {
+                if (currentVar == Vars.CURRENT_UV_INDEX) {
+                    currentVar = Vars.DAILY_ACCUMULATED_UV_INDEX;
+                    System.out.println("Daily Accumulated UV selected");
+                } else {
+                    currentVar = Vars.CURRENT_UV_INDEX;
+                    System.out.println("Current UV Index selected");
+                }
+                deactivateSecondFunctions();
+            } else {
+                if (currentVar == Vars.MONTH_TO_DATE_PRECIPITATION) {
+                    currentVar = Vars.YEAR_TO_DATE_PRECIPITATION;
+                    System.out.println("Year-to-Date precipitation selected");
+                } else if (currentVar == Vars.CURRENT_RAIN_RATE) {
+                    currentVar = Vars.MONTH_TO_DATE_PRECIPITATION;
+                    System.out.println("Month-to-Date precipitation selected");
+                } else {
+                    currentVar = Vars.CURRENT_RAIN_RATE;
+                    System.out.println("Current Rain Rate selected");
+                }
+            }
+        });
+		controlsPanel.add(rainUVButton);
+		
+		// Barometric Pressure and Evapotranspiration button
+		JButton barETButton = new JButton("BAR/ET");
+		barETButton.addActionListener(e -> {
+            if (secondButtonActivated) {
+                if (currentVar == Vars.MONTHLY_ET) {
+                    currentVar = Vars.YEARLY_ET;
+                    System.out.println("Yearly Evapotranspiration selected");
+                } else if (currentVar == Vars.CURRENT_ET) {
+                    currentVar = Vars.MONTHLY_ET;
+                    System.out.println("Montly Evapotranspiration selected");
+                } else {
+                    currentVar = Vars.CURRENT_ET;
+                    System.out.println("Current Evapotranspiration selected");
+                }
+                deactivateSecondFunctions();
+            } else {
+                currentVar = Vars.BAROMETRIC_PRESSURE;
+                System.out.println("Barometric Pressure selected");
+            }
+        });
+		controlsPanel.add(barETButton);
+		
+		// Graph button
+        var graphButton = new JButton("GRAPH");
+        graphButton.addActionListener(e -> {
+            System.out.println("GRAPH Button selected");
+            if (secondButtonActivated) {
+                deactivateSecondFunctions();
+            }
+        });
+        controlsPanel.add(graphButton);
 		
 		//weather station combo boxes
-		
-		JPanel weatherSationsPanel = new JPanel();
-		frame.getContentPane().add(weatherSationsPanel, BorderLayout.NORTH);
+		JPanel weatherStationsPanel = new JPanel();
+		frame.getContentPane().add(weatherStationsPanel, BorderLayout.NORTH);
 		
 		JLabel stationsLabel = new JLabel("Stations:");
-		weatherSationsPanel.add(stationsLabel);
+		weatherStationsPanel.add(stationsLabel);
 		
 		JComboBox station1 = new JComboBox();
 		station1.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
-		weatherSationsPanel.add(station1);
+		weatherStationsPanel.add(station1);
 		
 		JComboBox station2 = new JComboBox();
 		station2.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
-		weatherSationsPanel.add(station2);
+		weatherStationsPanel.add(station2);
 		
 		JComboBox station3 = new JComboBox();
 		station3.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
-		weatherSationsPanel.add(station3);
+		weatherStationsPanel.add(station3);
 		
 		JComboBox station4 = new JComboBox();
 		station4.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
-		weatherSationsPanel.add(station4);
+		weatherStationsPanel.add(station4);
 		
 		JComboBox station5 = new JComboBox();
 		station5.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
-		weatherSationsPanel.add(station5);
+		weatherStationsPanel.add(station5);
 		
 		JComboBox station6 = new JComboBox();
 		station6.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
-		weatherSationsPanel.add(station6);
+		weatherStationsPanel.add(station6);
 		
 		JComboBox station7 = new JComboBox();
 		station7.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
-		weatherSationsPanel.add(station7);
+		weatherStationsPanel.add(station7);
 		
 		JComboBox station8 = new JComboBox();
 		station8.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
-		weatherSationsPanel.add(station8);
+		weatherStationsPanel.add(station8);
 		
 		JPanel MainDisplay = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) MainDisplay.getLayout();
@@ -288,6 +462,12 @@ public class WirelessConsole {
 		monthRainValue.setText("N/A");
 		monthRainPanel.add(monthRainValue);
 		monthRainPanel.setLayout(new BoxLayout(monthRainPanel, BoxLayout.Y_AXIS));
+		
+		currentVar = Vars.NONE;
 	}
 
+	private void deactivateSecondFunctions() {
+	    secondButtonActivated = false;
+	    secondButton.setBackground(Color.RED);
+	}
 }
