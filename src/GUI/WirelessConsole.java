@@ -12,18 +12,25 @@ import javax.swing.BoxLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 
 /**
  * Main console GUI that allows the user to choose up to 8 weather stations to attach to.
  * @author yolandaxu
  * @author Benjamin Munoz
+ * @author Leika Yamada
  */
 public class WirelessConsole {
 
@@ -340,11 +347,11 @@ public class WirelessConsole {
 		weatherStationsPanel.add(station8);
 		
 		JPanel MainDisplay = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) MainDisplay.getLayout();
-		flowLayout.setAlignment(FlowLayout.LEFT);
 		frame.getContentPane().add(MainDisplay, BorderLayout.CENTER);
+		MainDisplay.setLayout(null);
 		
 		JPanel leftDisplayPanel = new JPanel();
+		leftDisplayPanel.setBounds(5, 78, 10, 20);
 		MainDisplay.add(leftDisplayPanel);
 		
 		JPanel compassPanel = new JPanel();
@@ -356,7 +363,8 @@ public class WirelessConsole {
 		leftDisplayPanel.setLayout(new BoxLayout(leftDisplayPanel, BoxLayout.Y_AXIS));
 		
 		JPanel rightDisplayPanel = new JPanel();
-		MainDisplay.add(rightDisplayPanel, BorderLayout.EAST);
+		rightDisplayPanel.setBounds(20, 5, 254, 166);
+		MainDisplay.add(rightDisplayPanel);
 		
 		JPanel moonAndDatePanel = new JPanel();
 		rightDisplayPanel.add(moonAndDatePanel);
@@ -463,7 +471,78 @@ public class WirelessConsole {
 		monthRainPanel.add(monthRainValue);
 		monthRainPanel.setLayout(new BoxLayout(monthRainPanel, BoxLayout.Y_AXIS));
 		
+		//Code for the JComponent that displays the Moon Phases
+		//Randomly Generated moon phase for now
+		JLabel moonLable = new JLabel("moon icon");
+		JLabel moonPhaseTextLbl;		
+		int myMoon = checkPhase();
+		
+		if(myMoon == 0) {
+			moonPhaseTextLbl = new JLabel("New Moon");
+			Image moon1 = new ImageIcon(this.getClass().getResource("/new-moon.png")).getImage();
+			moonLable.setIcon(new ImageIcon(moon1));
+			moonLable.setIcon(new ImageIcon(moon1));
+		} else if (myMoon == 1) {
+			moonPhaseTextLbl = new JLabel("Waxing Crescent");
+			Image moon2 = new ImageIcon(this.getClass().getResource("/waxing-crescent.png")).getImage();
+			moonLable.setIcon(new ImageIcon(moon2));
+			moonLable.setIcon(new ImageIcon(moon2));
+		} else if (myMoon == 2) {
+			moonPhaseTextLbl = new JLabel("First Quarter");
+			Image moon3 = new ImageIcon(this.getClass().getResource("/first-quarter.png")).getImage();
+			moonLable.setIcon(new ImageIcon(moon3));
+			moonLable.setIcon(new ImageIcon(moon3));
+		} else if (myMoon == 3) {
+			moonPhaseTextLbl = new JLabel("Waxing Gibbous");
+			Image moon4 = new ImageIcon(this.getClass().getResource("/waxing-gibbous.png")).getImage();
+			moonLable.setIcon(new ImageIcon(moon4));
+			moonLable.setIcon(new ImageIcon(moon4));
+		} else if (myMoon == 4) {
+			moonPhaseTextLbl = new JLabel("Full Moon");
+			Image moon5 = new ImageIcon(this.getClass().getResource("/full-moon.png")).getImage();
+			moonLable.setIcon(new ImageIcon(moon5));
+			moonLable.setIcon(new ImageIcon(moon5));
+		} else if (myMoon == 5) {
+			moonPhaseTextLbl = new JLabel("Waning Gibbous");
+			Image moon6 = new ImageIcon(this.getClass().getResource("/waning-gibbous.png")).getImage();
+			moonLable.setIcon(new ImageIcon(moon6));
+			moonLable.setIcon(new ImageIcon(moon6));
+		} else if (myMoon == 6) {
+			moonPhaseTextLbl = new JLabel("Last Quarter");
+			Image moon7 = new ImageIcon(this.getClass().getResource("/last-quarter.png")).getImage();
+			moonLable.setIcon(new ImageIcon(moon7));
+			moonLable.setIcon(new ImageIcon(moon7));
+		} else {
+			moonPhaseTextLbl = new JLabel("Waning Crescent");
+			Image moon8 = new ImageIcon(this.getClass().getResource("/waning-crescent.png")).getImage();
+			moonLable.setIcon(new ImageIcon(moon8));
+			moonLable.setIcon(new ImageIcon(moon8));
+		}
+
+		moonLable.setBounds(426, 5, 64, 64);
+		MainDisplay.add(moonLable);
+		
+		moonPhaseTextLbl.setBounds(422, 78, 100, 20);
+		MainDisplay.add(moonPhaseTextLbl);
+		
 		currentVar = Vars.NONE;
+	}
+	//Private method to get the date and time
+	private int checkPhase() {
+		
+		//Below is the beginning of an implementation of a true moon phase calculator
+		
+//		SimpleDateFormat dateForm = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+//	    Date today = new Date();
+//	    String dateString = dateForm.format(today).toString();
+//	    String monthString = dateString.substring(3, 5);
+//	    String dayString = dateString.substring(0, 2);
+//	    int month = Integer.parseInt(monthString);
+//	    int day = Integer.parseInt(dayString);
+		
+	    //generate new number between 0 and 7
+	    Random rand = new Random();
+	    return rand.nextInt(8);
 	}
 
 	private void deactivateSecondFunctions() {
