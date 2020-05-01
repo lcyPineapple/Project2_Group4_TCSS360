@@ -14,6 +14,7 @@ import javax.swing.BoxLayout;
 import java.io.File;
 import java.util.Random;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -31,7 +32,9 @@ import javax.swing.ImageIcon;
 public class WirelessConsole {
 
 	private JFrame frame;
-	private JTextField timeDate;
+	private JPanel contentPanel;
+	
+    private JTextField timeDate;
 	private JTextField outTempValue;
 	private JTextField barometerValue;
 	private JTextField outHumValue;
@@ -66,6 +69,11 @@ public class WirelessConsole {
 	 * button has been pressed.
 	 */
 	private boolean secondButtonActivated;
+	
+	/**
+	 * The compass panel
+	 */
+	private Compass compassPanel;
 	
 	/**
 	 * Enum for determining which weather variables have been selected
@@ -135,19 +143,12 @@ public class WirelessConsole {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = new JFrame("Wireless Controller");
 		frame.setBounds(100, 100, 900, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.WEST);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0};
-		gbl_panel.rowHeights = new int[]{0};
-		gbl_panel.columnWeights = new double[]{Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{Double.MIN_VALUE};
-		panel.setLayout(gbl_panel);
-		
+		contentPanel = new JPanel(new BorderLayout(10, 10));
+		frame.add(contentPanel);
 		
 		initializeBottomStatusPanel();
 		
@@ -164,22 +165,18 @@ public class WirelessConsole {
 	 * Initialize the Main Panels
 	 */
 	private void initializeMainPanels() {
-        JPanel MainDisplay = new JPanel();
-        frame.getContentPane().add(MainDisplay, BorderLayout.CENTER);
-        MainDisplay.setLayout(null);
+        //JPanel mainPanels = new JPanel(new BorderLayout());
+        JPanel mainPanels = new JPanel(new BorderLayout(10, 0));
         
         // CONTENT ON THE LEFT SIDE
-        JPanel leftDisplayPanel = new JPanel();
-        leftDisplayPanel.setBounds(5, 78, 100, 200);
-        MainDisplay.add(leftDisplayPanel);
-
+        JPanel leftDisplayPanel = new JPanel(new GridLayout(3, 1));
         // Wind Compass
-        var compassPanel = new Compass();
-        compassPanel.setDataVisible(false);
+        compassPanel = new Compass();
         leftDisplayPanel.add(compassPanel);
         
         // Weather Variable Graph
-        JPanel graphPanel = new JPanel();
+        JPanel graphPanel = new JPanel(new BorderLayout());
+        graphPanel.add(new JButton("Graph goes here"));
         leftDisplayPanel.add(graphPanel);
 
         // Forecast
@@ -187,126 +184,116 @@ public class WirelessConsole {
         Forecast forecast = new Forecast();
         forecastPanel.add(forecast);
         leftDisplayPanel.add(forecastPanel);
-
-        leftDisplayPanel.setLayout(new BoxLayout(leftDisplayPanel, BoxLayout.Y_AXIS));
         
-        // ---
+        mainPanels.add(leftDisplayPanel, BorderLayout.CENTER);
         
         // CONTENT ON THE RIGHT SIDE
         JPanel rightDisplayPanel = new JPanel();
-        rightDisplayPanel.setBounds(200, 5, 254, 166);
-        MainDisplay.add(rightDisplayPanel);
-        
-        // Moon and Date Panel
-        JPanel moonAndDatePanel = new JPanel();
-        rightDisplayPanel.add(moonAndDatePanel);
         rightDisplayPanel.setLayout(new BoxLayout(rightDisplayPanel, BoxLayout.Y_AXIS));
         
-        // JPanel moonPhase = new JPanel();
-        // moonAndDatePanel.add(moonPhase);
-        
+        JPanel moonAndDatePanel = new JPanel();
+        moonAndDatePanel.setLayout(new BoxLayout(moonAndDatePanel, BoxLayout.Y_AXIS));
         // Time and Date
+        JPanel tdPanel = new JPanel();
         timeDate = new JTextField();
-        moonAndDatePanel.add(timeDate);
         timeDate.setText("Time/Date");
         timeDate.setEditable(false);
+        tdPanel.add(timeDate);
+        moonAndDatePanel.add(tdPanel);
+        // Moon
+        moonLabel = new JLabel();
+        moonPhaseTextLbl = new JLabel("Moon Phase");        
+        loadMoonIcons();
+        updateMoonPhaseIconAndLabel();
+        moonLabel.setAlignmentX(0.5f);
+        moonPhaseTextLbl.setAlignmentX(0.5f);
+        moonAndDatePanel.add(moonLabel);
+        moonAndDatePanel.add(moonPhaseTextLbl);
         
-        JPanel tempHumBaroPanel = new JPanel();
-        rightDisplayPanel.add(tempHumBaroPanel);
+        rightDisplayPanel.add(moonAndDatePanel);
         
+        JPanel tempHumBaroPanel = new JPanel(new GridLayout(1, 3));
         // Outside Temperature
         JPanel tempOutPanel = new JPanel();
-        tempHumBaroPanel.add(tempOutPanel);
         JLabel outTempLabel = new JLabel("TEMP OUT (F)");
-        tempOutPanel.add(outTempLabel);
         outTempValue = new JTextField();
-        tempOutPanel.add(outTempValue);
         tempOutPanel.setLayout(new BoxLayout(tempOutPanel, BoxLayout.Y_AXIS));
-        
+        tempOutPanel.add(outTempLabel);
+        tempOutPanel.add(outTempValue);
+        tempHumBaroPanel.add(tempOutPanel);
         // Outside Humidity
         JPanel outHumPanel = new JPanel();
-        tempHumBaroPanel.add(outHumPanel);
         JLabel outHumLabel = new JLabel("HUM OUT (%)");
-        outHumPanel.add(outHumLabel);
         outHumValue = new JTextField();
-        outHumPanel.add(outHumValue);
         outHumPanel.setLayout(new BoxLayout(outHumPanel, BoxLayout.Y_AXIS));
-        
+        outHumPanel.add(outHumLabel);
+        outHumPanel.add(outHumValue);
+        tempHumBaroPanel.add(outHumPanel);
         // Barometric Pressure
         JPanel barometerPanel = new JPanel();
-        tempHumBaroPanel.add(barometerPanel);
         JLabel barometerLabel = new JLabel("BAROMETER (in)");
-        barometerPanel.add(barometerLabel);
         barometerValue = new JTextField("N/A");
-        barometerPanel.add(barometerValue);
         barometerPanel.setLayout(new BoxLayout(barometerPanel, BoxLayout.Y_AXIS));
+        barometerPanel.add(barometerLabel);
+        barometerPanel.add(barometerValue);
+        tempHumBaroPanel.add(barometerPanel);
         
+        rightDisplayPanel.add(tempHumBaroPanel);
         
-        JPanel tempHumChillPanel = new JPanel();
+        JPanel tempHumChillPanel = new JPanel(new GridLayout(1, 3));
         tempHumChillPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-        rightDisplayPanel.add(tempHumChillPanel);
-        
         // Inside Temperature
         JPanel inTempPanel = new JPanel();
-        tempHumChillPanel.add(inTempPanel);
         JLabel inTempLabel = new JLabel("TEMP IN (F)");
-        inTempPanel.add(inTempLabel);
         inTempValue = new JTextField();
-        inTempPanel.add(inTempValue);
         inTempPanel.setLayout(new BoxLayout(inTempPanel, BoxLayout.Y_AXIS));
-        
+        inTempPanel.add(inTempLabel);
+        inTempPanel.add(inTempValue);
+        tempHumChillPanel.add(inTempPanel);
         // Inside Humidity
         JPanel inHumPanel = new JPanel();
-        tempHumChillPanel.add(inHumPanel);
         JLabel inHumLabel = new JLabel("HUM IN  (%)");
-        inHumPanel.add(inHumLabel);
-        inHumValue = new JTextField();
-        inHumPanel.add(inHumValue);
+        inHumValue = new JTextField("");
         inHumPanel.setLayout(new BoxLayout(inHumPanel, BoxLayout.Y_AXIS));
-        
+        inHumPanel.add(inHumLabel);
+        inHumPanel.add(inHumValue);
+        tempHumChillPanel.add(inHumPanel);
         // Wind Chill Panel
         JPanel chillPanel = new JPanel();
-        tempHumChillPanel.add(chillPanel);
         JLabel chillLabel = new JLabel("CHILL (F)");
-        chillPanel.add(chillLabel);
         chillValue = new JTextField("N/A");
-        chillPanel.add(chillValue);
         chillPanel.setLayout(new BoxLayout(chillPanel, BoxLayout.Y_AXIS));
+        chillPanel.add(chillLabel);
+        chillPanel.add(chillValue);
+        tempHumChillPanel.add(chillPanel);
         
-        JPanel rainPanels = new JPanel();
-        rightDisplayPanel.add(rainPanels);
-
+        rightDisplayPanel.add(tempHumChillPanel);
+        
+        JPanel rainPanels = new JPanel(new GridLayout(1, 2));
         // Daily Rain
         JPanel dayRainPanel = new JPanel();
-        rainPanels.add(dayRainPanel);
         JLabel dayRainLabel = new JLabel("DAILY RAIN (in)");
         dayRainPanel.add(dayRainLabel);
         dayRainValue = new JTextField();
         dayRainValue.setText("");
         dayRainPanel.add(dayRainValue);
         dayRainPanel.setLayout(new BoxLayout(dayRainPanel, BoxLayout.Y_AXIS));
+        rainPanels.add(dayRainPanel);
         
         // Montly Rain
         JPanel monthRainPanel = new JPanel();
-        rainPanels.add(monthRainPanel);
         JLabel monthRainLabel = new JLabel("RAIN MO (in)");
         monthRainPanel.add(monthRainLabel);
         monthRainValue = new JTextField();
         monthRainValue.setText("N/A");
         monthRainPanel.add(monthRainValue);
         monthRainPanel.setLayout(new BoxLayout(monthRainPanel, BoxLayout.Y_AXIS));
+        rainPanels.add(monthRainPanel);
         
-        // Moon Phase Icon and Label
-        moonLabel = new JLabel("Moon Icon");
-        moonPhaseTextLbl = new JLabel("Moon Phase");        
-        loadMoonIcons();
-        updateMoonPhaseIconAndLabel();
-
-        moonLabel.setBounds(526, 5, 64, 64);
-        MainDisplay.add(moonLabel);
+        rightDisplayPanel.add(rainPanels);
         
-        moonPhaseTextLbl.setBounds(522, 78, 100, 20);
-        MainDisplay.add(moonPhaseTextLbl);
+        mainPanels.add(rightDisplayPanel, BorderLayout.EAST);
+        contentPanel.add(mainPanels);
     }
 	
     /**
@@ -315,7 +302,7 @@ public class WirelessConsole {
     private void initializeBottomStatusPanel() {
 	    bottomStatusPanel = new JPanel();
         bottomStatusPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-        frame.getContentPane().add(bottomStatusPanel, BorderLayout.SOUTH);
+        contentPanel.add(bottomStatusPanel, BorderLayout.SOUTH);
 	    
         updateBottomStatusPanel();
     }
@@ -351,7 +338,7 @@ public class WirelessConsole {
 	 */
     private void initializeComboButtons() {
         JPanel weatherStationsPanel = new JPanel();
-        frame.getContentPane().add(weatherStationsPanel, BorderLayout.NORTH);
+        contentPanel.add(weatherStationsPanel, BorderLayout.NORTH);
         
         JLabel stationsLabel = new JLabel("Stations:");
         weatherStationsPanel.add(stationsLabel);
@@ -395,7 +382,7 @@ public class WirelessConsole {
     private void initializePrimaryButtons() {
 	  //the control buttons
         JPanel controlsPanel = new JPanel();
-        frame.getContentPane().add(controlsPanel, BorderLayout.EAST);
+        contentPanel.add(controlsPanel, BorderLayout.EAST);
         controlsPanel.setLayout(new BoxLayout(controlsPanel, BoxLayout.Y_AXIS));
         
         // 2ND Button
@@ -465,9 +452,12 @@ public class WirelessConsole {
             } else {
                 if (currentVar == Vars.WIND_SPEED) {
                     currentVar = Vars.WIND_DIRECTION;
+                    compassPanel.toggleSpeedDirection();
                     System.out.println("Wind Direction selected");
+                    
                 } else {
                     currentVar = Vars.WIND_SPEED;
+                    compassPanel.toggleSpeedDirection();
                     System.out.println("Wind Speed selected");
                 }
             }

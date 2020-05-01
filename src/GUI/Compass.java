@@ -253,6 +253,7 @@ public class Compass extends JPanel {
             directionAngleVisible = true;
             speedVisible = false;
         }
+        repaint();
     }
     
     /**
