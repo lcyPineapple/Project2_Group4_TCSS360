@@ -452,12 +452,12 @@ public class WirelessConsole {
             } else {
                 if (currentVar == Vars.WIND_SPEED) {
                     currentVar = Vars.WIND_DIRECTION;
-                    compassPanel.toggleSpeedDirection();
+                    compassPanel.toggleSpeedDirection(false);
                     System.out.println("Wind Direction selected");
                     
                 } else {
                     currentVar = Vars.WIND_SPEED;
-                    compassPanel.toggleSpeedDirection();
+                    compassPanel.toggleSpeedDirection(true);
                     System.out.println("Wind Speed selected");
                 }
             }

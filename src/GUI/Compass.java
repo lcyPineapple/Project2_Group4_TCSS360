@@ -245,14 +245,13 @@ public class Compass extends JPanel {
         this.repaint();
     }
     
-    public void toggleSpeedDirection() {
-        if (directionAngleVisible) {
-            directionAngleVisible = false;
-            speedVisible = true;
-        } else {
-            directionAngleVisible = true;
-            speedVisible = false;
-        }
+    /**
+     * Toggles whether to show the speed or the direction
+     * @param flag - TRUE to show speed, FALSE to show direction
+     */
+    public void toggleSpeedDirection(boolean flag) {
+        speedVisible = flag;
+        directionAngleVisible = !flag;
         repaint();
     }
     
@@ -280,7 +279,9 @@ public class Compass extends JPanel {
                     speed = Math.floor(angle * 100) / 100.0;
                     cg.setDisplayData(angle, speed, Math.random() <= 0.5 ? "mph" : "km/h");
                     if (Math.random() <= 0.5) {
-                        cg.toggleSpeedDirection();
+                        cg.toggleSpeedDirection(true);
+                    } else {
+                        cg.toggleSpeedDirection(false);
                     }
                 }
             }, 0, 1000);
