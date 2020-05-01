@@ -1,5 +1,7 @@
 package GUI;
 
+import GUI.forecast.Forecast;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -24,6 +26,7 @@ import javax.swing.ImageIcon;
  * @author yolandaxu
  * @author Benjamin Munoz
  * @author Leika Yamada
+ * @author Aaron Lam
  */
 public class WirelessConsole {
 
@@ -169,7 +172,7 @@ public class WirelessConsole {
         JPanel leftDisplayPanel = new JPanel();
         leftDisplayPanel.setBounds(5, 78, 100, 200);
         MainDisplay.add(leftDisplayPanel);
-        
+
         // Wind Compass
         var compassPanel = new Compass();
         compassPanel.setDataVisible(false);
@@ -178,7 +181,13 @@ public class WirelessConsole {
         // Weather Variable Graph
         JPanel graphPanel = new JPanel();
         leftDisplayPanel.add(graphPanel);
-        
+
+        // Forecast
+        JPanel forecastPanel = new JPanel();
+        Forecast forecast = new Forecast();
+        forecastPanel.add(forecast);
+        leftDisplayPanel.add(forecastPanel);
+
         leftDisplayPanel.setLayout(new BoxLayout(leftDisplayPanel, BoxLayout.Y_AXIS));
         
         // ---
