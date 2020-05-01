@@ -3,6 +3,11 @@ package GUI.forecast.weathers;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class defines "mostly clear" weather conditions.
+ * @author Aaron Lam
+ * @version 05-01-2020
+ */
 public class MostlyClear extends Weather {
     public MostlyClear() {
         super("forecast-images/mostly-clear.png");

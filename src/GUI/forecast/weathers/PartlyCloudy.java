@@ -3,6 +3,11 @@ package GUI.forecast.weathers;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class defines "partly cloudy" weather conditions.
+ * @author Aaron Lam
+ * @version 05-01-2020
+ */
 public class PartlyCloudy extends Weather {
     public PartlyCloudy() {
         super("forecast-images/partly-cloudy.png");

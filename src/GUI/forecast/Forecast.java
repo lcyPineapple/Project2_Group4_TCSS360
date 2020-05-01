@@ -13,18 +13,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Forecast is a JComponent which display current weather condition with image.
+ * @author Aaron Lam
+ * @version 05-01-2020
+ */
 public class Forecast extends JComponent {
     private List<Weather> weatherList;
     private Weather currentWeather;
-    private BufferedImage cardImage;
+    private BufferedImage weatherImage;
+
+    private static final int IMAGE_WIDTH = 60;
 
     public Forecast() {
         this.weatherList = new ArrayList<>();
         this.currentWeather = new MostlyClear();
         initWeathers();
-        updateImagePath();
+        updateImageFilePath();
     }
 
+    /**
+     * Update weather condition with new weather data.
+     * @param humidity
+     * @param windSpeed
+     * @param temperature
+     * @param rainfall
+     */
     public void updateWeather(int humidity, int windSpeed, int temperature, int rainfall) {
         Map<String, Integer> weatherData = new HashMap<>();
         weatherData.put("humidity", humidity);
@@ -37,28 +51,42 @@ public class Forecast extends JComponent {
                 break;
             }
         }
-        updateImagePath();
+        updateImageFilePath();
     }
 
-    private void updateImagePath() {
+    /**
+     * Update weather image file path to the current weather condition.
+     */
+    private void updateImageFilePath() {
         try {
-            cardImage = ImageIO.read(new File(currentWeather.getImageFilePath()));
+            weatherImage = ImageIO.read(new File(currentWeather.getImageFilePath()));
         } catch (final IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Render the weather image.
+     * @param g
+     */
     @Override
     public void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        g.drawImage(cardImage, 0, 0, this.getWidth(), this.getHeight(), null);
+        g.drawImage(weatherImage, 0, 0, this.getWidth(), this.getHeight(), null);
     }
 
+    /**
+     * Set the preferred size of forecast component.
+     * @return Dimension of forecast component
+     */
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(60, 60);
+        return new Dimension(IMAGE_WIDTH, IMAGE_WIDTH);
     }
 
+    /**
+     * Add default weather conditions.
+     */
     private void initWeathers() {
         weatherList.add(new MostlyClear());
         weatherList.add(new MostlyCloudy());

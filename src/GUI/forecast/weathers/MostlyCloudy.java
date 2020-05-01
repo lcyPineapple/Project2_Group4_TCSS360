@@ -3,6 +3,11 @@ package GUI.forecast.weathers;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class defines "mostly cloudy" weather conditions.
+ * @author Aaron Lam
+ * @version 05-01-2020
+ */
 public class MostlyCloudy extends Weather {
     public MostlyCloudy() {
         super("forecast-images/mostly-cloudy.png");

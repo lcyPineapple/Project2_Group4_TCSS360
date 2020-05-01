@@ -3,6 +3,11 @@ package GUI.forecast.weathers;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class defines "snow" weather conditions.
+ * @author Aaron Lam
+ * @version 05-01-2020
+ */
 public class Snow extends Weather {
     public Snow() {
         super("forecast-images/snow.png");
