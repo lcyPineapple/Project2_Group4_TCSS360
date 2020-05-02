@@ -74,6 +74,11 @@ public class WirelessConsole {
 	 * The compass panel
 	 */
 	private Compass compassPanel;
+
+    /**
+     * The graph component
+     */
+	private GraphComponent graphComponent;
 	
 	/**
 	 * Enum for determining which weather variables have been selected
@@ -176,7 +181,8 @@ public class WirelessConsole {
         
         // Weather Variable Graph
         JPanel graphPanel = new JPanel(new BorderLayout());
-        graphPanel.add(new JButton("Graph goes here"));
+        graphComponent = new GraphComponent(24, "C", "Hrs");
+        graphPanel.add(graphComponent);
         leftDisplayPanel.add(graphPanel);
 
         // Forecast
