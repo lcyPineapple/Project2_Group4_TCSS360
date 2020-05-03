@@ -23,14 +23,14 @@ public class GraphComponent extends JComponent {
     public static final int POINT_RAIDUS = 12;
 
     /** The max width of the value of the time variable for display */
-    private float myMaxWidth;
+    private double myMaxWidth;
     /** The increments for the time variable to display as vertical lines */
-    private int increments = 24;
+    private int myIncrements;
 
     /** The upper maximum of data point values to display */
-    private int myMaximum = 12;
+    private double myMaximum = 1;
     /** The lower minimum of data point values to display */
-    private int myMinimum = -24;
+    private double myMinimum = -1;
 
     /** The units that are being displayed */
     private String myUnitLabel;
@@ -38,19 +38,21 @@ public class GraphComponent extends JComponent {
     private String myTimeLabel;
 
     /** The data points that are going to be drawn */
-    private List<DataPoint> values = new LinkedList<>();
+    private List<DataPoint> myValues = new LinkedList<>();
 
     /**
      * Creates a graph component.
      *
-     * @param width - The width of the graph in units of time.
+     * @param theWidth - The width of the graph in units of time.
      * @param theUnitName - The unit of the value being measured.
-     * @param timeUnit - The units of time being used (hr, min, ...)
+     * @param theTimeUnit - The units of time being used (hr, min, ...)
      */
-    GraphComponent(float width, String theUnitName, String timeUnit) {
-        myMaxWidth = width;
+    GraphComponent(float theWidth, int theIncrements, String theUnitName, String theTimeUnit) {
+        myMaxWidth = theWidth;
+        myIncrements = theIncrements;
         myUnitLabel = theUnitName;
-        myTimeLabel = timeUnit;
+        myTimeLabel = theTimeUnit;
+
         setPreferredSize(new Dimension(500,500));
     }
 
@@ -58,7 +60,7 @@ public class GraphComponent extends JComponent {
      * Removes all the data in the graph.
      */
     synchronized public void resetData() {
-        values = new LinkedList<>();
+        myValues = new LinkedList<>();
     }
 
     /**
@@ -68,7 +70,26 @@ public class GraphComponent extends JComponent {
      * @param theValue - The value to be graphed.
      */
     synchronized public void addDataPoint(double theIndex, double theValue) {
-        values.add(new DataPoint(theIndex, theValue));
+        myValues.add(new DataPoint(theIndex, theValue));
+    }
+
+    /**
+     * Sets the upper limit for the graphing window.
+     *
+     * @param theNewMaximum - The maximum value after which the point will be off
+     *                        the graph.
+     */
+    synchronized public void setMaximum(double theNewMaximum) {
+        myMaximum = theNewMaximum;
+    }
+    /**
+     * Sets the lower limit for the graphing window.
+     *
+     * @param theNewMinimum - The lower value below which the point will be off
+     *                        the graph.
+     */
+    synchronized public void setMinimum(double theNewMinimum) {
+        myMinimum = theNewMinimum;
     }
 
     /**
@@ -78,96 +99,96 @@ public class GraphComponent extends JComponent {
      */
     synchronized public void incrementOffset(double increment) {
         // Shift all the data point over by a set amount.
-        for (DataPoint data : values) {
+        for (DataPoint data : myValues) {
             data.myIndex += increment;
         }
         // Remove old data points that have left the display.
-        while (values.get(0).myIndex > myMaxWidth) {
-            values.remove(0);
+        while (myValues.get(0).myIndex > myMaxWidth) {
+            myValues.remove(0);
         }
     }
 
     @Override
-    public void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
+    public void paintComponent(Graphics theG) {
+        Graphics2D g2 = (Graphics2D) theG;
         g2.clearRect(0,0, getWidth(), getHeight());
         g2.setBackground(Color.WHITE);
         g2.setColor(Color.BLACK);
-        drawGrid(g2, 0, increments);
+        drawGrid(g2, 0, myIncrements);
         drawData(g2);
         drawLabels(g2);
-        super.paintComponent(g);
+        super.paintComponent(theG);
     }
 
     /**
      * Draws the data points to a Graphics2D object.
      *
-     * @param g - the graphics 2D object
+     * @param theG - the graphics 2D object
      */
-    synchronized private void drawData(Graphics2D g) {
+    synchronized private void drawData(Graphics2D theG) {
         int height = getGridHeight();
         int width = getGridWidth();
 
-        int range = myMaximum - myMinimum;
-        for (DataPoint point : values) {
+        double range = myMaximum - myMinimum;
+        for (DataPoint point : myValues) {
             int y = (int) (((point.myValue - myMinimum) / range) * height);
             y = height - y;
 
             int x = (int) ((point.myIndex / myMaxWidth) * width);
             // Reverse the graph so new values show up on the right
             x = LEFT_MARGIN + (width - x);
-            g.drawOval(x - POINT_RAIDUS / 2, y - POINT_RAIDUS / 2, POINT_RAIDUS,POINT_RAIDUS);
+            theG.drawOval(x - POINT_RAIDUS / 2, y - POINT_RAIDUS / 2, POINT_RAIDUS,POINT_RAIDUS);
         }
     }
 
     /**
      * Draws the labels for the data graph using the Graphics2D object.
      *
-     * @param g - The Graphics 2D object.
+     * @param theG - The Graphics 2D object.
      */
-    private void drawLabels(Graphics2D g) {
+    private void drawLabels(Graphics2D theG) {
         // Draw maximum value label
         String maximumUnitLabel = myMaximum + myUnitLabel + " ";
-        g.drawString(maximumUnitLabel,
-                  LEFT_MARGIN - g.getFontMetrics().stringWidth(maximumUnitLabel),
-                     g.getFontMetrics().getHeight());
+        theG.drawString(maximumUnitLabel,
+                     LEFT_MARGIN - theG.getFontMetrics().stringWidth(maximumUnitLabel),
+                        theG.getFontMetrics().getHeight());
         // Draw minimum value
         String minimumUnitLabel = myMinimum + myUnitLabel + " ";
-        g.drawString(minimumUnitLabel,
-                  LEFT_MARGIN - g.getFontMetrics().stringWidth(minimumUnitLabel),
-                     getGridHeight());
+        theG.drawString(minimumUnitLabel,
+                        LEFT_MARGIN - theG.getFontMetrics().stringWidth(minimumUnitLabel),
+                        getGridHeight());
 
         // Draw maximum past value index
-        String earliestString = -increments + " " + myTimeLabel;
-        g.drawString(earliestString,
-                  LEFT_MARGIN - g.getFontMetrics().stringWidth(earliestString) / 2,
-                  getGridHeight() + g.getFontMetrics().getHeight());
+        String earliestString = -myIncrements + " " + myTimeLabel;
+        theG.drawString(earliestString,
+                     LEFT_MARGIN - theG.getFontMetrics().stringWidth(earliestString) / 2,
+                     getGridHeight() + theG.getFontMetrics().getHeight());
         // Draw minimum past value index (0)
         String latestString = "Now";
-        g.drawString("Now",
-                  getGridWidth() + LEFT_MARGIN - g.getFontMetrics().stringWidth(latestString) / 2,
-                  getGridHeight() + g.getFontMetrics().getHeight());
+        theG.drawString("Now",
+                        getGridWidth() + LEFT_MARGIN - theG.getFontMetrics().stringWidth(latestString) / 2,
+                        getGridHeight() + theG.getFontMetrics().getHeight());
 
     }
 
     /**
      * Draws a grid on the graph.
      *
-     * @param g - The Graphics2D object to use to draw.
-     * @param rows - The number of rows to draw.
-     * @param cols - The number of columns to draw.
+     * @param theG - The Graphics2D object to use to draw.
+     * @param theRows - The number of rows to draw.
+     * @param theCols - The number of columns to draw.
      */
-    private void drawGrid(Graphics2D g, int rows, int cols) {
+    private void drawGrid(Graphics2D theG, int theRows, int theCols) {
         // Draw the horizontal lines for the x values
-        for (int i = 1; i <= rows; i++) {
-            int y = (int) (i * ((double)getGridHeight() / rows));
-            g.drawLine(0, y, getGridWidth(), y);
+        for (int i = 1; i <= theRows; i++) {
+            int y = (int) (i * ((double)getGridHeight() / theRows));
+            theG.drawLine(0, y, getGridWidth(), y);
         }
 
         // Draw the vertical lines for the y values
-        for (int i = 0; i <= cols; i++) {
-            int x = LEFT_MARGIN + (int) (i * ((double)getGridWidth() / cols));
-            g.drawLine(x, 0, x, getGridHeight());
+        for (int i = 0; i <= theCols; i++) {
+            int x = LEFT_MARGIN + (int) (i * ((double)getGridWidth() / theCols));
+            theG.drawLine(x, 0, x, getGridHeight());
         }
     }
 

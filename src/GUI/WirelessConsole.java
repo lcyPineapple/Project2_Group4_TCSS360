@@ -181,7 +181,9 @@ public class WirelessConsole {
         
         // Weather Variable Graph
         JPanel graphPanel = new JPanel(new BorderLayout());
-        graphComponent = new GraphComponent(24, "C", "Hrs");
+        graphComponent = new GraphComponent(24, 24, "C", "Hrs");
+        graphComponent.setMaximum(24);
+        graphComponent.setMinimum(24);
         graphPanel.add(graphComponent);
         leftDisplayPanel.add(graphPanel);
 
