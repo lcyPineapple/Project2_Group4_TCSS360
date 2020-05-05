@@ -1,6 +1,8 @@
 package GUI;
 
 import GUI.forecast.Forecast;
+import GUI.weatherStations.WeatherStation;
+import GUI.weatherStations.WeatherStation3;
 
 import java.awt.EventQueue;
 
@@ -12,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import java.io.File;
+import java.util.List;
 import java.util.Random;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -30,6 +33,7 @@ import javax.swing.ImageIcon;
  * @author Aaron Lam
  */
 public class WirelessConsole {
+    private WeatherStationIntegrater integrater;
 
 	private JFrame frame;
 	private JPanel contentPanel;
@@ -128,7 +132,7 @@ public class WirelessConsole {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WirelessConsole window = new WirelessConsole();
+                    WirelessConsole window = new WirelessConsole();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -164,9 +168,21 @@ public class WirelessConsole {
 		initializeMainPanels();
 		
 		currentVar = Vars.NONE;
+
+		initializeWeatherStations();
 	}
-	
-	/**
+
+    /**
+     * Initialize weather stations and weather station integrater
+     */
+    private void initializeWeatherStations() {
+        this.integrater = new WeatherStationIntegrater(this);
+        WeatherStation weatherStation3 = new WeatherStation3(integrater);
+        weatherStation3.run();
+        integrater.run();
+    }
+
+    /**
 	 * Initialize the Main Panels
 	 */
 	private void initializeMainPanels() {
@@ -630,4 +646,31 @@ public class WirelessConsole {
 		*/
 	    return (new Random()).nextInt(8);
 	}
+
+    /**
+     * Receives data from integrater and update GUI views.
+     */
+	public void updateGUI() {
+        System.out.println("Data from weather station integrater:");
+        List<List<Double>> lists = this.integrater.getWeatherDataLists();
+        printLog(lists);
+    }
+
+    private void printLog(List<List<Double>> lists) {
+        System.out.print("[ ");
+        for (List<Double> list : lists) {
+            double sum = getSum(list);
+            double average = list.isEmpty() ? 0 : sum / list.size();
+            System.out.print(String.format("%.2f", average) + " ");
+        }
+        System.out.print("]\n");
+    }
+
+    private double getSum(List<Double> list) {
+	    double sum = 0.0;
+        for (Double num : list) {
+            sum += num;
+        }
+        return sum;
+    }
 }
