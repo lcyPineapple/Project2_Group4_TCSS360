@@ -1,9 +1,11 @@
-package weatherstation6.src;/*
+package GUI.sensorSuites.sensorSuite6.src;/*
  * A main class demonstrating the DataRelay over simulated test data.
  */
 
-import weatherstation6.src.WeatherData.DataType;
-import weatherstation6.src.WeatherData.Sensor;
+
+
+import GUI.sensorSuites.sensorSuite6.src.WeatherData.DataType;
+import GUI.sensorSuites.sensorSuite6.src.WeatherData.Sensor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,7 +19,7 @@ import java.util.Scanner;
  * classes.
  */
 public class Main {
-        
+
     public static void main(String[] args) {
         DataRelay dataSet = new DataRelay(DataType.ALL_TYPES, Sensor.OUTSIDE);
         String inputFileLocation = "test10000.txt";
@@ -39,8 +41,5 @@ public class Main {
             } catch (NumberFormatException e) {
                 System.out.println("File contains invalid data, please enter only numbers.");
             }
- 
-
     }
-
 }

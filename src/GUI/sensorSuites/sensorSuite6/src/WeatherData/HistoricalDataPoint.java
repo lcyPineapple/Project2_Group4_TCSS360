@@ -2,7 +2,7 @@
  * A base class that manages historical data processing.
  */
 
-package weatherstation6.src.WeatherData;
+package GUI.sensorSuites.sensorSuite6.src.WeatherData;
 
 import java.io.Serializable;
 import java.util.*;

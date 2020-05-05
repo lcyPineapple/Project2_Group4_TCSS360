@@ -1,12 +1,17 @@
-package weatherstation6.src;/*
+package GUI.sensorSuites.sensorSuite6.src;/*
  * An object that manages data ingest and output.
  */
 
-import weatherstation6.src.WeatherData.DataType;
-import weatherstation6.src.WeatherData.HistoricalDataPoint;
-import weatherstation6.src.WeatherData.Sensor;
 
-import java.io.*;
+
+import GUI.sensorSuites.sensorSuite6.src.WeatherData.DataType;
+import GUI.sensorSuites.sensorSuite6.src.WeatherData.HistoricalDataPoint;
+import GUI.sensorSuites.sensorSuite6.src.WeatherData.Sensor;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -131,6 +136,7 @@ public class DataRelay implements Serializable {
             }
             data.append("\n-----------------------------------------------------------------\n");
         }
+
         try {
             lastUrl = BASE_URL + timeStamp + ".txt";
             FileOutputStream out = new FileOutputStream(BASE_URL + timeStamp + ".txt");

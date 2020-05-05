@@ -3,7 +3,7 @@
  * weather data point hierarchy.
  */
 
-package weatherstation6.src.WeatherData;
+package GUI.sensorSuites.sensorSuite6.src.WeatherData;
 
 /**
  * Specifies base functionality for classes that represent

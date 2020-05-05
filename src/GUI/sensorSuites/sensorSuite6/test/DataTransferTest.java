@@ -1,16 +1,20 @@
-package weatherstation6.test;/*
+/*
  * A set of unit tests covering the serialization features of the
  * DataRelay class.
  */
+package GUI.sensorSuites.sensorSuite6.test;
 
-import weatherstation6.src.DataRelay;
-import weatherstation6.src.WeatherData.DataType;
+import GUI.sensorSuites.sensorSuite6.src.DataRelay;
+import GUI.sensorSuites.sensorSuite6.src.WeatherData.DataType;
+import GUI.sensorSuites.sensorSuite6.src.WeatherData.HistoricalDataPoint;
+import org.junit.jupiter.api.Test;
+
 import org.junit.Assert;
-import org.junit.Test;
-import weatherstation6.src.WeatherData.HistoricalDataPoint;
-
 import java.io.*;
-import java.util.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Tests the DataRelay objects persistence when serialized and

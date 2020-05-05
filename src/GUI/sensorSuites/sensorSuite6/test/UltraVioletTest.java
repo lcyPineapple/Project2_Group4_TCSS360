@@ -1,12 +1,9 @@
-package GUI.sensorSuites.sensorSuite6.test;/*
- * A test case demonstrating the warning function of the
- * UltraViolet class.
- */
-
+package GUI.sensorSuites.sensorSuite6.test;
 
 import GUI.sensorSuites.sensorSuite6.src.WeatherData.Sensor;
 import GUI.sensorSuites.sensorSuite6.src.WeatherData.UltraViolet;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author Paras Sharma

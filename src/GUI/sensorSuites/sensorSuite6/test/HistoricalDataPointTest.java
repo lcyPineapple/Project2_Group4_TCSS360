@@ -1,13 +1,14 @@
-package weatherstation6.test;/*
+/*
  * A set of unit tests covering the historical data point
  * class.
  */
+package GUI.sensorSuites.sensorSuite6.test;
 
+import GUI.sensorSuites.sensorSuite6.src.WeatherData.DataType;
+import GUI.sensorSuites.sensorSuite6.src.WeatherData.HistoricalDataPoint;
+import GUI.sensorSuites.sensorSuite6.src.WeatherData.Sensor;
 import org.junit.Assert;
-import org.junit.Test;
-import weatherstation6.src.WeatherData.DataType;
-import weatherstation6.src.WeatherData.HistoricalDataPoint;
-import weatherstation6.src.WeatherData.Sensor;
+import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
 import java.util.Random;

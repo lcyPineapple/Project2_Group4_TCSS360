@@ -2,7 +2,7 @@
  * Model to receive sensor data for wind direction.
  */
 
-package weatherstation6.src.WeatherData;
+package GUI.sensorSuites.sensorSuite6.src.WeatherData;
 
 import java.util.Objects;
 

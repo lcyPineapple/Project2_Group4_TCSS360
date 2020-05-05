@@ -1,13 +1,14 @@
-package weatherstation6.test;/*
+/*
  * A test case demonstrating the warning function of the
  * SolarRadiation class.
  */
+package GUI.sensorSuites.sensorSuite6.test;
 
+import GUI.sensorSuites.sensorSuite6.src.WeatherData.Sensor;
+import GUI.sensorSuites.sensorSuite6.src.WeatherData.SolarRadiation;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import weatherstation6.src.WeatherData.Sensor;
-import weatherstation6.src.WeatherData.SolarRadiation;
 /**
  * @author Paras Sharma
  *

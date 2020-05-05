@@ -3,7 +3,7 @@
  * data outputs.
  */
 
-package weatherstation6.src.WeatherData;
+package GUI.sensorSuites.sensorSuite6.src.WeatherData;
 
 /**
  * Distinguishes different types of data 

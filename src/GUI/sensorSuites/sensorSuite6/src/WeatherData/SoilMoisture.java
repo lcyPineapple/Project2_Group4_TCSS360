@@ -2,7 +2,7 @@
  * A data point that tracks soil moisture.
  */
 
-package weatherstation6.src.WeatherData;
+package GUI.sensorSuites.sensorSuite6.src.WeatherData;
 
 /**
  * The soil moisture data processing model which

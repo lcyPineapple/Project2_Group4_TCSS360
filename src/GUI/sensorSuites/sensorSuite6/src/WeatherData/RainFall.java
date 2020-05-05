@@ -2,7 +2,7 @@
  * A data point that tracks rail fall.
  */
 
-package weatherstation6.src.WeatherData;
+package GUI.sensorSuites.sensorSuite6.src.WeatherData;
 
 import java.util.Objects;
 
