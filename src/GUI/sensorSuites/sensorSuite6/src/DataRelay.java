@@ -142,7 +142,7 @@ public class DataRelay implements Serializable {
             FileOutputStream out = new FileOutputStream(BASE_URL + timeStamp + ".txt");
             out.write(data.toString().getBytes());
         } catch (FileNotFoundException fne) {
-            System.out.println("Unable to create output file. Are permissions correct?");
+            // System.out.println("Unable to create output file. Are permissions correct?");
         } catch (IOException iox) {
             System.out.println("Error occurred while writing to data file.");
         }

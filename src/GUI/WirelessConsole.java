@@ -2,6 +2,7 @@ package GUI;
 
 import GUI.forecast.Forecast;
 import GUI.weatherStations.WeatherStation;
+import GUI.weatherStations.WeatherStation1;
 import GUI.weatherStations.WeatherStation3;
 
 import java.awt.EventQueue;
@@ -177,8 +178,13 @@ public class WirelessConsole {
      */
     private void initializeWeatherStations() {
         this.integrater = new WeatherStationIntegrater(this);
+        
+        WeatherStation weatherStation1 = new WeatherStation1(integrater);
+        weatherStation1.run();
+        
         WeatherStation weatherStation3 = new WeatherStation3(integrater);
-        weatherStation3.run();
+        weatherStation3.run();        
+        
         integrater.run();
     }
 
@@ -651,19 +657,20 @@ public class WirelessConsole {
      * Receives data from integrater and update GUI views.
      */
 	public void updateGUI() {
-        System.out.println("Data from weather station integrater:");
-        List<List<Double>> lists = this.integrater.getWeatherDataLists();
+	    // only one thread at a time can update the GUI.
+        List<List<Double>> lists = this.integrater.getWeatherDataListsCopy();
         printLog(lists);
     }
 
-    private void printLog(List<List<Double>> lists) {
+    private synchronized void printLog(List<List<Double>> lists) {
+        System.out.println("Data from weather station integrater:");
         System.out.print("[ ");
         for (List<Double> list : lists) {
             double sum = getSum(list);
             double average = list.isEmpty() ? 0 : sum / list.size();
             System.out.print(String.format("%.2f", average) + " ");
         }
-        System.out.print("]\n");
+        System.out.print("] \n");
     }
 
     private double getSum(List<Double> list) {
