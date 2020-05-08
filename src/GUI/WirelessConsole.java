@@ -4,6 +4,7 @@ import GUI.forecast.Forecast;
 import GUI.weatherStations.WeatherStation;
 import GUI.weatherStations.WeatherStation1;
 import GUI.weatherStations.WeatherStation3;
+import GUI.weatherStations.WeatherStation7;
 
 import java.awt.EventQueue;
 
@@ -144,15 +145,17 @@ public class WirelessConsole {
 
 	/**
 	 * Create the application.
+	 * @throws Exception 
 	 */
-	public WirelessConsole() {
+	public WirelessConsole() throws Exception {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws Exception 
 	 */
-	private void initialize() {
+	private void initialize() throws Exception {
 		frame = new JFrame("Wireless Controller");
 		frame.setBounds(100, 100, 900, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -175,8 +178,9 @@ public class WirelessConsole {
 
     /**
      * Initialize weather stations and weather station integrater
+     * @throws InterruptedException 
      */
-    private void initializeWeatherStations() {
+    private void initializeWeatherStations() throws InterruptedException {
         this.integrater = new WeatherStationIntegrater(this);
         
         WeatherStation weatherStation1 = new WeatherStation1(integrater);
@@ -184,6 +188,9 @@ public class WirelessConsole {
         
         WeatherStation weatherStation3 = new WeatherStation3(integrater);
         weatherStation3.run();        
+        
+        WeatherStation weatherStation7 = new WeatherStation7(integrater);
+        weatherStation7.run(); 
         
         integrater.run();
     }
