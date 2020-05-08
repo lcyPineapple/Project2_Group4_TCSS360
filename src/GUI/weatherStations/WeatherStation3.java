@@ -3,6 +3,7 @@ package GUI.weatherStations;
 import GUI.WeatherStationIntegrater;
 import GUI.sensorSuites.sensorSuite6.src.DataRelay;
 import GUI.sensorSuites.sensorSuite6.src.WeatherData.DataType;
+import GUI.sensorSuites.sensorSuite6.src.WeatherData.HistoricalDataPoint;
 import GUI.sensorSuites.sensorSuite6.src.WeatherData.Sensor;
 
 import java.io.File;
@@ -11,9 +12,15 @@ import java.util.*;
 
 public class WeatherStation3 extends WeatherStation {
     private static final int INTERVAL = 5000;
+    private Map<String, Integer> indexMap;
 
     public WeatherStation3(WeatherStationIntegrater integrater) {
         super(integrater);
+        this.indexMap = new HashMap<>();
+        indexMap.put("humidity", 0);
+        indexMap.put("temperature", 1);
+        indexMap.put("wind speed", 2);
+        indexMap.put("rain fall", 3);
     }
 
     /**
@@ -40,21 +47,21 @@ public class WeatherStation3 extends WeatherStation {
             File inputFile = new File(inputFileLocation);
             Scanner s = new Scanner(inputFile);
             int iterations = 0;
+            Double[] weatherDataList = new Double[4];
             while (s.hasNext()) {
                 String next = s.next();
                 Double data = Double.parseDouble(next);
                 dataSet.acceptDataPoint(data, DataType.ALL_TYPES[iterations % DataType.ALL_TYPES.length]);
                 dataSet.incrementCal(Calendar.MINUTE, 15); // simulate time passing
-                List<Double> fakeData = new ArrayList<>();
-                Random random = new Random();
-                fakeData.add(random.nextDouble() * 10);
-                fakeData.add(random.nextDouble() * 40);
-                fakeData.add(random.nextDouble() * 60);
-                fakeData.add(random.nextDouble() * 20);
-                fakeData.add(random.nextDouble() * 70);
-                super.update(fakeData);
                 iterations++;
             }
+            for (HistoricalDataPoint dp : dataSet.getDataPoints()) {
+                String type = dp.getType().toString();
+                if (indexMap.containsKey(type)) {
+                    weatherDataList[indexMap.get(type)] = dp.getYearlyLow();
+                }
+            }
+            super.update(Arrays.asList(weatherDataList));
             s.close();
         } catch (FileNotFoundException e) {
             System.out.println("File can not be found.");
