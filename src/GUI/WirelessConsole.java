@@ -4,7 +4,7 @@ import GUI.forecast.Forecast;
 import GUI.weatherStations.WeatherStation;
 import GUI.weatherStations.WeatherStation1;
 import GUI.weatherStations.WeatherStation3;
-import GUI.weatherStations.WeatherStation7;
+import GUI.weatherStations.WeatherStation4;
 
 import java.awt.EventQueue;
 
@@ -189,7 +189,7 @@ public class WirelessConsole {
         WeatherStation weatherStation3 = new WeatherStation3(integrater);
         weatherStation3.run();        
         
-        WeatherStation weatherStation7 = new WeatherStation7(integrater);
+        WeatherStation weatherStation7 = new WeatherStation4(integrater);
         weatherStation7.run(); 
         
         integrater.run();
