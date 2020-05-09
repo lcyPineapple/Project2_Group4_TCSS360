@@ -7,12 +7,12 @@ import GUI.WeatherStationIntegrater;
 import GUI.iss7.sensorSuite.SensorSuite;
 import GUI.iss7.views.ConsoleReceiver;
 
-public class WeatherStation7 extends WeatherStation{
+public class WeatherStation4 extends WeatherStation{
 //	public static List<Double> weatherDataList7 = new ArrayList<>();;
     private static SensorSuite sensorSuite;
     private static ConsoleReceiver consoleReceiver;
 
-	public WeatherStation7(WeatherStationIntegrater integrater) {
+	public WeatherStation4(WeatherStationIntegrater integrater) {
 		super(integrater);
 		
 	}
