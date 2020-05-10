@@ -178,9 +178,9 @@ public class WirelessConsole {
 
     /**
      * Initialize weather stations and weather station integrater
-     * @throws InterruptedException 
+     * @throws Exception 
      */
-    private void initializeWeatherStations() throws InterruptedException {
+    private void initializeWeatherStations() throws Exception {
         this.integrater = new WeatherStationIntegrater(this);
         
         WeatherStation weatherStation1 = new WeatherStation1(integrater);
