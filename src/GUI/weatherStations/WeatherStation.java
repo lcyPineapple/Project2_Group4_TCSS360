@@ -31,7 +31,7 @@ public abstract class WeatherStation {
 
     /**
      * Start the sensor suite.
-     * @throws InterruptedException 
+     * @throws Exception 
      */
-    public abstract void run() throws InterruptedException;
+    public abstract void run() throws Exception;
 }
