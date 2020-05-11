@@ -666,22 +666,59 @@ public class WirelessConsole {
 	public void updateGUI() {
 	    // only one thread at a time can update the GUI.
         List<List<Double>> lists = this.integrater.getWeatherDataListsCopy();
-        //printLog(lists);
+        updateJTextFields(lists);
+        printLog(lists);
     }
 
+    /**
+     * Update weather data fields on GUI.
+     */
+    private void updateJTextFields(List<List<Double>> lists) {
+        for (int i = 0; i < lists.size(); i++) {
+            List<Double> list = lists.get(i);
+            String average = getAverage(list);
+            switch(i) {
+                case 0:
+                    outHumValue.setText(average);
+                    inHumValue.setText(average);
+                    break;
+                case 1:
+                    outTempValue.setText(average);
+                    inTempValue.setText(average);
+                    break;
+                case 3:
+                    dayRainValue.setText(average);
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Log weather data from weather station integrater.
+     */
     private synchronized void printLog(List<List<Double>> lists) {
         System.out.println("Data from weather station integrater:");
         System.out.print("[ ");
         for (List<Double> list : lists) {
-            double sum = getSum(list);
-            double average = list.isEmpty() ? 0 : sum / list.size();
-            System.out.print(String.format("%.2f", average) + " ");
+            System.out.print(getAverage(list) + " ");
         }
         System.out.print("] \n");
     }
 
+    /**
+     * @return the average of the list in string representation.
+     */
+    private String getAverage(List<Double> list) {
+        double sum = getSum(list);
+        double average = list.isEmpty() ? 0 : sum / list.size();
+        return String.format("%.2f", average);
+    }
+
+    /**
+     * @return the sum of the list.
+     */
     private double getSum(List<Double> list) {
-	    double sum = 0.0;
+        double sum = 0.0;
         for (Double num : list) {
             sum += num;
         }

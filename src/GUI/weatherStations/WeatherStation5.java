@@ -88,4 +88,3 @@ public class WeatherStation5 extends WeatherStation{
         new ISS(testDeviceArray);
 	}
 }
-
