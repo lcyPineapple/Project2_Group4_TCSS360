@@ -46,8 +46,7 @@ public class WirelessConsole {
 	private JTextField chillValue;
 	private JTextField dayRainValue;
 	private JTextField monthRainValue;
-	private int outTemp = 0;
-	private int outHum = 0;
+	private JLabel statusLabel = new JLabel("Status message.");
 
 	/**
 	 * Image Icons for showing the moon phase
@@ -340,14 +339,14 @@ public class WirelessConsole {
 	    bottomStatusPanel = new JPanel();
         bottomStatusPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
         contentPanel.add(bottomStatusPanel, BorderLayout.SOUTH);
-	    
-        updateBottomStatusPanel();
+	    bottomStatusPanel.add(statusLabel);
+//        updateBottomStatusPanel();
     }
 	
     /**
      * Update the bottom status panel
      */
-	private void updateBottomStatusPanel() {
+	private String updateBottomStatusPanel(double outHum, double outTemp) {
 	    String temp = "Cool";
         if (outTemp > 85) {
             temp = "Hot";
@@ -358,16 +357,14 @@ public class WirelessConsole {
         }
         
         String hum = "not humid";
-        if (outTemp > 65) {
+        if (outHum > 65) {
             hum = "Very Humid";
-        } else if (outTemp > 50) {
+        } else if (outHum > 50) {
             hum = "Humid";
         } else {
             hum = "Not Humid";
         }
-        
-        JLabel statusLabel = new JLabel(temp + " and " + hum);
-        bottomStatusPanel.add(statusLabel);
+        return temp + " and " + hum + ". Temperature is " + outTemp + " degrees.";
 	}
 
 	/**
@@ -674,6 +671,8 @@ public class WirelessConsole {
      * Update weather data fields on GUI.
      */
     private void updateJTextFields(List<List<Double>> lists) {
+    	double outHum = 0;
+    	double outTemp = 0;
         for (int i = 0; i < lists.size(); i++) {
             List<Double> list = lists.get(i);
             String average = getAverage(list);
@@ -681,16 +680,19 @@ public class WirelessConsole {
                 case 0:
                     outHumValue.setText(average);
                     inHumValue.setText(average);
+                    outHum = Double.parseDouble(average);
                     break;
                 case 1:
                     outTempValue.setText(average);
                     inTempValue.setText(average);
+                    outTemp = Double.parseDouble(average);
                     break;
                 case 3:
                     dayRainValue.setText(average);
                     break;
             }
         }
+        statusLabel.setText(updateBottomStatusPanel(outHum, outTemp));
     }
 
     /**

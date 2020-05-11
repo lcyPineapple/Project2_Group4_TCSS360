@@ -57,10 +57,8 @@ public class SensorSuite implements Observable {
             notifyAllObservers();
             for (Sensor sensor : sensors) {
             	weatherDataList.add((double) sensor.getData());
-                System.out.print(sensor.getData() + " ");
                 out.print(sensor.getData() + " ");
             }
-            System.out.println();
             out.println();
         }
     }
