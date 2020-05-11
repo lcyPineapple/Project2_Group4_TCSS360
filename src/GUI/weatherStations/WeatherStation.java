@@ -10,7 +10,7 @@ public abstract class WeatherStation {
 
     public WeatherStation(WeatherStationIntegrater integrater) {
         this.integrater = integrater;
-        this.isConnected = false;
+        this.isConnected = true;
     }
 
     public boolean isConnected() {
@@ -26,7 +26,9 @@ public abstract class WeatherStation {
      * Therefore, weather station could send the updated data to integrater.
      */
     public void update(List<Double> weatherData) {
-        this.integrater.setState(weatherData);
+        if (isConnected) {
+            this.integrater.setState(weatherData);
+        }
     }
 
     /**

@@ -9,7 +9,7 @@ public class WeatherStationIntegrater {
     private WirelessConsole wirelessConsole;
     private List<List<Double>> weatherDataLists;
     private static final int INTERVAL = 2500;
-    private static final int WEATHER_DATA_LIST_SIZE = 5;
+    private static final int WEATHER_DATA_LIST_SIZE = 4;
     private Timer integraterTimer;
     
     public WeatherStationIntegrater(WirelessConsole wirelessConsole) {

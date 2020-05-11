@@ -12,10 +12,10 @@ public class MostlyClear extends Weather {
     public MostlyClear() {
         super("forecast-images/mostly-clear.png");
         Map<String, WeatherCondition> mostlyClearCondition = new HashMap<>();
-        mostlyClearCondition.put("humidity", new WeatherCondition(0, 100));
-        mostlyClearCondition.put("rainfall", new WeatherCondition(0, 100));
-        mostlyClearCondition.put("temperature", new WeatherCondition(0, 100));
-        mostlyClearCondition.put("windSpeed", new WeatherCondition(0, 100));
+        mostlyClearCondition.put("humidity", new WeatherCondition(20, 40));
+        mostlyClearCondition.put("rainfall", new WeatherCondition(0, 0));
+        mostlyClearCondition.put("temperature", new WeatherCondition(50, 80));
+        mostlyClearCondition.put("windSpeed", new WeatherCondition(30, 50));
         setWeatherConditions(mostlyClearCondition);
     }
 }

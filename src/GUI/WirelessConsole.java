@@ -666,7 +666,7 @@ public class WirelessConsole {
 	public void updateGUI() {
 	    // only one thread at a time can update the GUI.
         List<List<Double>> lists = this.integrater.getWeatherDataListsCopy();
-        printLog(lists);
+        //printLog(lists);
     }
 
     private synchronized void printLog(List<List<Double>> lists) {
