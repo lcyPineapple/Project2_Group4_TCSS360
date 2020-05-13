@@ -45,4 +45,16 @@ public abstract class Weather {
         }
         return true;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!Weather.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        final Weather other = (Weather) obj;
+        return getImageFilePath().equals(other.getImageFilePath());
+    }
 }

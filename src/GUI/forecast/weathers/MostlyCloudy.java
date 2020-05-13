@@ -14,7 +14,7 @@ public class MostlyCloudy extends Weather {
         Map<String, WeatherCondition> mostlyCloudyCondition = new HashMap<>();
         mostlyCloudyCondition.put("humidity", new WeatherCondition(30, 60));
         mostlyCloudyCondition.put("rainfall", new WeatherCondition(0, 0));
-        mostlyCloudyCondition.put("temperature", new WeatherCondition(50, 100));
+        mostlyCloudyCondition.put("temperature", new WeatherCondition(40, 100));
         mostlyCloudyCondition.put("windSpeed", new WeatherCondition(30, 50));
         setWeatherConditions(mostlyCloudyCondition);
     }

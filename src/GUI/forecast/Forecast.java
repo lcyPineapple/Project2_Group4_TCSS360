@@ -54,6 +54,10 @@ public class Forecast extends JComponent {
         updateImageFilePath();
     }
 
+    public Weather getCurrentWeather() {
+        return currentWeather;
+    }
+
     /**
      * Update weather image file path to the current weather condition.
      */
