@@ -34,10 +34,10 @@ public abstract class Weather {
      * Iterate weather data and match them with weather conditions.
      * If all weather conditions are matched, return true.
      */
-    public boolean isConditionMatch(Map<String, Integer> weatherData) {
-        for (Map.Entry<String, Integer> weatherEntry : weatherData.entrySet()) {
+    public boolean isConditionMatch(Map<String, Double> weatherData) {
+        for (Map.Entry<String, Double> weatherEntry : weatherData.entrySet()) {
             String dataField = weatherEntry.getKey();
-            int dataValue = weatherEntry.getValue();
+            double dataValue = weatherEntry.getValue();
             WeatherCondition weatherCondition = weatherConditions.get(dataField);
             if (weatherCondition != null && !weatherCondition.isWithinRange(dataValue)) {
                 return false;

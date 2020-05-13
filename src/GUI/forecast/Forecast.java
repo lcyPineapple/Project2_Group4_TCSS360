@@ -39,8 +39,8 @@ public class Forecast extends JComponent {
      * @param temperature
      * @param rainfall
      */
-    public void updateWeather(int humidity, int windSpeed, int temperature, int rainfall) {
-        Map<String, Integer> weatherData = new HashMap<>();
+    public void updateWeather(double humidity, double windSpeed, double temperature, double rainfall) {
+        Map<String, Double> weatherData = new HashMap<>();
         weatherData.put("humidity", humidity);
         weatherData.put("windSpeed", windSpeed);
         weatherData.put("temperature", temperature);

@@ -18,7 +18,7 @@ public class WeatherCondition {
     /**
      * Check whether the value is in weather condition's data range.
      */
-    public boolean isWithinRange(int value) {
+    public boolean isWithinRange(double value) {
         return value >= lowerBound && value <= upperBound;
     }
 }

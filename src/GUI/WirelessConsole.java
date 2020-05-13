@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.awt.GridBagLayout;
@@ -81,6 +82,11 @@ public class WirelessConsole {
      * The graph component
      */
 	private GraphComponent graphComponent;
+
+    /**
+     * The forecast component
+     */
+    private Forecast forecast;
 	
 	/**
 	 * Enum for determining which weather variables have been selected
@@ -217,7 +223,7 @@ public class WirelessConsole {
 
         // Forecast
         JPanel forecastPanel = new JPanel();
-        Forecast forecast = new Forecast();
+        forecast = new Forecast();
         forecastPanel.add(forecast);
         leftDisplayPanel.add(forecastPanel);
         
@@ -661,9 +667,10 @@ public class WirelessConsole {
      * Receives data from integrater and update GUI views.
      */
 	public void updateGUI() {
-	    // only one thread at a time can update the GUI.
+        // only one thread at a time can update the GUI.
         List<List<Double>> lists = this.integrater.getWeatherDataListsCopy();
         updateJTextFields(lists);
+        updateForecast(lists);
         printLog(lists);
     }
 
@@ -693,6 +700,20 @@ public class WirelessConsole {
             }
         }
         statusLabel.setText(updateBottomStatusPanel(outHum, outTemp));
+    }
+
+    private void updateForecast(List<List<Double>> lists) {
+        List<Double> weatherData = new ArrayList<>();
+        for (List list : lists) {
+            String average = getAverage(list);
+            weatherData.add(Double.parseDouble(average));
+        }
+        double humidity = weatherData.get(0);
+        double temperature = weatherData.get(1);
+        double windSpeed = weatherData.get(2);
+        double rainfall = weatherData.get(3);
+        forecast.updateWeather(humidity, windSpeed, temperature, rainfall);
+        System.out.println(forecast.getCurrentWeather().getImageFilePath());
     }
 
     /**
