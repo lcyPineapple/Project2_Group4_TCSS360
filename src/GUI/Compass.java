@@ -103,110 +103,112 @@ public class Compass extends JPanel {
      * @param g The graphics context of this Compass
      */
     public void paint(Graphics g) {
-        g.setColor(this.getBackground());
-        g.fillRect(0, 0, this.getWidth(), this.getHeight());
-        g.setColor(Color.BLACK);
-        
-        // Minimum of the width and height of this panel
-        var panelWHMin = Math.min(this.getWidth(), this.getHeight());
-        
-        // Draw the outer circles
-        double cX = this.getWidth() / 2.0;
-        double cY = this.getHeight() / 2.0;
-        double diameter = 0.95 * panelWHMin;
-        
-        // location of the upper-left corner of the 
-        //    bounding rectangle containing this circle
-        double rX = cX - (diameter / 2);
-        double rY = cY - (diameter / 2);
-        
-        g.drawArc((int) Math.round(rX), (int) Math.round(rY),
-                  (int) Math.round(diameter), 
-                  (int) Math.round(diameter),
-                  0, 360);
-        
-        diameter = 0.89 * Math.min(this.getWidth(), this.getHeight());
-        rX = cX - (diameter / 2);
-        rY = cY - (diameter / 2);
-        g.drawArc((int) Math.round(rX), (int) Math.round(rY),
-                (int) Math.round(diameter), 
-                (int) Math.round(diameter),
-                0, 360);
-        
-        if (dataVisible) {
-         // draw angle line
-            // convert from degrees measured clockwise from North
-            // to radians measured counter-clockwise from the East
-            var drawAngle = 90 - displayAngle;
-            drawAngle *= Math.PI / 180;
+        if (g != null) {
+            g.setColor(this.getBackground());
+            g.fillRect(0, 0, this.getWidth(), this.getHeight());
+            g.setColor(Color.BLACK);
             
-            var dX = Math.cos(drawAngle) * diameter / 2;
-            var dY = - Math.sin(drawAngle) * diameter / 2;
-     
-            g.drawLine((int) Math.round(cX + 0.8 * dX), (int) Math.round(cY + 0.8 * dY), 
-                    (int) Math.round(cX + dX), 
-                    (int) Math.round(cY + dY));
+            // Minimum of the width and height of this panel
+            var panelWHMin = Math.min(this.getWidth(), this.getHeight());
             
-            // draw data text
-            cardinalFont = new Font("Monospace", Font.BOLD,
-                                    (int) Math.round(130.0 * panelWHMin / 500.0));
-            angleFont = new Font("Monospace", Font.BOLD, 
-                                 (int) Math.round(30.0 * panelWHMin / 500.0));
-            speedFont = new Font("Monospace", Font.BOLD,
-                                 (int) Math.round(30.0 * panelWHMin / 500.0));
+            // Draw the outer circles
+            double cX = this.getWidth() / 2.0;
+            double cY = this.getHeight() / 2.0;
+            double diameter = 0.95 * panelWHMin;
             
-            // determine the heights of the cardinal, angle, and speed strings
-            g.setFont(cardinalFont);
-            var fontMet = g.getFontMetrics();
-            var cardinalFontHeight = fontMet.getMaxAscent() + fontMet.getMaxDescent();
+            // location of the upper-left corner of the 
+            //    bounding rectangle containing this circle
+            double rX = cX - (diameter / 2);
+            double rY = cY - (diameter / 2);
             
-            g.setFont(angleFont);
-            fontMet = g.getFontMetrics();
-            var angleFontHeight = fontMet.getMaxAscent() + fontMet.getMaxDescent();
+            g.drawArc((int) Math.round(rX), (int) Math.round(rY),
+                      (int) Math.round(diameter), 
+                      (int) Math.round(diameter),
+                      0, 360);
             
-            g.setFont(speedFont);
-            fontMet = g.getFontMetrics();
-            var speedFontHeight = fontMet.getMaxAscent() + fontMet.getMaxDescent();
+            diameter = 0.89 * Math.min(this.getWidth(), this.getHeight());
+            rX = cX - (diameter / 2);
+            rY = cY - (diameter / 2);
+            g.drawArc((int) Math.round(rX), (int) Math.round(rY),
+                    (int) Math.round(diameter), 
+                    (int) Math.round(diameter),
+                    0, 360);
             
-            // determine the positioning of the cardinal string
-            g.setFont(cardinalFont);
-            fontMet = g.getFontMetrics();
-            var windCardString = "";
-            for (int i = 0; i < CARDINAL_DIRECTIONS.length; i++) {
-                if (Math.abs(CARDINAL_DIRECTIONS[i] - displayAngle) <= 22.5) {
-                    windCardString = windCardString + CARDINAL_SYMBOLS[i];
-                }
-            }
-            var windCardStringWidth = fontMet.stringWidth(windCardString);
-            var windCardStringX = (int) Math.round((this.getWidth() - windCardStringWidth) / 2.0);
-            var windCardStringY = (int) Math.round((this.getHeight() - (cardinalFontHeight + angleFontHeight + speedFontHeight)) / 2.0);
-            windCardStringY += cardinalFontHeight;
-            g.drawString(windCardString, windCardStringX, windCardStringY);
-            
-            if (directionAngleVisible) {
-                // determine the positioning of the angle string
+            if (dataVisible) {
+             // draw angle line
+                // convert from degrees measured clockwise from North
+                // to radians measured counter-clockwise from the East
+                var drawAngle = 90 - displayAngle;
+                drawAngle *= Math.PI / 180;
+                
+                var dX = Math.cos(drawAngle) * diameter / 2;
+                var dY = - Math.sin(drawAngle) * diameter / 2;
+         
+                g.drawLine((int) Math.round(cX + 0.8 * dX), (int) Math.round(cY + 0.8 * dY), 
+                        (int) Math.round(cX + dX), 
+                        (int) Math.round(cY + dY));
+                
+                // draw data text
+                cardinalFont = new Font("Monospace", Font.BOLD,
+                                        (int) Math.round(130.0 * panelWHMin / 500.0));
+                angleFont = new Font("Monospace", Font.BOLD, 
+                                     (int) Math.round(30.0 * panelWHMin / 500.0));
+                speedFont = new Font("Monospace", Font.BOLD,
+                                     (int) Math.round(30.0 * panelWHMin / 500.0));
+                
+                // determine the heights of the cardinal, angle, and speed strings
+                g.setFont(cardinalFont);
+                var fontMet = g.getFontMetrics();
+                var cardinalFontHeight = fontMet.getMaxAscent() + fontMet.getMaxDescent();
+                
                 g.setFont(angleFont);
                 fontMet = g.getFontMetrics();
-                var windDirString = displayAngle + "°";
-                var windDirStringWidth = fontMet.stringWidth(windDirString);
-                var windDirStringX = (int) Math.round((this.getWidth() - windDirStringWidth) / 2.0);
-                var windDirStringY = (int) Math.round((this.getHeight() - (cardinalFontHeight + angleFontHeight + speedFontHeight)) / 2.0);
-                windDirStringY += cardinalFontHeight + angleFontHeight;
+                var angleFontHeight = fontMet.getMaxAscent() + fontMet.getMaxDescent();
                 
-                g.drawString(windDirString, windDirStringX, windDirStringY);
-            }
-
-            if (speedVisible) {
-                // determine the positioning of the speed string
                 g.setFont(speedFont);
                 fontMet = g.getFontMetrics();
-                var windSpeedString = displaySpeed + " " + displaySpeedUnit;
-                var windSpeedStringWidth = fontMet.stringWidth(windSpeedString);
-                var windSpeedStringX = (int) Math.round((this.getWidth() - windSpeedStringWidth) / 2.0);
-                var windSpeedStringY = (int) Math.round((this.getHeight() - (cardinalFontHeight + angleFontHeight + speedFontHeight)) / 2.0);
-                windSpeedStringY += cardinalFontHeight + angleFontHeight + speedFontHeight;
+                var speedFontHeight = fontMet.getMaxAscent() + fontMet.getMaxDescent();
                 
-                g.drawString(windSpeedString, windSpeedStringX, windSpeedStringY);    
+                // determine the positioning of the cardinal string
+                g.setFont(cardinalFont);
+                fontMet = g.getFontMetrics();
+                var windCardString = "";
+                for (int i = 0; i < CARDINAL_DIRECTIONS.length; i++) {
+                    if (Math.abs(CARDINAL_DIRECTIONS[i] - displayAngle) <= 22.5) {
+                        windCardString = windCardString + CARDINAL_SYMBOLS[i];
+                    }
+                }
+                var windCardStringWidth = fontMet.stringWidth(windCardString);
+                var windCardStringX = (int) Math.round((this.getWidth() - windCardStringWidth) / 2.0);
+                var windCardStringY = (int) Math.round((this.getHeight() - (cardinalFontHeight + angleFontHeight + speedFontHeight)) / 2.0);
+                windCardStringY += cardinalFontHeight;
+                g.drawString(windCardString, windCardStringX, windCardStringY);
+                
+                if (directionAngleVisible) {
+                    // determine the positioning of the angle string
+                    g.setFont(angleFont);
+                    fontMet = g.getFontMetrics();
+                    var windDirString = displayAngle + "°";
+                    var windDirStringWidth = fontMet.stringWidth(windDirString);
+                    var windDirStringX = (int) Math.round((this.getWidth() - windDirStringWidth) / 2.0);
+                    var windDirStringY = (int) Math.round((this.getHeight() - (cardinalFontHeight + angleFontHeight + speedFontHeight)) / 2.0);
+                    windDirStringY += cardinalFontHeight + angleFontHeight;
+                    
+                    g.drawString(windDirString, windDirStringX, windDirStringY);
+                }
+
+                if (speedVisible) {
+                    // determine the positioning of the speed string
+                    g.setFont(speedFont);
+                    fontMet = g.getFontMetrics();
+                    var windSpeedString = displaySpeed + " " + displaySpeedUnit;
+                    var windSpeedStringWidth = fontMet.stringWidth(windSpeedString);
+                    var windSpeedStringX = (int) Math.round((this.getWidth() - windSpeedStringWidth) / 2.0);
+                    var windSpeedStringY = (int) Math.round((this.getHeight() - (cardinalFontHeight + angleFontHeight + speedFontHeight)) / 2.0);
+                    windSpeedStringY += cardinalFontHeight + angleFontHeight + speedFontHeight;
+                    
+                    g.drawString(windSpeedString, windSpeedStringX, windSpeedStringY);    
+                }
             }
         }
     }
@@ -253,38 +255,5 @@ public class Compass extends JPanel {
         speedVisible = flag;
         directionAngleVisible = !flag;
         repaint();
-    }
-    
-    /**
-     * A main program to demo the Compass
-     * 
-     * @param args -- Not utilized
-     */
-    public static void main(String...args) {
-        EventQueue.invokeLater(() -> {
-            var frame = new JFrame();
-            frame.setSize(300, 300);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            
-            var cg = new Compass();
-            frame.add(cg);
-            frame.setVisible(true);
-           
-            Timer s = new Timer();
-            s.scheduleAtFixedRate(new TimerTask() {
-                public void run() {
-                    var angle = (Math.random() * 360);
-                    var speed = (Math.random() * 100);
-                    angle = Math.floor(angle * 100) / 100.0;
-                    speed = Math.floor(angle * 100) / 100.0;
-                    cg.setDisplayData(angle, speed, Math.random() <= 0.5 ? "mph" : "km/h");
-                    if (Math.random() <= 0.5) {
-                        cg.toggleSpeedDirection(true);
-                    } else {
-                        cg.toggleSpeedDirection(false);
-                    }
-                }
-            }, 0, 1000);
-        });
     }
 }

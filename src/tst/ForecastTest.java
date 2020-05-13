@@ -1,3 +1,5 @@
+package tst;
+
 import GUI.forecast.Forecast;
 import GUI.forecast.weathers.*;
 import org.junit.jupiter.api.Assertions;
