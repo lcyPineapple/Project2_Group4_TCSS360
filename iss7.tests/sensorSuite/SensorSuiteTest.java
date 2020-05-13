@@ -2,24 +2,25 @@ package sensorSuite;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import GUI.iss7.sensorSuite.SensorSuite;
+import GUI.iss7.views.ConsoleReceiver;
+import GUI.iss7.views.Observer;
+import GUI.iss7.views.WeatherEnvoy;
 import org.junit.jupiter.api.Test;
-import views.ConsoleReceiver;
-import views.Observer;
-import views.WeatherEnvoy;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 class SensorSuiteTest {
     @Test
-    void testAttachBasicSensors() {
+    void testAttachBasicSensors() throws Exception {
         final SensorSuite sensorS = new SensorSuite();
         int sizeS = sensorS.getSensors().size();
         assertEquals(4,  sizeS);
     }
 
     @Test
-    void testAddObserver() {
+    void testAddObserver() throws Exception {
         SensorSuite sensorSuite = new SensorSuite();
         assertTrue(sensorSuite.getObservers().isEmpty());
 
@@ -37,7 +38,7 @@ class SensorSuiteTest {
     }
 
     @Test
-    void testNotifyAllObservers() {
+    void testNotifyAllObservers() throws Exception {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
     	PrintStream ps = new PrintStream(os);
     	System.setOut(ps);

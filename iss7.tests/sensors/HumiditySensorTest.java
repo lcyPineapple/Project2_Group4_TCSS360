@@ -3,6 +3,7 @@ package sensors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import GUI.iss7.sensors.HumiditySensor;
 import org.junit.jupiter.api.Test;
 
 class HumiditySensorTest {

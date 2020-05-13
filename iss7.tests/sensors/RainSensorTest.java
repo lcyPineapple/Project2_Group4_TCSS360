@@ -1,5 +1,7 @@
 package sensors;
 
+import GUI.iss7.sensors.RainSensor;
+import GUI.iss7.sensors.Sensor;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

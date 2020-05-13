@@ -3,6 +3,8 @@ package sensors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import GUI.iss7.sensors.AnemometerSensor;
+import GUI.iss7.sensors.Sensor;
 import org.junit.jupiter.api.Test;
 
 

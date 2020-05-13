@@ -1,5 +1,7 @@
 package sensors;
 
+import GUI.iss7.sensors.Sensor;
+import GUI.iss7.sensors.TemperatureSensor;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
