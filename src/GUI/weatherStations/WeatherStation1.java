@@ -367,7 +367,8 @@ public class WeatherStation1 extends WeatherStation {
      * 
      * @return the weather data from this weather station 
      */
-    private List<Double> collectWeatherData() {
+    private synchronized List<Double> collectWeatherData() {
+        // only one thread can collect the weather data at a time.
         var retr = new ArrayList<Double>();
         
         retr.add(0.0 + getHumidity());

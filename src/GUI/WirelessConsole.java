@@ -671,6 +671,7 @@ public class WirelessConsole {
         List<List<Double>> lists = this.integrater.getWeatherDataListsCopy();
         updateJTextFields(lists);
         updateForecast(lists);
+        updateCompass(lists);
         printLog(lists);
     }
 
@@ -716,6 +717,20 @@ public class WirelessConsole {
         System.out.println(forecast.getCurrentWeather().getImageFilePath());
     }
 
+    private void updateCompass(List<List<Double>> lists) {
+        var windSpeedList = lists.get(2);
+        // getAverage returns a string, but my 
+        //    setDisplayData requires a doubles.
+        var avg = 0;
+        for (var entry : windSpeedList) {
+            avg += entry;
+        }
+        if (windSpeedList.size() > 0) {
+            avg /= windSpeedList.size();
+        }
+        compassPanel.setDisplayData(0, avg, "mph");
+    }
+    
     /**
      * Log weather data from weather station integrater.
      */
