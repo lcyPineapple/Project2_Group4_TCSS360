@@ -24,9 +24,6 @@ public class WeatherStation4 extends WeatherStation{
 
 	public WeatherStation4(WeatherStationIntegrater integrater) throws Exception {
 		super(integrater);
-		
-        
-		
 	}
 
 	@Override
@@ -35,10 +32,8 @@ public class WeatherStation4 extends WeatherStation{
             try {
                 while (true) {
                     setUp();
-                    startSensorSuite();
+                    sensorSuite.run();
                 }
-            } catch(InterruptedException e) {
-                System.out.println(e);
             } catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -48,13 +43,8 @@ public class WeatherStation4 extends WeatherStation{
         Thread integraterThread2 = new Thread(() -> {
             try {
                 while (true) {
-                    Thread.sleep(3000);
-                    List<Double> weatherDataList4 = new ArrayList<>();
-                    weatherDataList4.add(sc.nextDouble());
-                    weatherDataList4.add(sc.nextDouble());
-                    weatherDataList4.add(sc.nextDouble());
-                    weatherDataList4.add(sc.nextDouble());
-                    super.update(weatherDataList4);
+                	Thread.sleep(3000);
+                	updateList();
                 }
             } catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -65,14 +55,21 @@ public class WeatherStation4 extends WeatherStation{
 	}
 	
 	
-    private static void setUp() throws Exception {
+    private boolean setUp() throws Exception {
         sensorSuite = new SensorSuite();
         consoleReceiver = new ConsoleReceiver(sensorSuite);
         sensorSuite.addObserver(consoleReceiver);
+        return true;
     }
-
-    private static void startSensorSuite() throws InterruptedException {
-        sensorSuite.run();
+    
+    private List<Double> updateList() {
+        List<Double> weatherDataList4 = new ArrayList<>();
+        weatherDataList4.add(sc.nextDouble());
+        weatherDataList4.add(sc.nextDouble());
+        weatherDataList4.add(sc.nextDouble());
+        weatherDataList4.add(sc.nextDouble());
+        super.update(weatherDataList4);
+        return weatherDataList4;
     }
     
 }
