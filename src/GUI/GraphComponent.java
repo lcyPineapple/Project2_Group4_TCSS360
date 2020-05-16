@@ -47,7 +47,7 @@ public class GraphComponent extends JComponent {
      * @param theUnitName - The unit of the value being measured.
      * @param theTimeUnit - The units of time being used (hr, min, ...)
      */
-    GraphComponent(float theWidth, int theIncrements, String theUnitName, String theTimeUnit) {
+    public GraphComponent(float theWidth, int theIncrements, String theUnitName, String theTimeUnit) {
         myMaxWidth = theWidth;
         myIncrements = theIncrements;
         myUnitLabel = theUnitName;
@@ -80,6 +80,9 @@ public class GraphComponent extends JComponent {
      *                        the graph.
      */
     synchronized public void setMaximum(double theNewMaximum) {
+        if (theNewMaximum < myMinimum) {
+            throw new IllegalArgumentException("The maximum must be greater than the minimum.");
+        }
         myMaximum = theNewMaximum;
     }
     /**
@@ -89,22 +92,30 @@ public class GraphComponent extends JComponent {
      *                        the graph.
      */
     synchronized public void setMinimum(double theNewMinimum) {
+        if (theNewMinimum > myMaximum) {
+            throw new IllegalArgumentException("The minimum must be less than the maximum.");
+        }
         myMinimum = theNewMinimum;
     }
 
     /**
      * Shifts all the values over by the specified increment.
      *
-     * @param increment - The amount to shift everything over by.
+     * @param theIncrement - The amount to shift everything over by.
      */
-    synchronized public void incrementOffset(double increment) {
+    synchronized public void incrementOffset(double theIncrement) {
+        if (theIncrement <= 0) {
+            throw new IllegalArgumentException("The increment must be greater than zero.");
+        }
         // Shift all the data point over by a set amount.
         for (DataPoint data : myValues) {
-            data.myIndex += increment;
+            data.myIndex += theIncrement;
         }
         // Remove old data points that have left the display.
-        while (myValues.get(0).myIndex > myMaxWidth) {
-            myValues.remove(0);
+        if (myValues.size() > 0) {
+            while (myValues.get(0).myIndex > myMaxWidth) {
+                myValues.remove(0);
+            }
         }
     }
 
@@ -150,24 +161,24 @@ public class GraphComponent extends JComponent {
         // Draw maximum value label
         String maximumUnitLabel = myMaximum + myUnitLabel + " ";
         theG.drawString(maximumUnitLabel,
-                     LEFT_MARGIN - theG.getFontMetrics().stringWidth(maximumUnitLabel),
-                        theG.getFontMetrics().getHeight());
+                LEFT_MARGIN - theG.getFontMetrics().stringWidth(maximumUnitLabel),
+                theG.getFontMetrics().getHeight());
         // Draw minimum value
         String minimumUnitLabel = myMinimum + myUnitLabel + " ";
         theG.drawString(minimumUnitLabel,
-                        LEFT_MARGIN - theG.getFontMetrics().stringWidth(minimumUnitLabel),
-                        getGridHeight());
+                LEFT_MARGIN - theG.getFontMetrics().stringWidth(minimumUnitLabel),
+                getGridHeight());
 
         // Draw maximum past value index
         String earliestString = -myIncrements + " " + myTimeLabel;
         theG.drawString(earliestString,
-                     LEFT_MARGIN - theG.getFontMetrics().stringWidth(earliestString) / 2,
-                     getGridHeight() + theG.getFontMetrics().getHeight());
+                LEFT_MARGIN - theG.getFontMetrics().stringWidth(earliestString) / 2,
+                getGridHeight() + theG.getFontMetrics().getHeight());
         // Draw minimum past value index (0)
         String latestString = "Now";
         theG.drawString("Now",
-                        getGridWidth() + LEFT_MARGIN - theG.getFontMetrics().stringWidth(latestString) / 2,
-                        getGridHeight() + theG.getFontMetrics().getHeight());
+                getGridWidth() + LEFT_MARGIN - theG.getFontMetrics().stringWidth(latestString) / 2,
+                getGridHeight() + theG.getFontMetrics().getHeight());
 
     }
 

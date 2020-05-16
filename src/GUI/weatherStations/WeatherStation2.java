@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 public class WeatherStation2 extends WeatherStation {
     public static final int UPDATE_INTERVAL = 1000 * 10;
+    public static Thread myServer;
+    public static Thread myUpdater;
 
     public WeatherStation2(WeatherStationIntegrater integrater) {
         super(integrater);
@@ -18,15 +20,16 @@ public class WeatherStation2 extends WeatherStation {
     @Override
     public void run() throws InterruptedException {
         // Kick up the sensor server running on port 9876
-        new Thread(() -> {
+        myServer = new Thread(() -> {
             try {
                 Sensors.main(new String[0]);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }).start();
-        //
-        new Thread(() -> {
+        });
+        myServer.start();
+        // Start the data giving thread
+        myUpdater = new Thread(() -> {
             while (true) {
                 try {
                     Thread.sleep(UPDATE_INTERVAL);
@@ -36,7 +39,14 @@ public class WeatherStation2 extends WeatherStation {
                     break;
                 }
             }
-        }).start();
+        });
+        myUpdater.start();
+    }
+
+    // Kills the processes
+    public void kill() {
+        myUpdater.interrupt();
+        myServer.interrupt();
     }
 
     private void getDataAndUpdate(String host, int port) {

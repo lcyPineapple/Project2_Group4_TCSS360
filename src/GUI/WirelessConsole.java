@@ -819,6 +819,7 @@ public class WirelessConsole {
         updateJTextFields(lists);
         updateForecast(lists);
         updateCompass(lists);
+        updateGraph(lists);
         printLog(lists);
     }
 
@@ -876,6 +877,31 @@ public class WirelessConsole {
             avg /= windSpeedList.size();
         }
         compassPanel.setDisplayData(0, avg, "mph");
+    }
+
+    /**
+     * Updates the graph with temperature data
+     */
+    private void updateGraph(List<List<Double>> lists) {
+        // Reset all the data
+        graphComponent.resetData();
+        // Reprint the data
+        double max = Double.MIN_VALUE;
+        double min = Double.MAX_VALUE;
+        for (Double value : lists.get(1)) {
+            if (value > max) {
+                max = value;
+            } else if (value < min) {
+                min = value;
+            }
+            graphComponent.addDataPoint(0, value);
+            graphComponent.incrementOffset(1);
+        }
+        if (min < max) {
+            graphComponent.setMinimum(min);
+            graphComponent.setMaximum(max);
+            graphComponent.repaint();
+        }
     }
     
     /**
