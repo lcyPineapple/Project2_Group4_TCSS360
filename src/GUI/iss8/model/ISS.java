@@ -24,6 +24,11 @@ import GUI.iss8.data.WeatherData;
  * to accept more generalized output devices in varying numbers.
  * Now exclusively 'writes' the serialized file. 
  * @author Maxfield England
+ * 
+ * Changed write method to a synchronized method to reduce issues with 
+ * concurrency.
+ * @author Leika Yamada
+ * 
  */
 public class ISS {
 	/** myWeatherThread - used to run the thread and receive update data */
@@ -66,7 +71,7 @@ public class ISS {
 	 * all connected output devices of the update.
 	 * 
 	 */
-	public void write() {
+	public synchronized void write() {
 		try {
 
 			final FileOutputStream fileOutputStream = new FileOutputStream("weather.ser");

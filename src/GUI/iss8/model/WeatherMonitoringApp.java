@@ -11,7 +11,11 @@ import java.util.ArrayList;
  * Updated as a child of the OutputDevice class and modified to be able
  * to be notified by the ISS for data collection, handled in parent behavior.
  * @author Maxfield England
- *
+ * 
+ * The console output statements have been commented out because they are not used
+ * by the weather station GUI. They are left as comments instead of deletions in order
+ * to preserve the original code. Written by the authors above.
+ * @author Leika Yamada
  */
 public class WeatherMonitoringApp extends AbstractOutputDevice {
 	
@@ -19,13 +23,13 @@ public class WeatherMonitoringApp extends AbstractOutputDevice {
 	 * Prints header information for continuous console output.
 	 */
 	public WeatherMonitoringApp() {
-		System.out.println("Air Temp\tWind Chill\tHeat Index\tDew Point\tGround Temp"
-				+ "\tAir Pressure\tWind Speed\tWind Direction\tRainfall\tHumidity");
-		System.out.println("(F)\t\t(F)\t\t(F)\t\t(F)\t\t(F)\t\t(inHg)\t\t(mph)\t\t" 
-				+ "(NSEW)\t\t(in)\t\t(%)");
-		System.out.println("---------------------------------------------------------" 
-				+ "------------------------------------------------------------------"
-				+ "-------------------------------");
+//		System.out.println("Air Temp\tWind Chill\tHeat Index\tDew Point\tGround Temp"
+//				+ "\tAir Pressure\tWind Speed\tWind Direction\tRainfall\tHumidity");
+//		System.out.println("(F)\t\t(F)\t\t(F)\t\t(F)\t\t(F)\t\t(inHg)\t\t(mph)\t\t" 
+//				+ "(NSEW)\t\t(in)\t\t(%)");
+//		System.out.println("---------------------------------------------------------" 
+//				+ "------------------------------------------------------------------"
+//				+ "-------------------------------");
 		
 	}
 	
@@ -34,10 +38,10 @@ public class WeatherMonitoringApp extends AbstractOutputDevice {
 	 * @param data the weather data
 	 */
 	public void printData(ArrayList<String> data) {
-		for (String s : data) {
-			System.out.print(s + "\t\t");
-		}
-		System.out.println();
+//		for (String s : data) {
+//			System.out.print(s + "\t\t");
+//		}
+//		System.out.println();
 	}
 	
 	/**

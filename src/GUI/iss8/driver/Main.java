@@ -18,6 +18,12 @@ import GUI.iss8.data.WeatherData;
  * Launches the ISS program.
  * @author Adam Amado
  * @version Spring 2020
+ * 
+ * 
+ * Comment by Leika Yamada: This class is not used by the GUI Console in weather station integration. 
+ * The reason is that this class was created for the purposes of demonstration by the original team.
+ * It was included in the final project as a part of the original code, and integrated
+ * and renamed as WeatherStation5. The original group name was group 8.
  */
 final class Main {
 	/**

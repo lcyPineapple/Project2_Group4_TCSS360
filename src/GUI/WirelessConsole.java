@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Random;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -34,6 +36,16 @@ import javax.swing.ImageIcon;
  */
 public class WirelessConsole {
     private WeatherStationIntegrater integrater;
+    
+    /*The Weather Stations chosen by the user in the combo boxes.*/
+    private WeatherStation comboStation1;
+    private WeatherStation comboStation2;
+    private WeatherStation comboStation3;
+    private WeatherStation comboStation4;
+    private WeatherStation comboStation5;
+    private WeatherStation comboStation6;
+    private WeatherStation comboStation7;
+    private WeatherStation comboStation8;
 
 	private JFrame frame;
 	private JPanel contentPanel;
@@ -178,26 +190,40 @@ public class WirelessConsole {
 		initializeWeatherStations();
 	}
 
-    /**
+	/**
      * Initialize weather stations and weather station integrater
      * @throws Exception 
      */
     private void initializeWeatherStations() throws Exception {
         this.integrater = new WeatherStationIntegrater(this);
         
-        WeatherStation weatherStation1 = new WeatherStation1(integrater);
-        weatherStation1.run();
-
-        WeatherStation weatherStation2 = new WeatherStation2(integrater);
-        weatherStation2.run();
-
-        WeatherStation weatherStation3 = new WeatherStation3(integrater);
-        weatherStation3.run();        
+        ///Previous Version
         
-        WeatherStation weatherStation7 = new WeatherStation4(integrater);
-        weatherStation7.run(); 
+//        WeatherStation weatherStation1 = new WeatherStation1(integrater);
+//        weatherStation1.run();
+//
+//        WeatherStation weatherStation2 = new WeatherStation2(integrater);
+//        weatherStation2.run();
+//
+//        WeatherStation weatherStation3 = new WeatherStation3(integrater);
+//        weatherStation3.run();        
+//        
+//        WeatherStation weatherStation4 = new WeatherStation4(integrater);
+//        weatherStation4.run(); 
+//        
+//        WeatherStation weatherStation5 = new WeatherStation5(integrater);
+//        weatherStation5.run(); 
+   
+      comboStation1 = new WeatherStation1(integrater);
+      comboStation2 = new WeatherStation2(integrater);
+      comboStation3 = new WeatherStation3(integrater);   
+      comboStation4 = new WeatherStation4(integrater);
+      comboStation5 = new WeatherStation5(integrater);
+      comboStation6 = new WeatherStation3(integrater);       
+      comboStation7 = new WeatherStation4(integrater);
+      comboStation8 = new WeatherStation5(integrater);
         
-        integrater.run();
+      integrater.run();
     }
 
     /**
@@ -374,9 +400,9 @@ public class WirelessConsole {
 	}
 
 	/**
-	 * Initialize the combo buttons
+	 * Initialize the combo buttons based on user choice.
 	 */
-    private void initializeComboButtons() {
+    private void initializeComboButtons() throws Exception{
         JPanel weatherStationsPanel = new JPanel();
         contentPanel.add(weatherStationsPanel, BorderLayout.NORTH);
         
@@ -386,34 +412,155 @@ public class WirelessConsole {
         JComboBox station1 = new JComboBox();
         station1.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
         weatherStationsPanel.add(station1);
+        station1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent event1) {
+        		String choice = station1.getSelectedItem().toString();
+        		try {
+					initializeComboSelection(choice, comboStation1);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+        	}
+        });
         
         JComboBox station2 = new JComboBox();
         station2.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
         weatherStationsPanel.add(station2);
+        station2.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent event2) {
+        		String choice = station2.getSelectedItem().toString();
+        		try {
+        			initializeComboSelection(choice, comboStation2);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+        	}
+        });
+        
+        
         
         JComboBox station3 = new JComboBox();
         station3.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
         weatherStationsPanel.add(station3);
+        station3.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent event3) {
+        		String choice = station3.getSelectedItem().toString();
+        		try {
+        			initializeComboSelection(choice, comboStation3);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+        	}
+        });
+        
+        
         
         JComboBox station4 = new JComboBox();
         station4.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
         weatherStationsPanel.add(station4);
+        station4.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent event4) {
+        		String choice = station4.getSelectedItem().toString();
+        		try {
+        			initializeComboSelection(choice, comboStation4);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+        	}
+        });
+        
+        
         
         JComboBox station5 = new JComboBox();
         station5.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
         weatherStationsPanel.add(station5);
+        station5.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent event5) {
+        		String choice = station5.getSelectedItem().toString();
+        		try {
+        			initializeComboSelection(choice, comboStation5);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+        	}
+        });
+        
+        
         
         JComboBox station6 = new JComboBox();
         station6.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
         weatherStationsPanel.add(station6);
+        station6.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent event6) {
+        		String choice = station6.getSelectedItem().toString();
+        		try {
+        			initializeComboSelection(choice, comboStation6);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+        	}
+        });
+          
         
         JComboBox station7 = new JComboBox();
         station7.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
         weatherStationsPanel.add(station7);
+        station7.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent event7) {
+        		String choice = station7.getSelectedItem().toString();
+        		try {
+        			initializeComboSelection(choice, comboStation7);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+        	}
+        });
+        
         
         JComboBox station8 = new JComboBox();
         station8.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
         weatherStationsPanel.add(station8);
+        station1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent event8) {
+        		String choice = station8.getSelectedItem().toString();
+        		try {
+        			initializeComboSelection(choice, comboStation8);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+        	}
+        });
+        
+        
+        
+    }
+    
+    /**This method changes the weather station the GUI is connected to based 
+     * on the user's choice in the comboBoxes. Type 1 corresponds to station 1, 
+     * Type 2 corresponds to station 2, Type 3 corresponds to station 3, etc. 
+     * @param theChoice - the users choice for which station they want to connect.
+     * @param comboStation - the weatherStation object associated with the combo box.
+     * */
+    public void initializeComboSelection(String theChoice, WeatherStation comboStation) throws Exception {
+    	comboStation.setConnected(false);
+    	comboStation = null;
+    	if(theChoice.equals("TYPE 1")) {
+			comboStation = new WeatherStation1(integrater);
+		}else if(theChoice.equals("TYPE 2")) {
+			comboStation = new WeatherStation2(integrater);
+		}else if(theChoice.equals("TYPE 3")) {
+			comboStation = new WeatherStation3(integrater);
+		}else if(theChoice.equals("TYPE 4")) {
+			comboStation = new WeatherStation4(integrater);
+		}else if(theChoice.equals("TYPE 5")) {
+			comboStation = new WeatherStation5(integrater);
+		}
+    	try {
+			comboStation.run();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	    comboStation.setConnected(true);
     }
 
     /**
