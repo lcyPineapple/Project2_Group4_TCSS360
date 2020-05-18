@@ -40,7 +40,7 @@ public class WeatherStation3 extends WeatherStation {
         integraterThread.start();
     }
 
-    private void readData() {
+    public void readData() {
         DataRelay dataSet = new DataRelay(DataType.ALL_TYPES, Sensor.OUTSIDE);
         String inputFileLocation = "test10000.txt";
         try {

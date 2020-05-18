@@ -11,6 +11,13 @@ public class WeatherStationIntegrater {
     private static final int INTERVAL = 2500;
     private static final int WEATHER_DATA_LIST_SIZE = 4;
     private Timer integraterTimer;
+
+    public WeatherStationIntegrater() {
+        this.weatherDataLists = new ArrayList<>();
+        for (int i = 0; i < WEATHER_DATA_LIST_SIZE; i++) {
+            weatherDataLists.add(new ArrayList<>());
+        }
+    }
     
     public WeatherStationIntegrater(WirelessConsole wirelessConsole) {
         this.wirelessConsole = wirelessConsole;
@@ -24,6 +31,9 @@ public class WeatherStationIntegrater {
      * Integrater will update views on wireless console every 2.5 seconds
      */
     public void run() {
+        if (wirelessConsole == null) {
+            return;
+        }
         if (integraterTimer == null) {
             integraterTimer = new Timer();
             integraterTimer.scheduleAtFixedRate(new TimerTask() {
