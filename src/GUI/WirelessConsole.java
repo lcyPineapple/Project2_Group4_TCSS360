@@ -241,7 +241,7 @@ public class WirelessConsole {
         
         // Weather Variable Graph
         JPanel graphPanel = new JPanel(new BorderLayout());
-        graphComponent = new GraphComponent(24, 24, "C", "Hrs");
+        graphComponent = new GraphComponent(60, 30, "C", "Secs");
         graphComponent.setMaximum(24);
         graphComponent.setMinimum(24);
         graphPanel.add(graphComponent);
@@ -888,15 +888,37 @@ public class WirelessConsole {
         // Reprint the data
         double max = Double.MIN_VALUE;
         double min = Double.MAX_VALUE;
-        for (Double value : lists.get(1)) {
-            if (value > max) {
-                max = value;
-            } else if (value < min) {
-                min = value;
+
+        // Average data withen a second
+        int samplesSoFar = 0;
+        Double currentClusterSample = null;
+        Double lastTime = null;
+
+        for (int i = 0; i < lists.get(1).size(); i++) {
+            double value = lists.get(1).get(i);
+            if (currentClusterSample == null) {
+                // average the value for this sample
+                currentClusterSample = value;
+                samplesSoFar += 1;
+                lastTime = lists.get(4).get(i);
+            } else if (lists.get(4).get(i) - lastTime > 1000) {
+                if (value > max) {
+                    max = value;
+                } else if (value < min) {
+                    min = value;
+                }
+                graphComponent.addDataPoint(0, currentClusterSample);
+                graphComponent.incrementOffset(1);
+                currentClusterSample = null;
+            } else {
+                // average the value for this sample
+                currentClusterSample = currentClusterSample * samplesSoFar + value;
+                samplesSoFar += 1;
+                currentClusterSample /= samplesSoFar;
             }
-            graphComponent.addDataPoint(0, value);
-            graphComponent.incrementOffset(1);
+
         }
+
         if (min < max) {
             graphComponent.setMinimum(min);
             graphComponent.setMaximum(max);

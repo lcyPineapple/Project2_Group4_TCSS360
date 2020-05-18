@@ -170,7 +170,7 @@ public class GraphComponent extends JComponent {
                 getGridHeight());
 
         // Draw maximum past value index
-        String earliestString = -myIncrements + " " + myTimeLabel;
+        String earliestString = -myMaxWidth + " " + myTimeLabel;
         theG.drawString(earliestString,
                 LEFT_MARGIN - theG.getFontMetrics().stringWidth(earliestString) / 2,
                 getGridHeight() + theG.getFontMetrics().getHeight());

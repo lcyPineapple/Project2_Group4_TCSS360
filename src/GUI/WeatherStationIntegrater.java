@@ -9,7 +9,7 @@ public class WeatherStationIntegrater {
     private WirelessConsole wirelessConsole;
     private List<List<Double>> weatherDataLists;
     private static final int INTERVAL = 2500;
-    private static final int WEATHER_DATA_LIST_SIZE = 4;
+    private static final int WEATHER_DATA_LIST_SIZE = 5;
     private Timer integraterTimer;
 
     public WeatherStationIntegrater() {
@@ -55,7 +55,9 @@ public class WeatherStationIntegrater {
         synchronized (this) {
             for (int i = 0; i < weatherData.size(); i++) {
                 weatherDataLists.get(i).add(weatherData.get(i));
-            }   
+            }
+            // Add timing information
+            weatherDataLists.get(4).add((double)System.currentTimeMillis());
         }
     }
 
