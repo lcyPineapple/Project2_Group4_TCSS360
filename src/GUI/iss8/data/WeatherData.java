@@ -3,40 +3,53 @@ package GUI.iss8.data;
 import java.io.Serializable;
 
 /**
- * This class emcompasses all the weather data specified by Figure 7.6, page 203 of 
+ * This class emcompasses all the weather data specified by Figure 7.6, page 203 of
  * the textbook. That weather data includes air temperatures, rainfall, and a
  * GroundThermometer object, Anemometer object, Barometer object all holding respective
  * data
+ *
  * @author Alex Amado
- * @version Spring 2020
- * 
- * Updated the code so data updates 
  * @author Dean
- * 
+ * <p>
  * Added rainfall and humidity.
  * @author yolandaxu
- *
+ * <p>
  * Made runnable as a thread for the ISS to receive input from in an asynchronous fashion.
  * @author Maxfield
+ * @version Spring 2020
+ * <p>
+ * Updated the code so data updates
  */
 public class WeatherData extends Thread implements Serializable {
     /**
      * Generated serial ID.
      */
     private static final long serialVersionUID = -9008953840484490065L;
-    /** Represents air temperature of a specific environment measured in Fahrenheit. */
+    /**
+     * Represents air temperature of a specific environment measured in Fahrenheit.
+     */
     private final AirThermometer myAirData;
-    /** Represents ground temperatures of a specific environment. */
+    /**
+     * Represents ground temperatures of a specific environment.
+     */
     private final GroundThermometers myGroundData;
-    /** Represents wind data of a specific environment. */
+    /**
+     * Represents wind data of a specific environment.
+     */
     private final Anemometer myWindData;
-    /** Represents air pressure data of a specific environment. */
+    /**
+     * Represents air pressure data of a specific environment.
+     */
     private final Barometer myPressureData;
-    /** Represents daily rain data of a specific environment measured in inches. */
+    /**
+     * Represents daily rain data of a specific environment measured in inches.
+     */
     private final int myRainfall;
-    /** Represents the outside relative humidity. */
+    /**
+     * Represents the outside relative humidity.
+     */
     private final RelHumidity myHumidity;
-   
+
     /**
      * Constructs a WeatherData object instantiating all the data with random values.
      */
@@ -52,6 +65,7 @@ public class WeatherData extends Thread implements Serializable {
 
     /**
      * Air temperature in Fahrenheit by default.
+     *
      * @return integer for air temperature
      */
     public int getAirTemperatures() {
@@ -60,6 +74,7 @@ public class WeatherData extends Thread implements Serializable {
 
     /**
      * Ground temperature in Fahrenheit by default.
+     *
      * @return integer for ground temperature
      */
     public int getGroundThermometerTemperature() {
@@ -68,6 +83,7 @@ public class WeatherData extends Thread implements Serializable {
 
     /**
      * Wind speed in MPH.
+     *
      * @return integer for  wind speed
      */
     public int getWindSpeed() {
@@ -76,6 +92,7 @@ public class WeatherData extends Thread implements Serializable {
 
     /**
      * Wind direction.
+     *
      * @return String for wind direction
      */
     public String getWindDirection() {
@@ -84,6 +101,7 @@ public class WeatherData extends Thread implements Serializable {
 
     /**
      * Air pressure in inHg.
+     *
      * @return double for air pressure
      */
     public double getPressure() {
@@ -92,6 +110,7 @@ public class WeatherData extends Thread implements Serializable {
 
     /**
      * Rainfall in inches.
+     *
      * @return integer for rainfall
      */
     public int getRainfall() {
@@ -100,6 +119,7 @@ public class WeatherData extends Thread implements Serializable {
 
     /**
      * Humidity in %.
+     *
      * @return integer for %
      */
     public int getHumidity() {
@@ -116,15 +136,15 @@ public class WeatherData extends Thread implements Serializable {
         myPressureData.setPressure(false);
         myWindData.setWind(false);
     }
-   
+
     /**
      * Is executed when thread is started; calls on the write() method to generate new
      * weather data every five seconds, and write it to the weather.ser file.
-     * 
+     *
      * @author Maxfield
      */
     @Override
-    public void run() {	
+    public void run() {
         while (true) {
             updateData();
             try {
@@ -135,6 +155,6 @@ public class WeatherData extends Thread implements Serializable {
                 e.printStackTrace();
             }
         }
-		
+
     }
 }

@@ -24,43 +24,43 @@ import static org.junit.Assert.assertEquals;
  */
 
 public class EnvoyDataIOTest {
-    
-	/**
-	 * A constant that will determine how much data is given in the output file.
-	 */
-	private static final int DATA_FREQUENCY = 5;
-	
-	/**
-	 * A constant that determines the interval data is gathered from the Sensors.
-	 * Time interval is measured in milliseconds.
-	 */
-	private static final int TIME_INTERVAL = 1000;
-	
-	/**
-	 * The correct data socket number.
-	 */
-	private static final int SOCKET = 9876;
-	
-	/**
-	 * Correct file path where the .txt file will show up.
-	 */
-	private static final String FILEPATH = "src/TestSensorData.txt";
-	
-	/**
-	 * Invalid time interval.
-	 */
-	private static final int WRONG_TIME_INTERVAL = -1000;
 
-	/**
-	 * Invalid frequency.
-	 */
-	private static final int WRONG_DATA_FREQUENCY = -3;
+    /**
+     * A constant that will determine how much data is given in the output file.
+     */
+    private static final int DATA_FREQUENCY = 5;
 
-	/**
-	 * Wrong socket number.
-	 */
-	private static final int WRONG_SOCKET = 9875;
-        
+    /**
+     * A constant that determines the interval data is gathered from the Sensors.
+     * Time interval is measured in milliseconds.
+     */
+    private static final int TIME_INTERVAL = 1000;
+
+    /**
+     * The correct data socket number.
+     */
+    private static final int SOCKET = 9876;
+
+    /**
+     * Correct file path where the .txt file will show up.
+     */
+    private static final String FILEPATH = "src/TestSensorData.txt";
+
+    /**
+     * Invalid time interval.
+     */
+    private static final int WRONG_TIME_INTERVAL = -1000;
+
+    /**
+     * Invalid frequency.
+     */
+    private static final int WRONG_DATA_FREQUENCY = -3;
+
+    /**
+     * Wrong socket number.
+     */
+    private static final int WRONG_SOCKET = 9875;
+
     /**
      * A test EnvoyDataIO object.
      */
@@ -73,57 +73,61 @@ public class EnvoyDataIOTest {
     @Before
     public void setUp() {
         myEVIO = new EnvoyDataIO();
-        
+
     }
-    
+
     /**
      * If incorrect Time Interval is given, exception should be thrown.
-     * @throws IOException 
-     * @throws InterruptedException 
+     *
+     * @throws IOException
+     * @throws InterruptedException
      */
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testFillFileTimeInterval() throws InterruptedException, IOException {
-    	EnvoyDataIO output = new EnvoyDataIO();
-    	PrintStream outputFile = output.getOutputStream(FILEPATH);
-    	myEVIO.fillFile(SOCKET, DATA_FREQUENCY, WRONG_TIME_INTERVAL, outputFile);
+        EnvoyDataIO output = new EnvoyDataIO();
+        PrintStream outputFile = output.getOutputStream(FILEPATH);
+        myEVIO.fillFile(SOCKET, DATA_FREQUENCY, WRONG_TIME_INTERVAL, outputFile);
     }
-    
+
     /**
      * If incorrect Time Interval is given, exception should be thrown.
-     * @throws IOException 
-     * @throws InterruptedException 
+     *
+     * @throws IOException
+     * @throws InterruptedException
      */
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testFrequency() throws InterruptedException, IOException {
-    	EnvoyDataIO output = new EnvoyDataIO();
-    	PrintStream outputFile = output.getOutputStream(FILEPATH);
-    	myEVIO.fillFile(SOCKET, WRONG_DATA_FREQUENCY, TIME_INTERVAL, outputFile);
+        EnvoyDataIO output = new EnvoyDataIO();
+        PrintStream outputFile = output.getOutputStream(FILEPATH);
+        myEVIO.fillFile(SOCKET, WRONG_DATA_FREQUENCY, TIME_INTERVAL, outputFile);
     }
-    
+
     /**
      * If incorrect Socket is given, exception should be thrown.
-     * @throws IOException 
-     * @throws InterruptedException 
+     *
+     * @throws IOException
+     * @throws InterruptedException
      */
-    @Test (expected = Exception.class)
+    @Test(expected = Exception.class)
     public void testSocket() throws InterruptedException, IOException {
-    	EnvoyDataIO output = new EnvoyDataIO();
-    	PrintStream outputFile = output.getOutputStream(FILEPATH);
-    	myEVIO.fillFile(WRONG_SOCKET, DATA_FREQUENCY, TIME_INTERVAL, outputFile);
+        EnvoyDataIO output = new EnvoyDataIO();
+        PrintStream outputFile = output.getOutputStream(FILEPATH);
+        myEVIO.fillFile(WRONG_SOCKET, DATA_FREQUENCY, TIME_INTERVAL, outputFile);
     }
-    
-  /**
-   * Testing method run without exceptions.
- * @throws ConnectException 
-   */
-  @Test
-  public void testSocket2() throws ConnectException {
-	  	boolean test = true;
-	  	EnvoyDataIO output = new EnvoyDataIO();
-  		PrintStream outputFile = output.getOutputStream(FILEPATH);
-  		myEVIO.fillFile(SOCKET, DATA_FREQUENCY, TIME_INTERVAL, outputFile);
-  		assertEquals(test, myEVIO.getTestBoolean());
-  }    
+
+    /**
+     * Testing method run without exceptions.
+     *
+     * @throws ConnectException
+     */
+    @Test
+    public void testSocket2() throws ConnectException {
+        boolean test = true;
+        EnvoyDataIO output = new EnvoyDataIO();
+        PrintStream outputFile = output.getOutputStream(FILEPATH);
+        myEVIO.fillFile(SOCKET, DATA_FREQUENCY, TIME_INTERVAL, outputFile);
+        assertEquals(test, myEVIO.getTestBoolean());
+    }
 
 }
 

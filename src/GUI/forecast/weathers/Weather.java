@@ -4,6 +4,7 @@ import java.util.Map;
 
 /**
  * Weather is an abstract class which contains weather information and its conditions logic.
+ *
  * @author Aaron Lam
  * @version 05-01-2020
  */
@@ -24,6 +25,7 @@ public abstract class Weather {
 
     /**
      * Setter of weather condition.
+     *
      * @param weatherConditions
      */
     public void setWeatherConditions(Map<String, WeatherCondition> weatherConditions) {

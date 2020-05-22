@@ -1,6 +1,6 @@
 /*
- * TemperatureSensor Test class for Weather Station TCSS 360 		
- *  
+ * TemperatureSensor Test class for Weather Station TCSS 360
+ *
  * Class: TCSS 360
  * Professor: Kivanç A. DINCER
  * Assignment: #1 Weather Station
@@ -11,11 +11,10 @@
 
 package GUI.sensorSuite1.sensorsTests;
 
-import static org.junit.jupiter.api.Assertions.*;	
-
+import GUI.sensorSuite1.sensors.TemperatureSensor;
 import org.junit.jupiter.api.Test;
 
-import GUI.sensorSuite1.sensors.TemperatureSensor;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Daniel Machen
@@ -26,14 +25,14 @@ import GUI.sensorSuite1.sensors.TemperatureSensor;
 class TemperatureSensorTest {
 
 
-	/*
-	 * Triggers IllegalArgumentException for file parameter in constructor.
-	 */
-	@Test
-	void testConstructorNullFileException() {
-		  assertThrows(IllegalArgumentException.class,
-		            ()->{
-		        		new TemperatureSensor(null); 
-		            });
-	}
+    /*
+     * Triggers IllegalArgumentException for file parameter in constructor.
+     */
+    @Test
+    void testConstructorNullFileException() {
+        assertThrows(IllegalArgumentException.class,
+                () -> {
+                    new TemperatureSensor(null);
+                });
+    }
 }

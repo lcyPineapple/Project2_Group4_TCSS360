@@ -17,7 +17,7 @@ class SensorSuiteTest {
     void testAttachBasicSensors() throws Exception {
         final SensorSuite sensorS = new SensorSuite();
         int sizeS = sensorS.getSensors().size();
-        assertEquals(4,  sizeS);
+        assertEquals(4, sizeS);
     }
 
     @Test
@@ -41,13 +41,13 @@ class SensorSuiteTest {
     @Test
     void testNotifyAllObservers() throws Exception {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-    	PrintStream ps = new PrintStream(os);
-    	System.setOut(ps);
+        PrintStream ps = new PrintStream(os);
+        System.setOut(ps);
 
-    	SensorSuite sensorSuite = new SensorSuite();
-    	sensorSuite.addObserver(new ConsoleReceiver(sensorSuite));
-    	sensorSuite.notifyAllObservers();
+        SensorSuite sensorSuite = new SensorSuite();
+        sensorSuite.addObserver(new ConsoleReceiver(sensorSuite));
+        sensorSuite.notifyAllObservers();
 
-    	assertEquals("Wireless Vantage Pro2 Console Receivers\n\n", os.toString());
+        assertEquals("Wireless Vantage Pro2 Console Receivers\n\n", os.toString());
     }
 }

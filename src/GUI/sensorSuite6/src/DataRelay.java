@@ -1,12 +1,11 @@
-package GUI.sensorSuites.sensorSuite6.src;/*
+package GUI.sensorSuite6.src;/*
  * An object that manages data ingest and output.
  */
 
 
-
-import GUI.sensorSuites.sensorSuite6.src.WeatherData.DataType;
-import GUI.sensorSuites.sensorSuite6.src.WeatherData.HistoricalDataPoint;
-import GUI.sensorSuites.sensorSuite6.src.WeatherData.Sensor;
+import GUI.sensorSuite6.src.WeatherData.DataType;
+import GUI.sensorSuite6.src.WeatherData.HistoricalDataPoint;
+import GUI.sensorSuite6.src.WeatherData.Sensor;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -18,20 +17,31 @@ import java.util.*;
  * Accepts data from the various sensors, aggregates,
  * and writes data to a text file after @code{writeThreshold}
  * data points have been added.
+ *
  * @author Spencer Little
  * @version 0.0.0
  */
 public class DataRelay implements Serializable {
 
-    /** The set of data point objects that collect incoming data. */
+    /**
+     * The set of data point objects that collect incoming data.
+     */
     private final List<HistoricalDataPoint> aggregators = new LinkedList<>();
-    /** The number of data points between transmission/writing. */
+    /**
+     * The number of data points between transmission/writing.
+     */
     private final int IO_RATE = 1000;
-    /** The base of the url to which weather data will be written (time stamp will be added). */
+    /**
+     * The base of the url to which weather data will be written (time stamp will be added).
+     */
     private final String BASE_URL = "WDATA_";
-    /** The url corresponding to the most recent writing of the txt file. */
+    /**
+     * The url corresponding to the most recent writing of the txt file.
+     */
     private String lastUrl;
-    /** Tracks the number of data points that have been processed. */
+    /**
+     * Tracks the number of data points that have been processed.
+     */
     private int processed = 0;
 
     /**
@@ -54,6 +64,7 @@ public class DataRelay implements Serializable {
 
     /**
      * Creates a DataRelay with the provided list of data point objects.
+     *
      * @param dataPoints a variable number, or array, of HistoricalDataPoint
      *                   objects.
      */
@@ -65,8 +76,9 @@ public class DataRelay implements Serializable {
     /**
      * Constructs a new DataRelay for the specified list of
      * data types.
+     *
      * @param types the list of data types supported by this relay
-     * @param s the type of sensor this relay supports
+     * @param s     the type of sensor this relay supports
      */
     public DataRelay(DataType[] types, Sensor s) {
         for (int i = 0; i < types.length; i++) {
@@ -76,13 +88,17 @@ public class DataRelay implements Serializable {
 
     /**
      * Returns the list of DataPoints maintained by this object.
+     *
      * @return a LinkedList of DataPoints maintained by this object
      */
-    public List<HistoricalDataPoint> getDataPoints() { return aggregators; }
+    public List<HistoricalDataPoint> getDataPoints() {
+        return aggregators;
+    }
 
     /**
      * Increments the Calendar of each data point object in this DataRelay.
-     * @param field the calendar field to increment (a constant from Calendar, eg. Calendar.YEAR)
+     *
+     * @param field  the calendar field to increment (a constant from Calendar, eg. Calendar.YEAR)
      * @param amount the amount to increment
      */
     public void incrementCal(int field, int amount) {
@@ -93,17 +109,21 @@ public class DataRelay implements Serializable {
 
     /**
      * Returns the url of the most recent .txt snapshot. See
-     * @{code writeData()}.
+     *
      * @return the url corresponding to the most recent .txt snapshot
+     * @{code writeData()}.
      */
-    public String getLastUrl() { return lastUrl; }
+    public String getLastUrl() {
+        return lastUrl;
+    }
 
 
     /**
      * Accepts a data point from a sensor, adding it to the respective
      * DataPoint object.
+     *
      * @param point the value of the data point
-     * @param type the type of data point
+     * @param type  the type of data point
      */
     public void acceptDataPoint(double point, DataType type) {
         for (HistoricalDataPoint p : aggregators) {
@@ -149,12 +169,13 @@ public class DataRelay implements Serializable {
     }
 
 
-/**
- * Compares this DataRelay with another by comparing
- * the list of data points.
- * @param o the DataRelay to compare against
- * @return a boolean indicating whether this == o
- */
+    /**
+     * Compares this DataRelay with another by comparing
+     * the list of data points.
+     *
+     * @param o the DataRelay to compare against
+     * @return a boolean indicating whether this == o
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -6,20 +6,25 @@ import java.util.Random;
 /**
  * This class represents a barometer, taking pressure readings and height readings.
  * Updated code to allow for static value unit testing
- * @author Alex Amado
- * @version Spring 2020
  *
- * Updated code to produce more realistic data.
+ * @author Alex Amado
  * @author Dean Kelley
+ * @version Spring 2020
+ * <p>
+ * Updated code to produce more realistic data.
  */
 public class Barometer implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 8317334203445694092L;
-    /** Random object for random data generation. */
+    /**
+     * Random object for random data generation.
+     */
     private static final Random RANDOM = new Random();
-    /** Represents air pressure of a specific environment in inHg. */
+    /**
+     * Represents air pressure of a specific environment in inHg.
+     */
     private double myPressure;
 
     public Barometer() {
@@ -27,8 +32,39 @@ public class Barometer implements Serializable {
     }
 
     /**
+     * Rounds to nearest desired tens place.
+     *
+     * @param theVal   - value to round
+     * @param thePlace desired tens place
+     * @return pressure
+     */
+    public static double round(final double theVal, final int thePlace) {
+        return Math.round(theVal * Math.pow(GUI.iss8.res.R.Integers.TEN, thePlace)) / Math.pow(GUI.iss8.res.R.
+                Integers.TEN, thePlace);
+    }
+
+    /**
+     * For testing purposes.
+     *
+     * @param theVal - pressure
+     */
+    public void setPressureValue(final double theVal) {
+        myPressure = theVal;
+    }
+
+    /**
+     * Returns pressure.
+     *
+     * @return pressure
+     */
+    public double getPressure() {
+        return myPressure;
+    }
+
+    /**
      * Randomly nudges pressure between +/-0.1 inHG at a time.
-     * @param theToggleStaticValue - boolean for unit testing static value 
+     *
+     * @param theToggleStaticValue - boolean for unit testing static value
      */
     public void setPressure(final boolean theToggleStaticValue) {
         if (theToggleStaticValue) {
@@ -42,32 +78,5 @@ public class Barometer implements Serializable {
             }
             myPressure = round(myPressure, 2);
         }
-    }
-
-    /**
-     * For testing purposes.
-     * @param theVal - pressure
-     */
-    public void setPressureValue(final double theVal) {
-        myPressure = theVal;
-    }
-
-    /**
-     * Returns pressure.
-     * @return pressure
-     */
-    public double getPressure() {
-        return myPressure;
-    }
-
-    /**
-     * Rounds to nearest desired tens place.
-     * @param theVal - value to round
-     * @param thePlace desired tens place
-     * @return pressure
-     */
-    public static double round(final double theVal, final int thePlace) {
-        return Math.round(theVal * Math.pow(GUI.iss8.res.R.Integers.TEN, thePlace)) / Math.pow(GUI.iss8.res.R.
-                Integers.TEN, thePlace);
     }
 }

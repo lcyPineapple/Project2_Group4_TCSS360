@@ -15,15 +15,15 @@ import java.util.Map;
 
 /**
  * Forecast is a JComponent which display current weather condition with image.
+ *
  * @author Aaron Lam
  * @version 05-01-2020
  */
 public class Forecast extends JComponent {
+    private static final int IMAGE_WIDTH = 60;
     private List<Weather> weatherList;
     private Weather currentWeather;
     private BufferedImage weatherImage;
-
-    private static final int IMAGE_WIDTH = 60;
 
     public Forecast() {
         this.weatherList = new ArrayList<>();
@@ -34,6 +34,7 @@ public class Forecast extends JComponent {
 
     /**
      * Update weather condition with new weather data.
+     *
      * @param humidity
      * @param windSpeed
      * @param temperature
@@ -71,6 +72,7 @@ public class Forecast extends JComponent {
 
     /**
      * Render the weather image.
+     *
      * @param g
      */
     @Override
@@ -81,6 +83,7 @@ public class Forecast extends JComponent {
 
     /**
      * Set the preferred size of forecast component.
+     *
      * @return Dimension of forecast component
      */
     @Override

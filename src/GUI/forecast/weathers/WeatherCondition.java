@@ -2,8 +2,9 @@ package GUI.forecast.weathers;
 
 /**
  * Weather Condition stores weather condition's data range.
- *  @author Aaron Lam
- *  @version 05-01-2020
+ *
+ * @author Aaron Lam
+ * @version 05-01-2020
  */
 public class WeatherCondition {
 

@@ -33,7 +33,13 @@ public abstract class WeatherStation {
 
     /**
      * Start the sensor suite.
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     public abstract void run() throws Exception;
+
+    /**
+     * Stop the sensor suite.
+     */
+    public abstract void kill();
 }

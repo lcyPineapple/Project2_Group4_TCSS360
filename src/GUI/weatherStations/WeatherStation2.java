@@ -45,8 +45,12 @@ public class WeatherStation2 extends WeatherStation {
 
     // Kills the processes
     public void kill() {
-        myUpdater.interrupt();
-        myServer.interrupt();
+        if (myUpdater != null) {
+            myUpdater.interrupt();
+        }
+        if (myServer != null) {
+            myServer.interrupt();
+        }
     }
 
     private void getDataAndUpdate(String host, int port) {

@@ -6,10 +6,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class WeatherStationIntegrater {
-    private WirelessConsole wirelessConsole;
-    private List<List<Double>> weatherDataLists;
     private static final int INTERVAL = 2500;
     private static final int WEATHER_DATA_LIST_SIZE = 5;
+    private WirelessConsole wirelessConsole;
+    private List<List<Double>> weatherDataLists;
     private Timer integraterTimer;
 
     public WeatherStationIntegrater() {
@@ -18,7 +18,7 @@ public class WeatherStationIntegrater {
             weatherDataLists.add(new ArrayList<>());
         }
     }
-    
+
     public WeatherStationIntegrater(WirelessConsole wirelessConsole) {
         this.wirelessConsole = wirelessConsole;
         this.weatherDataLists = new ArrayList<>();
@@ -57,7 +57,7 @@ public class WeatherStationIntegrater {
                 weatherDataLists.get(i).add(weatherData.get(i));
             }
             // Add timing information
-            weatherDataLists.get(4).add((double)System.currentTimeMillis());
+            weatherDataLists.get(4).add((double) System.currentTimeMillis());
         }
     }
 

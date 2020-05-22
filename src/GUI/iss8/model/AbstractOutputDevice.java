@@ -1,6 +1,7 @@
 package GUI.iss8.model;
 
 import GUI.iss8.data.WeatherData;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -9,43 +10,48 @@ import java.util.List;
 
 /**
  * This class represents the Output devices that obtains information from the ISS.
- * @author yolandaxu
- * @version Spring 2020
- * 
- * Promoted to parent abstract class with more generic behavior, that extends
- * to all child output devices. 
- * @author Maxfield England
- * 
  *
+ * @author yolandaxu
+ * @author Maxfield England
+ * @version Spring 2020
+ * <p>
+ * Promoted to parent abstract class with more generic behavior, that extends
+ * to all child output devices.
  */
 public abstract class AbstractOutputDevice {
-    /** WeatherData object to read values into. */
-    private WeatherData myReadWeatherData;
-
-    /** CalculatedData object to determine calculated metrics.*/
+    /**
+     * CalculatedData object to determine calculated metrics.
+     */
     private final CalculatedData myCalculatedData;
-    
-    /** The weather information stored in the Output. */
+    /**
+     * WeatherData object to read values into.
+     */
+    private WeatherData myReadWeatherData;
+    /**
+     * The weather information stored in the Output.
+     */
     private List<String> myOutputWeatherData;
-    
+
     /**
      * Constructor super object.
      */
     public AbstractOutputDevice() {
         myCalculatedData = new CalculatedData();
     }
-    
+
     /**
      * Gets the weather information from the Output.
+     *
      * @return the weather information
      */
     public List<String> getOutputData() {
         return (ArrayList<String>) myOutputWeatherData;
     }
-    
+
     /**
      * Reads serialized data from weather file, and updates the OutputDevice's
      * state of weather data.
+     *
      * @param theFileName - file name
      */
     public void read(final String theFileName) {
@@ -57,7 +63,7 @@ public abstract class AbstractOutputDevice {
             in.close();
             fileInputStream.close();
             final ArrayList<String> dataList = new ArrayList<String>();
-            
+
             dataList.add(Integer.toString(myReadWeatherData.getAirTemperatures()));
             dataList.add(Integer.toString(myCalculatedData.windChill(myReadWeatherData.
                     getAirTemperatures(), myReadWeatherData.getWindSpeed())));
@@ -72,7 +78,7 @@ public abstract class AbstractOutputDevice {
             dataList.add(myReadWeatherData.getWindDirection());
             dataList.add(Integer.toString(myReadWeatherData.getRainfall()));
             dataList.add(Integer.toString(myReadWeatherData.getHumidity()));
-            
+
             myOutputWeatherData = dataList;
         } catch (final IOException e) {
             e.printStackTrace();
@@ -80,22 +86,23 @@ public abstract class AbstractOutputDevice {
             c.printStackTrace();
         }
     }
-    
+
     /**
      * Returns full WeatherData object.
+     *
      * @return WeatherData Object
      */
     public WeatherData getWeatherData() {
         return myReadWeatherData;
     }
-    
+
     /**
-     * Notifies the object that new data is available for update; 
-     * the object can read the file and must have some child-defined 
+     * Notifies the object that new data is available for update;
+     * the object can read the file and must have some child-defined
      * behavior for handling the incoming new data.
-     * 
+     *
      * @param theFileName The string representation of the name of the file
-     * to be read
+     *                    to be read
      */
-    public abstract void ping(String theFileName); 
+    public abstract void ping(String theFileName);
 }

@@ -1,31 +1,48 @@
 /*
- * A data point that tracks solar radiation data.
+ * A data point that tracks ultra violet data points.
  */
 
-package GUI.sensorSuites.sensorSuite6.src.WeatherData;
+package GUI.sensorSuite6.src.WeatherData;
 
 import java.util.Objects;
 
 /**
- * Collects the data from the sensor and adds to 
- * the readings and throw warning if gets higher than normal.
+ * Collects and processes ultraVoilet data from the
+ * respective sensors.
+ *
  * @author Paras Sharma
  * @version 0.01
  */
-public class SolarRadiation extends HistoricalDataPoint {
+public class UltraViolet extends HistoricalDataPoint {
 
-    /** The data type (category) that describes this object. */
-    private final DataType dataType = DataType.SOLAR_RADIATION;
-    /** The value at which a warning is registered. */
-    private final int WARNING_LEVEL = 200;
-    /** The unit in which this data point represents values. */
-    private final String unit = "W/m^2";
-    /** The sensor type providing this instance with data. */
-    private Sensor sensor;
-    /** Range the lower bound accepts. */
+    /**
+     * The data type (category) that describes this object.
+     */
+    private final DataType dataType = DataType.ULTRAVIOLET;
+    /**
+     * The unit in which this data point is interpreting values.
+     */
+    private final String unit = "MEDs";
+    /**
+     * Range the lower bound accepts.
+     */
     private final int rangeLow = 0;
-    /** Range the upper bound accepts. */
-    private final int rangeHigh = 1800; // W/m^2
+    /**
+     * Range the upper bound accepts.
+     */
+    private final int rangeHigh = 199; // MEDs
+    /**
+     * Alarm lowRange.
+     */
+    private final int alarmRangeLow = 0;
+    /**
+     * Alarm highRange.
+     */
+    private final double alarmRangeHigh = 19.9; // MEDs
+    /**
+     * The sensor type providing this instance with data.
+     */
+    private Sensor sensor;
 
 
     /**
@@ -35,8 +52,8 @@ public class SolarRadiation extends HistoricalDataPoint {
      * @param s the type of sensor that will send this
      *          object data (inside,
      */
-    public SolarRadiation(Sensor s) {
-        Objects.requireNonNull(s, "Sensor type cannot be null.");
+    public UltraViolet(Sensor s) {
+        Objects.requireNonNull(s, "WeatherData.Sensor type cannot be null.");
         this.sensor = s;
     }
 
@@ -56,8 +73,7 @@ public class SolarRadiation extends HistoricalDataPoint {
     }
 
     /**
-     * Throws a warning on display if the W/m^2 go higher
-     * than hourly or daily reading.
+     * Throws a warning on display if the MEDs go high.
      *
      * @param point, data that will compared with range
      * @return warning String
@@ -65,8 +81,10 @@ public class SolarRadiation extends HistoricalDataPoint {
     public String alarmWarning(double point) {
         double point1 = point;
         StringBuilder sb = new StringBuilder();
-        if (point1 >= WARNING_LEVEL) {
-            sb.append("WARNING!, Higher Radiations than usual");
+        if (point1 >= alarmRangeHigh) {
+            sb.append("WARNING!, UV dosage is HIGH");
+        } else if (point1 == alarmRangeLow) {
+            sb.append("No protection needed");
         }
 
         return sb.toString();
@@ -75,8 +93,9 @@ public class SolarRadiation extends HistoricalDataPoint {
     /**
      * Gets a string description of the unit in which
      * this object is interpreting data.
+     *
      * @return a string representation of the unit in which this object
-     *         interprets data
+     * interprets data
      */
     @Override
     public String getUnit() {
@@ -85,6 +104,7 @@ public class SolarRadiation extends HistoricalDataPoint {
 
     /**
      * Returns this objects data type.
+     *
      * @return an enum specifying the type of data this object represents
      */
     @Override
@@ -95,8 +115,9 @@ public class SolarRadiation extends HistoricalDataPoint {
     /**
      * Returns the upper bound of the range of acceptable
      * values for this data point.
+     *
      * @return a double representing the upper bound of acceptable
-     *         values for this data point
+     * values for this data point
      */
     @Override
     public double getUpperBound() {
@@ -106,8 +127,9 @@ public class SolarRadiation extends HistoricalDataPoint {
     /**
      * Returns the lower bound of the range of acceptable
      * values for this data point.
+     *
      * @return a double representing the lower bound of acceptable
-     *         values for this data point
+     * values for this data point
      */
     @Override
     public double getLowerBound() {

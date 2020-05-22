@@ -2,11 +2,11 @@
  * A set of unit tests covering the historical data point
  * class.
  */
-package GUI.sensorSuites.sensorSuite6.test;
+package GUI.sensorSuite6.test;
 
-import GUI.sensorSuites.sensorSuite6.src.WeatherData.DataType;
-import GUI.sensorSuites.sensorSuite6.src.WeatherData.HistoricalDataPoint;
-import GUI.sensorSuites.sensorSuite6.src.WeatherData.Sensor;
+import GUI.sensorSuite6.src.WeatherData.DataType;
+import GUI.sensorSuite6.src.WeatherData.HistoricalDataPoint;
+import GUI.sensorSuite6.src.WeatherData.Sensor;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -16,12 +16,15 @@ import java.util.Random;
 /**
  * A set of unit tests covering the HistoricalDataPoint
  * class hierarchy.
+ *
  * @author Spencer Little
  * @version 0.0.0
  */
 public class HistoricalDataPointTest {
 
-    /** The random number generator used to create data points. */
+    /**
+     * The random number generator used to create data points.
+     */
     private final Random numGen = new Random();
 
     /**
@@ -44,7 +47,7 @@ public class HistoricalDataPointTest {
      * Calendar to simulate time passed.
      */
     public void testDailyReading(HistoricalDataPoint testCollector) {
-        double max = Double.MIN_VALUE,  min = Double.MAX_VALUE;
+        double max = Double.MIN_VALUE, min = Double.MAX_VALUE;
         int day = testCollector.getCalendar().get(Calendar.DAY_OF_YEAR);
         for (int i = 0; i < numGen.nextInt(1000); i++) {
             double data = testCollector.getLowerBound()

@@ -1,49 +1,60 @@
 /*
- * A data point that tracks rail rate.
+ * A data point that tracks rail fall.
  */
 
-package GUI.sensorSuites.sensorSuite6.src.WeatherData;
+package GUI.sensorSuite6.src.WeatherData;
 
 import java.util.Objects;
 
 /**
- * The rain rate data processing model, accepting 
- * rain rate metrics from its sensor. 
+ * The rainfall data processing model which
+ * measures highs and lows for rainfall.
+ *
  * @author Deline Zent
  */
-public class RainRate extends HistoricalDataPoint {
+public class RainFall extends HistoricalDataPoint {
 
-    /** The data type (category) that describes this object. */
-    private final DataType dataType = DataType.RAIN_RATE;
-    /** A serial number for this class. */
-    private static final long serialVersionUID = 4427698316186989617L;
-    /** The upper bound of the acceptable input range. */
-    private final double rangeHigh;
-    /** The lower bound of the acceptable input range. */
-    private final int rangeLow = 0;
-    /** The scale in which this data point is interpreting values. */
-    private final length scale;
-    /** The user specified measuring options. */
-    public enum length {INCHES, MILLIMETERS}
-    
     /**
-     * Constructs a new WeatherData.RainRate data processing
+     * A serial number for the class.
+     */
+    private static final long serialVersionUID = -6415044752166543910L;
+    /**
+     * The data type (category) that describes this object.
+     */
+    private final DataType dataType = DataType.RAIN_FALL;
+    /**
+     * The upper bound of the acceptable input range in inches.
+     */
+    private final double rangeHigh;
+    /**
+     * The lower bound of the acceptable input range in inches.
+     */
+    private final int rangeLow = 0;
+    /**
+     * The scale in which this data point is interpreting values.
+     */
+    private final length scale;
+
+    /**
+     * Constructs a new WeatherData.RainFall data processing
      * instance for the specified measuring unit.
+     *
      * @param theLength is the unit of measurement
      */
-    public RainRate(length theLength) {
+    public RainFall(length theLength) {
         scale = Objects.requireNonNull(theLength, "Length scale cannot be null.");
         if (theLength == length.INCHES) {
-            rangeHigh = 0.04;
+            rangeHigh = 99.99;
         } else {
-            rangeHigh = 1;
+            rangeHigh = 999.98;
         }
     }
-    
+
     /**
      * Adds a data point to the historical data set,
      * ignoring points that are out of the appropriate
      * range.
+     *
      * @param point the data point to be added.
      */
     @Override
@@ -55,8 +66,9 @@ public class RainRate extends HistoricalDataPoint {
     /**
      * Gets a string description of the unit in which
      * this object is interpreting data.
+     *
      * @return a string representation of the unit in which this object
-     *         interprets data
+     * interprets data
      */
     @Override
     public String getUnit() {
@@ -68,6 +80,7 @@ public class RainRate extends HistoricalDataPoint {
 
     /**
      * Returns this objects data type.
+     *
      * @return an enum specifying the type of data this object represents
      */
     @Override
@@ -78,8 +91,9 @@ public class RainRate extends HistoricalDataPoint {
     /**
      * Returns the upper bound of the range of acceptable
      * values for this data point.
+     *
      * @return a double representing the upper bound of acceptable
-     *         values for this data point
+     * values for this data point
      */
     @Override
     public double getUpperBound() {
@@ -89,12 +103,17 @@ public class RainRate extends HistoricalDataPoint {
     /**
      * Returns the lower bound of the range of acceptable
      * values for this data point.
+     *
      * @return a double representing the lower bound of acceptable
-     *         values for this data point
+     * values for this data point
      */
     @Override
     public double getLowerBound() {
         return rangeLow;
     }
 
+    /**
+     * The user specified measuring options.
+     */
+    public enum length {INCHES, MILLIMETERS}
 }

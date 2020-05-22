@@ -2,7 +2,7 @@
  * A base class that manages historical data processing.
  */
 
-package GUI.sensorSuites.sensorSuite6.src.WeatherData;
+package GUI.sensorSuite6.src.WeatherData;
 
 import java.io.Serializable;
 import java.util.*;
@@ -10,46 +10,78 @@ import java.util.*;
 /**
  * Cumulatively processes sensor input and tracks historical
  * metrics.
+ *
  * @author Spencer Little
  * @version 0.0.0
  */
 public abstract class HistoricalDataPoint implements WDataPoint, Serializable {
 
-    /** The maximum number of data points held by an object. */
+    /**
+     * The maximum number of data points held by an object.
+     */
     public static final int CAPACITY = 24;
-    /** Calendar object, tracks time stamps. */
-    private GregorianCalendar currCal = new GregorianCalendar();
-    /** All data points received from sensor. */
+    /**
+     * All data points received from sensor.
+     */
     protected final LinkedList<Double> allReadings = new LinkedList<>();
-    /** Aggregated readings from each hour. */
+    /**
+     * Aggregated readings from each hour.
+     */
     private final LinkedList<Double> hourlyReadings = new LinkedList<>();
-    /** The most recent reading from the sensor. */
+    /**
+     * Calendar object, tracks time stamps.
+     */
+    private GregorianCalendar currCal = new GregorianCalendar();
+    /**
+     * The most recent reading from the sensor.
+     */
     private double currentReading;
-    /** Daily high temp. Resets every 24 hours after initial data point is added.*/
+    /**
+     * Daily high temp. Resets every 24 hours after initial data point is added.
+     */
     private double dailyHigh = Double.MIN_VALUE;
-    /** Daily low temp. Resets every 24 hours after initial data point is added.*/
+    /**
+     * Daily low temp. Resets every 24 hours after initial data point is added.
+     */
     private double dailyLow = Double.MAX_VALUE;
-    /** Monthly high temp. Resets every ~30 days after initial data point is added.*/
+    /**
+     * Monthly high temp. Resets every ~30 days after initial data point is added.
+     */
     private double monthlyHigh = Double.MIN_VALUE;
-    /** Monthly low temp. Resets every ~30 days after initial data point is added.*/
+    /**
+     * Monthly low temp. Resets every ~30 days after initial data point is added.
+     */
     private double monthlyLow = Double.MAX_VALUE;
-    /** Yearly high temp. Resets every 365 days after initial data point is added.*/
+    /**
+     * Yearly high temp. Resets every 365 days after initial data point is added.
+     */
     private double yearlyHigh = Double.MIN_VALUE;
-    /** Yearly low temp. Resets every 365 days after initial data point is added.*/
+    /**
+     * Yearly low temp. Resets every 365 days after initial data point is added.
+     */
     private double yearlyLow = Double.MAX_VALUE;
-    /** Epoch time stamp, tracks when an hour has passed. */
+    /**
+     * Epoch time stamp, tracks when an hour has passed.
+     */
     private long hourInterval = currCal.getTimeInMillis();
-    /** The Calendar day in which the most recent data point was added. */
+    /**
+     * The Calendar day in which the most recent data point was added.
+     */
     private int currDay = currCal.get(Calendar.DAY_OF_YEAR);
-    /** The Calendar month in which the most recent data point was added. */
+    /**
+     * The Calendar month in which the most recent data point was added.
+     */
     private int currMonth = currCal.get(Calendar.MONTH);
-    /** The Calendar year in which the most recent data point was added. */
+    /**
+     * The Calendar year in which the most recent data point was added.
+     */
     private int currYear = currCal.get(Calendar.YEAR);
 
     /**
      * Factory method to construct a data processing object from the
      * specified DataType and Sensor. Defaults to metric system for
      * objects with varying scales.
+     *
      * @param t the desired type of the new data point
      * @param s the type of sensor (only available for some data points)
      * @return a new data point with the specified type and sensor
@@ -92,71 +124,108 @@ public abstract class HistoricalDataPoint implements WDataPoint, Serializable {
         return newPoint;
     }
 
-    /** Gets this objects data type. */
+    /**
+     * Gets this objects data type.
+     */
     public abstract DataType getType();
 
-    /** Gets the unit this data type is interpreting data as. */
+    /**
+     * Gets the unit this data type is interpreting data as.
+     */
     public abstract String getUnit();
 
-    /** Gets the upper bound of the acceptable input range for this data point. */
+    /**
+     * Gets the upper bound of the acceptable input range for this data point.
+     */
     public abstract double getUpperBound();
 
-    /** Gets the lower bound of the acceptable input range for this data point. */
+    /**
+     * Gets the lower bound of the acceptable input range for this data point.
+     */
     public abstract double getLowerBound();
 
-    /** Gets the record of all data point accepted by this object. */
+    /**
+     * Gets the record of all data point accepted by this object.
+     */
     public List<Double> getAllReadings() {
         return allReadings;
     }
 
-    /** Gets the daily high. */
+    /**
+     * Gets the daily high.
+     */
     public double getDailyHigh() {
         return dailyHigh;
     }
 
-    /** Gets the daily low. */
+    /**
+     * Gets the daily low.
+     */
     public double getDailyLow() {
         return dailyLow;
     }
 
-    /** Gets the monthly high. */
+    /**
+     * Gets the monthly high.
+     */
     public double getMonthlyHigh() {
         return monthlyHigh;
     }
 
-    /** Gets the monthly low. */
+    /**
+     * Gets the monthly low.
+     */
     public double getMonthlyLow() {
         return monthlyLow;
     }
 
-    /** Gets the yearly high. */
+    /**
+     * Gets the yearly high.
+     */
     public double getYearlyHigh() {
         return yearlyHigh;
     }
 
-    /** Gets the yearly low. */
+    /**
+     * Gets the yearly low.
+     */
     public double getYearlyLow() {
         return yearlyLow;
     }
 
-    /** Gets all hourly readings. */
+    /**
+     * Gets all hourly readings.
+     */
     public List<Double> getHourlyReadings() {
         return hourlyReadings;
     }
 
-    /** Gets the current Calendar used to maintain chronology for this object. */
-    public GregorianCalendar getCalendar() { return currCal; }
+    /**
+     * Gets the current Calendar used to maintain chronology for this object.
+     */
+    public GregorianCalendar getCalendar() {
+        return currCal;
+    }
 
-    /** Sets the current Calendar used to maintain chronology for this object. */
-    public void setCalendar(GregorianCalendar cal) { currCal = cal; }
+    /**
+     * Sets the current Calendar used to maintain chronology for this object.
+     */
+    public void setCalendar(GregorianCalendar cal) {
+        currCal = cal;
+    }
 
-    /** Sets this objects calendar. */
-    public void addToCal(int field, int amount) { currCal.add(field, amount); }
+    /**
+     * Sets this objects calendar.
+     */
+    public void addToCal(int field, int amount) {
+        currCal.add(field, amount);
+    }
 
     /**
      * Adds a data point to the historical collection of data
      * (hourly intervals, daily, monthly, and yearly highs. Assumes
      * the data point is within valid range.
+     *
      * @param point the data point to be added.
      */
     @Override
@@ -201,6 +270,7 @@ public abstract class HistoricalDataPoint implements WDataPoint, Serializable {
     /**
      * Adds a data point from an external sensor, meaning
      * the historical tracking is simply omitted.
+     *
      * @param point the data point to be added
      */
     public void addExternalDataPoint(double point) {
@@ -213,6 +283,7 @@ public abstract class HistoricalDataPoint implements WDataPoint, Serializable {
      * Compares another HistoricalData point with this by
      * comparing the hourly and most recent readings, and all
      * high/low metrics.
+     *
      * @param o the other HistoricalDataPoint object to compare
      *          against this
      * @return a boolean indicating whether this == o

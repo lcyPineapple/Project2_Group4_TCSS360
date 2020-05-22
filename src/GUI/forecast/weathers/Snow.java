@@ -5,6 +5,7 @@ import java.util.Map;
 
 /**
  * This class defines "snow" weather conditions.
+ *
  * @author Aaron Lam
  * @version 05-01-2020
  */

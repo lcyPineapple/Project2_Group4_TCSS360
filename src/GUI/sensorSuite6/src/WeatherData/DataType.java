@@ -3,33 +3,52 @@
  * data outputs.
  */
 
-package GUI.sensorSuites.sensorSuite6.src.WeatherData;
+package GUI.sensorSuite6.src.WeatherData;
 
 /**
- * Distinguishes different types of data 
- * measured by all the sensors for the 
- * weather station. 
+ * Distinguishes different types of data
+ * measured by all the sensors for the
+ * weather station.
+ *
  * @author Deline Zent
  * @version 0.0.0
  */
 public enum DataType {
-    /** The humidity in the air. */
-    HUMIDITY, 
-    /** The amount of radiation in the air. */
-    SOLAR_RADIATION, 
-    /** The temperature in celsius/fahrenheit. */
-    TEMPERATURE, 
-    /** The amount of UV measured from the sun. */
-    ULTRAVIOLET, 
-    /** The amount of rain that has fallen in inches/mm. */
-    RAIN_FALL, 
-    /** The rate the rain is falling in a time frame.  */
-    RAIN_RATE, 
-    /** The moisture levels in the soil. */
-    SOIL_MOISTURE, 
-    /** The direction of the wind. */
-    WIND_DIRECTION, 
-    /** The speed of the wind. */
+    /**
+     * The humidity in the air.
+     */
+    HUMIDITY,
+    /**
+     * The amount of radiation in the air.
+     */
+    SOLAR_RADIATION,
+    /**
+     * The temperature in celsius/fahrenheit.
+     */
+    TEMPERATURE,
+    /**
+     * The amount of UV measured from the sun.
+     */
+    ULTRAVIOLET,
+    /**
+     * The amount of rain that has fallen in inches/mm.
+     */
+    RAIN_FALL,
+    /**
+     * The rate the rain is falling in a time frame.
+     */
+    RAIN_RATE,
+    /**
+     * The moisture levels in the soil.
+     */
+    SOIL_MOISTURE,
+    /**
+     * The direction of the wind.
+     */
+    WIND_DIRECTION,
+    /**
+     * The speed of the wind.
+     */
     WIND_SPEED;
 
     /**
@@ -43,6 +62,7 @@ public enum DataType {
 
     /**
      * Returns a string representation of this DataType.
+     *
      * @return a string describing the DataType
      */
     public String toString() {

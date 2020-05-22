@@ -1,25 +1,25 @@
 package GUI.iss8.tests;
 
-import static org.junit.Assert.assertEquals;
-
+import GUI.iss8.model.CalculatedData;
 import org.junit.jupiter.api.Test;
 
-import GUI.iss8.model.CalculatedData;
-import GUI.iss8.res.R;
+import static org.junit.Assert.assertEquals;
 
 /**
- * This cass runs unit tests on each of the methods in the CalculateData class to 
- * ensure that they work correctly. 
- * 
+ * This cass runs unit tests on each of the methods in the CalculateData class to
+ * ensure that they work correctly.
+ *
  * @author Dean Kelley
  * @version Spring 2020
  */
 public class CalculationUnitTests {
-    /** calculatedData object. */
-    private final CalculatedData myData = new CalculatedData();
-    
     /**
-     * Tests the conversion method for Fahrenheit and Celsius. 
+     * calculatedData object.
+     */
+    private final CalculatedData myData = new CalculatedData();
+
+    /**
+     * Tests the conversion method for Fahrenheit and Celsius.
      */
     @Test
     void convertTempTests() {
@@ -37,10 +37,10 @@ public class CalculationUnitTests {
                 F), 0);
         assertEquals(GUI.iss8.res.R.Strings.RSM, -273, CalculatedData.convertTemp(C2, "a"), 0);
     }
- 
- 	/**
- 	 * Tests the conversion method for pGUI.iss8.ressure.
- 	 */
+
+    /**
+     * Tests the conversion method for pGUI.iss8.ressure.
+     */
     @Test
     void convertPessureTests() {
         final double inHG = 30.0;
@@ -59,7 +59,7 @@ public class CalculationUnitTests {
         assertEquals(GUI.iss8.res.R.Strings.RSM, inHG, myData.convertPressure(inHG, GUI.iss8.res.R.Strings.
                 INHG), 0);
     }
-	
+
     /**
      * Tests the dew point method for temperatuGUI.iss8.res in both Fahrenheit and Celsius.
      */
@@ -77,70 +77,70 @@ public class CalculationUnitTests {
         assertEquals(GUI.iss8.res.R.Strings.RSM, FDP1, myData.dewPoint(F1, RH, GUI.iss8.res.R.
                 Strings.F), 0);
         assertEquals(GUI.iss8.res.R.Strings.RSM, FDP2, myData.dewPoint(F2, RH, GUI.iss8.res.R.
-	            Strings.F), 0);
+                Strings.F), 0);
         assertEquals(GUI.iss8.res.R.Strings.RSM, CDP1, myData.dewPoint(C1, RH, GUI.iss8.res.R.
-	            Strings.C), 0);
+                Strings.C), 0);
         assertEquals(GUI.iss8.res.R.Strings.RSM, CDP2, myData.dewPoint(C2, RH, GUI.iss8.res.R.
-	            Strings.C), 0);
+                Strings.C), 0);
     }
-	
-	/**
-	 * Tests the heat index method for both Fahrenheit and Celsius.
-	 */
-	@Test
-	void heatIndexTests() {
-		final int RH1 = 70;
-		final int F1 = 80;
-		final int FHI1 = 83;
-		final int F2 = 82;
-		final int FHI2 = 79;
-		final int F3 = 70;
-		final int FHI3 = 70;
-		final int RH2 = 12;
-		final int C1 = 30;
-		final int CHI1 = 41;
-		final int CHI2 = 28;
-		final int RH3 = 90;
-		assertEquals(GUI.iss8.res.R.Strings.RSM, FHI1, myData.heatIndex(F1, RH1, GUI.iss8.res.R.
-				Strings.F), 0);
-		assertEquals(GUI.iss8.res.R.Strings.RSM, FHI2, myData.heatIndex(F2, RH2, GUI.iss8.res.R.
-				Strings.F), 0);
-		assertEquals(GUI.iss8.res.R.Strings.RSM, FHI3, myData.heatIndex(F3, RH1, GUI.iss8.res.R.
-				Strings.F), 0);
-		assertEquals(GUI.iss8.res.R.Strings.RSM, CHI1, myData.heatIndex(C1, RH3, GUI.iss8.res.R.
-				Strings.C), 0);
-		assertEquals(GUI.iss8.res.R.Strings.RSM, CHI2, myData.heatIndex(C1, RH2, GUI.iss8.res.R.
-				Strings.C), 0);
-	}
-	
-	/**
-	 * Tests the wind speed method.
-	 */
-	@Test
-	void convertWindSpeedTests() {
-		final int mph = 50;
-		final int kph = 80;
-		final int mps = 22;
-		final int knot = 43;
-		assertEquals(GUI.iss8.res.R.Strings.RSM, kph, myData.convertWindSpeed(mph, GUI.iss8.res.R.
-				Strings.KPH), 0);
-		assertEquals(GUI.iss8.res.R.Strings.RSM, mps, myData.convertWindSpeed(mph, GUI.iss8.res.R.
-				Strings.MPS), 0);
-		assertEquals(GUI.iss8.res.R.Strings.RSM, knot, myData.convertWindSpeed(mph, GUI.iss8.res.R.
-				Strings.KNOT), 0);
-	}
-	
-	/**
-	 * Tests wind chill method.
-	 */
-	@Test
-	void windChillTest() {
-		final int T1 = 30;
-		final int T2 = 46;
-		final int V = 20;
-		final int WC1 = 17;
-		final int WC2 = 46;
-		assertEquals(GUI.iss8.res.R.Strings.RSM, WC1, myData.windChill(T1, V), 0);
-		assertEquals(GUI.iss8.res.R.Strings.RSM, WC2, myData.windChill(T2, V), 0);
-	}
+
+    /**
+     * Tests the heat index method for both Fahrenheit and Celsius.
+     */
+    @Test
+    void heatIndexTests() {
+        final int RH1 = 70;
+        final int F1 = 80;
+        final int FHI1 = 83;
+        final int F2 = 82;
+        final int FHI2 = 79;
+        final int F3 = 70;
+        final int FHI3 = 70;
+        final int RH2 = 12;
+        final int C1 = 30;
+        final int CHI1 = 41;
+        final int CHI2 = 28;
+        final int RH3 = 90;
+        assertEquals(GUI.iss8.res.R.Strings.RSM, FHI1, myData.heatIndex(F1, RH1, GUI.iss8.res.R.
+                Strings.F), 0);
+        assertEquals(GUI.iss8.res.R.Strings.RSM, FHI2, myData.heatIndex(F2, RH2, GUI.iss8.res.R.
+                Strings.F), 0);
+        assertEquals(GUI.iss8.res.R.Strings.RSM, FHI3, myData.heatIndex(F3, RH1, GUI.iss8.res.R.
+                Strings.F), 0);
+        assertEquals(GUI.iss8.res.R.Strings.RSM, CHI1, myData.heatIndex(C1, RH3, GUI.iss8.res.R.
+                Strings.C), 0);
+        assertEquals(GUI.iss8.res.R.Strings.RSM, CHI2, myData.heatIndex(C1, RH2, GUI.iss8.res.R.
+                Strings.C), 0);
+    }
+
+    /**
+     * Tests the wind speed method.
+     */
+    @Test
+    void convertWindSpeedTests() {
+        final int mph = 50;
+        final int kph = 80;
+        final int mps = 22;
+        final int knot = 43;
+        assertEquals(GUI.iss8.res.R.Strings.RSM, kph, myData.convertWindSpeed(mph, GUI.iss8.res.R.
+                Strings.KPH), 0);
+        assertEquals(GUI.iss8.res.R.Strings.RSM, mps, myData.convertWindSpeed(mph, GUI.iss8.res.R.
+                Strings.MPS), 0);
+        assertEquals(GUI.iss8.res.R.Strings.RSM, knot, myData.convertWindSpeed(mph, GUI.iss8.res.R.
+                Strings.KNOT), 0);
+    }
+
+    /**
+     * Tests wind chill method.
+     */
+    @Test
+    void windChillTest() {
+        final int T1 = 30;
+        final int T2 = 46;
+        final int V = 20;
+        final int WC1 = 17;
+        final int WC2 = 46;
+        assertEquals(GUI.iss8.res.R.Strings.RSM, WC1, myData.windChill(T1, V), 0);
+        assertEquals(GUI.iss8.res.R.Strings.RSM, WC2, myData.windChill(T2, V), 0);
+    }
 }

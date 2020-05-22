@@ -1,13 +1,11 @@
 package GUI.iss7.views;
 
+import GUI.iss7.sensorSuite.Observable;
+
+import javax.swing.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-
-import javax.swing.JOptionPane;
-
-import GUI.iss7.sensorSuite.Observable;
 
 /**
  * This class acts as the weather envoy component in a weather system
@@ -15,31 +13,30 @@ import GUI.iss7.sensorSuite.Observable;
  */
 public class WeatherEnvoy implements Observer {
 
-	/**
-	 * The sensor suite that the envoy receives updates from.
-	 */
-    private Observable sensorSuite;
-    
     /**
      * The file name that the weather envoy writes sensor data to.
      */
     private static final String FILE_NAME = "sensor-suite-data.txt";
-    
-	private PrintWriter writer;
+    /**
+     * The sensor suite that the envoy receives updates from.
+     */
+    private Observable sensorSuite;
+    private PrintWriter writer;
 
     /**
      * Constructor for a weather envoy.
+     *
      * @param sensorSuite The sensor suite to observe.
      */
     public WeatherEnvoy(Observable sensorSuite) {
-		this.sensorSuite = sensorSuite;
+        this.sensorSuite = sensorSuite;
         try {
-			this.writer = new PrintWriter(FILE_NAME, StandardCharsets.UTF_8);
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Unable to write output file.", "Error", JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-			System.exit(1);
-		}
+            this.writer = new PrintWriter(FILE_NAME, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Unable to write output file.", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
 
     /**
@@ -47,8 +44,8 @@ public class WeatherEnvoy implements Observer {
      */
     @Override
     public void update() {
-    	writer.println("Wireless Vantage Pro2 Console Receivers");
-		writer.println(sensorSuite.getData());
-		writer.flush();
+        writer.println("Wireless Vantage Pro2 Console Receivers");
+        writer.println(sensorSuite.getData());
+        writer.flush();
     }
 }

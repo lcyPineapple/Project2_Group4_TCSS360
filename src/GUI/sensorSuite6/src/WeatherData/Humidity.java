@@ -3,32 +3,44 @@
  * metrics from the respective sensors.
  */
 
-package GUI.sensorSuites.sensorSuite6.src.WeatherData;
+package GUI.sensorSuite6.src.WeatherData;
 
 import java.util.Objects;
 
 /**
  * Collects and processes humidity data from the
  * respective sensors.
+ *
  * @author Spencer Little
  * @version 0.0.0
  */
 public class Humidity extends HistoricalDataPoint {
 
-    /** The data type (category) that describes this object. */
+    /**
+     * The data type (category) that describes this object.
+     */
     private final DataType dataType = DataType.HUMIDITY;
-    /** The unit in which the data point is representing values. */
+    /**
+     * The unit in which the data point is representing values.
+     */
     private final String unit = "relative humidity (RH)";
-    /** The sensor type providing this instance with data. */
-    private Sensor sensor;
-    /** The upper bound of the acceptable input range. */
+    /**
+     * The upper bound of the acceptable input range.
+     */
     private final int rangeHigh = 100;
-    /** The lower bound of the acceptable input range. */
+    /**
+     * The lower bound of the acceptable input range.
+     */
     private final int rangeLow = 1;
+    /**
+     * The sensor type providing this instance with data.
+     */
+    private Sensor sensor;
 
     /**
      * Constructs a new WeatherData.Humidity data processing
      * instance for the specified sensor.
+     *
      * @param sns the type of sensor that will send this
      *            object data (inside, outside, or extra)
      */
@@ -41,6 +53,7 @@ public class Humidity extends HistoricalDataPoint {
      * Adds a data point to the historical data set,
      * ignoring points that are out of the appropriate
      * range.
+     *
      * @param point the data point to be added.
      */
     @Override
@@ -53,6 +66,7 @@ public class Humidity extends HistoricalDataPoint {
 
     /**
      * Returns this objects data type.
+     *
      * @return an enum specifying the type of data this object represents
      */
     @Override
@@ -63,8 +77,9 @@ public class Humidity extends HistoricalDataPoint {
     /**
      * Gets a string description of the unit in which
      * this object is interpreting data.
+     *
      * @return a string representation of the unit in which this object
-     *         interprets data
+     * interprets data
      */
     @Override
     public String getUnit() {
@@ -74,8 +89,9 @@ public class Humidity extends HistoricalDataPoint {
     /**
      * Returns the upper bound of the range of acceptable
      * values for this data point.
+     *
      * @return a double representing the upper bound of acceptable
-     *         values for this data point
+     * values for this data point
      */
     @Override
     public double getUpperBound() {
@@ -85,8 +101,9 @@ public class Humidity extends HistoricalDataPoint {
     /**
      * Returns the lower bound of the range of acceptable
      * values for this data point.
+     *
      * @return a double representing the lower bound of acceptable
-     *         values for this data point
+     * values for this data point
      */
     @Override
     public double getLowerBound() {

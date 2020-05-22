@@ -24,7 +24,7 @@ class AnemometerSensorTest {
     @Test
     void testGetData() {
         final Sensor anemometerSensor = new AnemometerSensor();
-        for(int i = 0; i < 100; i ++) {
+        for (int i = 0; i < 100; i++) {
             final int data = anemometerSensor.getData();
             assertTrue(20 <= data);
             assertTrue(data <= 40);

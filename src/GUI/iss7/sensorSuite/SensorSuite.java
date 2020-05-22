@@ -1,6 +1,7 @@
 package GUI.iss7.sensorSuite;
 
 import GUI.iss7.sensors.*;
+import GUI.iss7.views.Observer;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -9,19 +10,17 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import GUI.iss7.views.Observer;
-
 /**
  * This class acts like a sensor suite.
  */
 public class SensorSuite implements Observable {
+    public static final File OUT4 = new File("output4.txt");
+    public static final int INTERVAL = 2500;
+    private static PrintStream out;
     private List<Observer> observers;
     private List<Sensor> sensors;
     private String data;
     private List<Double> weatherDataList = new ArrayList<>();
-    private static PrintStream out;
-    public static final File OUT4 = new File("output4.txt");
-    public static final int INTERVAL = 2500;
 
     public SensorSuite() throws Exception {
         observers = new LinkedList<>();
@@ -56,15 +55,15 @@ public class SensorSuite implements Observable {
             fetchData();
             notifyAllObservers();
             for (Sensor sensor : sensors) {
-            	weatherDataList.add((double) sensor.getData());
+                weatherDataList.add((double) sensor.getData());
                 out.print(sensor.getData() + " ");
             }
             out.println();
         }
     }
-    
+
     public List<Double> getWeatherStation4List() {
-    	return weatherDataList;
+        return weatherDataList;
     }
 
     /**

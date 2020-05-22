@@ -13,37 +13,59 @@ import java.util.List;
  * @version 5/1/2020
  */
 public class GraphComponent extends JComponent {
-    /** The left margin around the graph */
+    /**
+     * The left margin around the graph
+     */
     public static final int LEFT_MARGIN = 64;
-    /** The right margin around the graph */
+    /**
+     * The right margin around the graph
+     */
     public static final int RIGHT_MARGIN = 64;
-    /** The bottom margin around the graph */
+    /**
+     * The bottom margin around the graph
+     */
     public static final int LOWER_MARGIN = 32;
-    /** The radius of drawn data points */
+    /**
+     * The radius of drawn data points
+     */
     public static final int POINT_RAIDUS = 12;
 
-    /** The max width of the value of the time variable for display */
+    /**
+     * The max width of the value of the time variable for display
+     */
     private double myMaxWidth;
-    /** The increments for the time variable to display as vertical lines */
+    /**
+     * The increments for the time variable to display as vertical lines
+     */
     private int myIncrements;
 
-    /** The upper maximum of data point values to display */
+    /**
+     * The upper maximum of data point values to display
+     */
     private double myMaximum = 1;
-    /** The lower minimum of data point values to display */
+    /**
+     * The lower minimum of data point values to display
+     */
     private double myMinimum = -1;
 
-    /** The units that are being displayed */
+    /**
+     * The units that are being displayed
+     */
     private String myUnitLabel;
-    /** The time unit being used */
+    /**
+     * The time unit being used
+     */
     private String myTimeLabel;
 
-    /** The data points that are going to be drawn */
+    /**
+     * The data points that are going to be drawn
+     */
     private List<DataPoint> myValues = new LinkedList<>();
 
     /**
      * Creates a graph component.
      *
-     * @param theWidth - The width of the graph in units of time.
+     * @param theWidth    - The width of the graph in units of time.
      * @param theUnitName - The unit of the value being measured.
      * @param theTimeUnit - The units of time being used (hr, min, ...)
      */
@@ -53,7 +75,7 @@ public class GraphComponent extends JComponent {
         myUnitLabel = theUnitName;
         myTimeLabel = theTimeUnit;
 
-        setPreferredSize(new Dimension(500,500));
+        setPreferredSize(new Dimension(500, 500));
     }
 
     /**
@@ -77,7 +99,7 @@ public class GraphComponent extends JComponent {
      * Sets the upper limit for the graphing window.
      *
      * @param theNewMaximum - The maximum value after which the point will be off
-     *                        the graph.
+     *                      the graph.
      */
     synchronized public void setMaximum(double theNewMaximum) {
         if (theNewMaximum < myMinimum) {
@@ -85,11 +107,12 @@ public class GraphComponent extends JComponent {
         }
         myMaximum = theNewMaximum;
     }
+
     /**
      * Sets the lower limit for the graphing window.
      *
      * @param theNewMinimum - The lower value below which the point will be off
-     *                        the graph.
+     *                      the graph.
      */
     synchronized public void setMinimum(double theNewMinimum) {
         if (theNewMinimum > myMaximum) {
@@ -122,7 +145,7 @@ public class GraphComponent extends JComponent {
     @Override
     public void paintComponent(Graphics theG) {
         Graphics2D g2 = (Graphics2D) theG;
-        g2.clearRect(0,0, getWidth(), getHeight());
+        g2.clearRect(0, 0, getWidth(), getHeight());
         g2.setBackground(Color.WHITE);
         g2.setColor(Color.BLACK);
         drawGrid(g2, 0, myIncrements);
@@ -148,7 +171,7 @@ public class GraphComponent extends JComponent {
             int x = (int) ((point.myIndex / myMaxWidth) * width);
             // Reverse the graph so new values show up on the right
             x = LEFT_MARGIN + (width - x);
-            theG.drawOval(x - POINT_RAIDUS / 2, y - POINT_RAIDUS / 2, POINT_RAIDUS,POINT_RAIDUS);
+            theG.drawOval(x - POINT_RAIDUS / 2, y - POINT_RAIDUS / 2, POINT_RAIDUS, POINT_RAIDUS);
         }
     }
 
@@ -185,20 +208,20 @@ public class GraphComponent extends JComponent {
     /**
      * Draws a grid on the graph.
      *
-     * @param theG - The Graphics2D object to use to draw.
+     * @param theG    - The Graphics2D object to use to draw.
      * @param theRows - The number of rows to draw.
      * @param theCols - The number of columns to draw.
      */
     private void drawGrid(Graphics2D theG, int theRows, int theCols) {
         // Draw the horizontal lines for the x values
         for (int i = 1; i <= theRows; i++) {
-            int y = (int) (i * ((double)getGridHeight() / theRows));
+            int y = (int) (i * ((double) getGridHeight() / theRows));
             theG.drawLine(0, y, getGridWidth(), y);
         }
 
         // Draw the vertical lines for the y values
         for (int i = 0; i <= theCols; i++) {
-            int x = LEFT_MARGIN + (int) (i * ((double)getGridWidth() / theCols));
+            int x = LEFT_MARGIN + (int) (i * ((double) getGridWidth() / theCols));
             theG.drawLine(x, 0, x, getGridHeight());
         }
     }
@@ -226,9 +249,13 @@ public class GraphComponent extends JComponent {
      * DataPoint class that stores two doubles for each data point.
      */
     private class DataPoint {
-        /** The y (time) value of the data */
+        /**
+         * The y (time) value of the data
+         */
         public double myIndex;
-        /** The x (magnitude) value of the data */
+        /**
+         * The x (magnitude) value of the data
+         */
         public double myValue;
 
         /**

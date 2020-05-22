@@ -19,6 +19,7 @@ public class HumiditySensor implements Sensor {
 
     /**
      * Simulates a return value from the humidity sensor.
+     *
      * @return A random integer from 20 (inclusive) to 40 (inclusive).
      */
     @Override

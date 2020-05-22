@@ -1,18 +1,19 @@
 package GUI.weatherStations;
 
 import GUI.WeatherStationIntegrater;
-import GUI.sensorSuites.sensorSuite6.src.DataRelay;
-import GUI.sensorSuites.sensorSuite6.src.WeatherData.DataType;
-import GUI.sensorSuites.sensorSuite6.src.WeatherData.HistoricalDataPoint;
-import GUI.sensorSuites.sensorSuite6.src.WeatherData.Sensor;
+import GUI.sensorSuite6.src.DataRelay;
+import GUI.sensorSuite6.src.WeatherData.DataType;
+import GUI.sensorSuite6.src.WeatherData.HistoricalDataPoint;
+import GUI.sensorSuite6.src.WeatherData.Sensor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
 public class WeatherStation3 extends WeatherStation {
-    private static final int INTERVAL = 5000;
+    private static final int INTERVAL = 10000;
     private Map<String, Integer> indexMap;
+    private Thread integraterThread;
 
     public WeatherStation3(WeatherStationIntegrater integrater) {
         super(integrater);
@@ -26,18 +27,29 @@ public class WeatherStation3 extends WeatherStation {
     /**
      * Read data every 5 seconds.
      */
+    @Override
     public void run() {
-        Thread integraterThread = new Thread(() -> {
+        integraterThread = new Thread(() -> {
             try {
                 while (true) {
                     Thread.sleep(INTERVAL);
                     readData();
                 }
-            } catch(InterruptedException e) {
+            } catch (InterruptedException e) {
                 System.out.println(e);
             }
         });
         integraterThread.start();
+    }
+
+    /**
+     * Interrupt thread.
+     */
+    @Override
+    public void kill() {
+        if (integraterThread != null) {
+            integraterThread.interrupt();
+        }
     }
 
     public void readData() {

@@ -3,32 +3,19 @@ package GUI;
 import GUI.forecast.Forecast;
 import GUI.weatherStations.*;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.BoxLayout;
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 
 /**
  * Main console GUI that allows the user to choose up to 8 weather stations to attach to.
+ *
  * @author yolandaxu
  * @author Benjamin Munoz
  * @author Leika Yamada
@@ -36,7 +23,7 @@ import javax.swing.ImageIcon;
  */
 public class WirelessConsole {
     private WeatherStationIntegrater integrater;
-    
+
     /*The Weather Stations chosen by the user in the combo boxes.*/
     private WeatherStation comboStation1;
     private WeatherStation comboStation2;
@@ -47,158 +34,131 @@ public class WirelessConsole {
     private WeatherStation comboStation7;
     private WeatherStation comboStation8;
 
-	private JFrame frame;
-	private JPanel contentPanel;
-	
-    private JTextField timeDate;
-	private JTextField outTempValue;
-	private JTextField barometerValue;
-	private JTextField outHumValue;
-	private JTextField inTempValue;
-	private JTextField inHumValue;
-	private JTextField chillValue;
-	private JTextField dayRainValue;
-	private JTextField monthRainValue;
-	private JLabel statusLabel = new JLabel("Status message.");
+    private JFrame frame;
+    private JPanel contentPanel;
 
-	/**
-	 * Image Icons for showing the moon phase
-	 */
-	private ImageIcon firstQuarterImageIcon;
-	private ImageIcon fullMoonImageIcon;
-	private ImageIcon lastQuarterImageIcon;
-	private ImageIcon newMoonImageIcon;
-	private ImageIcon waningCrescentImageIcon;
-	private ImageIcon waxingCrescentImageIcon;
-	private ImageIcon waningGibbousImageIcon;
-	private ImageIcon waxingGibbousImageIcon;
-	
-	/**
-	 * JLabels for showing the moon phase
-	 */
-	private JLabel moonPhaseTextLbl = new JLabel("New Moon");
+    private JTextField timeDate;
+    private JTextField outTempValue;
+    private JTextField barometerValue;
+    private JTextField outHumValue;
+    private JTextField inTempValue;
+    private JTextField inHumValue;
+    private JTextField chillValue;
+    private JTextField dayRainValue;
+    private JTextField monthRainValue;
+    private JLabel statusLabel = new JLabel("Status message.");
+
+    /**
+     * Image Icons for showing the moon phase
+     */
+    private ImageIcon firstQuarterImageIcon;
+    private ImageIcon fullMoonImageIcon;
+    private ImageIcon lastQuarterImageIcon;
+    private ImageIcon newMoonImageIcon;
+    private ImageIcon waningCrescentImageIcon;
+    private ImageIcon waxingCrescentImageIcon;
+    private ImageIcon waningGibbousImageIcon;
+    private ImageIcon waxingGibbousImageIcon;
+
+    /**
+     * JLabels for showing the moon phase
+     */
+    private JLabel moonPhaseTextLbl = new JLabel("New Moon");
     private JLabel moonLabel;
-	
-	/**
-	 * Flag to indicate whether or not the 2ND 
-	 * button has been pressed.
-	 */
-	private boolean secondButtonActivated;
-	
-	/**
-	 * The compass panel
-	 */
-	private Compass compassPanel;
+
+    /**
+     * Flag to indicate whether or not the 2ND
+     * button has been pressed.
+     */
+    private boolean secondButtonActivated;
+
+    /**
+     * The compass panel
+     */
+    private Compass compassPanel;
 
     /**
      * The graph component
      */
-	private GraphComponent graphComponent;
+    private GraphComponent graphComponent;
 
     /**
      * The forecast component
      */
     private Forecast forecast;
-	
-	/**
-	 * Enum for determining which weather variables have been selected
-	 */
-	private static enum Vars {
-	    NONE,
-	    WIND_SPEED,
-	    WIND_DIRECTION,
-	    OUTER_TEMP,
-	    INNER_TEMP,
-	    OUTER_HUMIDITY,
-	    INNER_HUMIDITY,
-	    WIND_CHILL,
-	    DEW_POINT,
-	    BAROMETRIC_PRESSURE,
-	    CURRENT_UV_INDEX,
-	    DAILY_ACCUMULATED_UV_INDEX,
-	    HEAT_INDEX,
-	    THSW_INDEX, // Temperature Humidity Sun Wind Index
-	    CURRENT_RAIN_RATE,
-	    MONTH_TO_DATE_PRECIPITATION,
-	    YEAR_TO_DATE_PRECIPITATION,
-	    DAILY_RAIN,
-	    RAIN_STORM,
-	    CURRENT_SOLAR_RADIATION,
-	    CURRENT_ET,
-	    MONTHLY_ET,
-	    YEARLY_ET,
-	};
-	
-	/**
-	 * The current variable selected
-	 */
-	private Vars currentVar;
-	
-	/**
-	 * The 2ND button
-	 */
-	private JButton secondButton;
-	
-	private JPanel bottomStatusPanel;
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+    /**
+     * The current variable selected
+     */
+    private Vars currentVar;
+
+    ;
+    /**
+     * The 2ND button
+     */
+    private JButton secondButton;
+    private JPanel bottomStatusPanel;
+
+    /**
+     * Create the application.
+     *
+     * @throws Exception
+     */
+    public WirelessConsole() throws Exception {
+        initialize();
+    }
+
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
                     WirelessConsole window = new WirelessConsole();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+                    window.frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
-	/**
-	 * Create the application.
-	 * @throws Exception 
-	 */
-	public WirelessConsole() throws Exception {
-		initialize();
-	}
+    /**
+     * Initialize the contents of the frame.
+     *
+     * @throws Exception
+     */
+    private void initialize() throws Exception {
+        frame = new JFrame("Wireless Controller");
+        frame.setBounds(100, 100, 900, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	/**
-	 * Initialize the contents of the frame.
-	 * @throws Exception 
-	 */
-	private void initialize() throws Exception {
-		frame = new JFrame("Wireless Controller");
-		frame.setBounds(100, 100, 900, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		contentPanel = new JPanel(new BorderLayout(10, 10));
-		frame.add(contentPanel);
-		
-		initializeBottomStatusPanel();
-		
-		initializeComboButtons();
-		
-		initializePrimaryButtons();
-		
-		initializeMainPanels();
-		
-		currentVar = Vars.NONE;
+        contentPanel = new JPanel(new BorderLayout(10, 10));
+        frame.add(contentPanel);
 
-		initializeWeatherStations();
-	}
+        initializeBottomStatusPanel();
 
-	/**
+        initializeComboButtons();
+
+        initializePrimaryButtons();
+
+        initializeMainPanels();
+
+        currentVar = Vars.NONE;
+
+        initializeWeatherStations();
+    }
+
+    /**
      * Initialize weather stations and weather station integrater
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     private void initializeWeatherStations() throws Exception {
         this.integrater = new WeatherStationIntegrater(this);
-        
+
         ///Previous Version
-        
+
 //        WeatherStation weatherStation1 = new WeatherStation1(integrater);
 //        weatherStation1.run();
 //
@@ -206,39 +166,39 @@ public class WirelessConsole {
 //        weatherStation2.run();
 //
 //        WeatherStation weatherStation3 = new WeatherStation3(integrater);
-//        weatherStation3.run();        
-//        
+//        weatherStation3.run();
+//
 //        WeatherStation weatherStation4 = new WeatherStation4(integrater);
-//        weatherStation4.run(); 
-//        
+//        weatherStation4.run();
+//
 //        WeatherStation weatherStation5 = new WeatherStation5(integrater);
-//        weatherStation5.run(); 
-   
-      comboStation1 = new WeatherStation1(integrater);
-      comboStation2 = new WeatherStation2(integrater);
-      comboStation3 = new WeatherStation3(integrater);   
-      comboStation4 = new WeatherStation4(integrater);
-      comboStation5 = new WeatherStation5(integrater);
-      comboStation6 = new WeatherStation3(integrater);       
-      comboStation7 = new WeatherStation4(integrater);
-      comboStation8 = new WeatherStation5(integrater);
-        
-      integrater.run();
+//        weatherStation5.run();
+
+        comboStation1 = new WeatherStation1(integrater);
+        comboStation2 = new WeatherStation2(integrater);
+        comboStation3 = new WeatherStation3(integrater);
+        comboStation4 = new WeatherStation4(integrater);
+        comboStation5 = new WeatherStation5(integrater);
+        comboStation6 = new WeatherStation3(integrater);
+        comboStation7 = new WeatherStation4(integrater);
+        comboStation8 = new WeatherStation5(integrater);
+
+        integrater.run();
     }
 
     /**
-	 * Initialize the Main Panels
-	 */
-	private void initializeMainPanels() {
+     * Initialize the Main Panels
+     */
+    private void initializeMainPanels() {
         //JPanel mainPanels = new JPanel(new BorderLayout());
         JPanel mainPanels = new JPanel(new BorderLayout(10, 0));
-        
+
         // CONTENT ON THE LEFT SIDE
         JPanel leftDisplayPanel = new JPanel(new GridLayout(3, 1));
         // Wind Compass
         compassPanel = new Compass();
         leftDisplayPanel.add(compassPanel);
-        
+
         // Weather Variable Graph
         JPanel graphPanel = new JPanel(new BorderLayout());
         graphComponent = new GraphComponent(60, 30, "C", "Secs");
@@ -252,13 +212,13 @@ public class WirelessConsole {
         forecast = new Forecast();
         forecastPanel.add(forecast);
         leftDisplayPanel.add(forecastPanel);
-        
+
         mainPanels.add(leftDisplayPanel, BorderLayout.CENTER);
-        
+
         // CONTENT ON THE RIGHT SIDE
         JPanel rightDisplayPanel = new JPanel();
         rightDisplayPanel.setLayout(new BoxLayout(rightDisplayPanel, BoxLayout.Y_AXIS));
-        
+
         JPanel moonAndDatePanel = new JPanel();
         moonAndDatePanel.setLayout(new BoxLayout(moonAndDatePanel, BoxLayout.Y_AXIS));
         // Time and Date
@@ -270,16 +230,16 @@ public class WirelessConsole {
         moonAndDatePanel.add(tdPanel);
         // Moon
         moonLabel = new JLabel();
-        moonPhaseTextLbl = new JLabel("Moon Phase");        
+        moonPhaseTextLbl = new JLabel("Moon Phase");
         loadMoonIcons();
         updateMoonPhaseIconAndLabel();
         moonLabel.setAlignmentX(0.5f);
         moonPhaseTextLbl.setAlignmentX(0.5f);
         moonAndDatePanel.add(moonLabel);
         moonAndDatePanel.add(moonPhaseTextLbl);
-        
+
         rightDisplayPanel.add(moonAndDatePanel);
-        
+
         JPanel tempHumBaroPanel = new JPanel(new GridLayout(1, 3));
         // Outside Temperature
         JPanel tempOutPanel = new JPanel();
@@ -305,9 +265,9 @@ public class WirelessConsole {
         barometerPanel.add(barometerLabel);
         barometerPanel.add(barometerValue);
         tempHumBaroPanel.add(barometerPanel);
-        
+
         rightDisplayPanel.add(tempHumBaroPanel);
-        
+
         JPanel tempHumChillPanel = new JPanel(new GridLayout(1, 3));
         tempHumChillPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
         // Inside Temperature
@@ -334,9 +294,9 @@ public class WirelessConsole {
         chillPanel.add(chillLabel);
         chillPanel.add(chillValue);
         tempHumChillPanel.add(chillPanel);
-        
+
         rightDisplayPanel.add(tempHumChillPanel);
-        
+
         JPanel rainPanels = new JPanel(new GridLayout(1, 2));
         // Daily Rain
         JPanel dayRainPanel = new JPanel();
@@ -347,7 +307,7 @@ public class WirelessConsole {
         dayRainPanel.add(dayRainValue);
         dayRainPanel.setLayout(new BoxLayout(dayRainPanel, BoxLayout.Y_AXIS));
         rainPanels.add(dayRainPanel);
-        
+
         // Montly Rain
         JPanel monthRainPanel = new JPanel();
         JLabel monthRainLabel = new JLabel("RAIN MO (in)");
@@ -357,29 +317,29 @@ public class WirelessConsole {
         monthRainPanel.add(monthRainValue);
         monthRainPanel.setLayout(new BoxLayout(monthRainPanel, BoxLayout.Y_AXIS));
         rainPanels.add(monthRainPanel);
-        
+
         rightDisplayPanel.add(rainPanels);
-        
+
         mainPanels.add(rightDisplayPanel, BorderLayout.EAST);
         contentPanel.add(mainPanels);
     }
-	
+
     /**
      * Initialize the bottom status panel
      */
     private void initializeBottomStatusPanel() {
-	    bottomStatusPanel = new JPanel();
+        bottomStatusPanel = new JPanel();
         bottomStatusPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
         contentPanel.add(bottomStatusPanel, BorderLayout.SOUTH);
-	    bottomStatusPanel.add(statusLabel);
+        bottomStatusPanel.add(statusLabel);
 //        updateBottomStatusPanel();
     }
-	
+
     /**
      * Update the bottom status panel
      */
-	private String updateBottomStatusPanel(double outHum, double outTemp) {
-	    String temp = "Cool";
+    private String updateBottomStatusPanel(double outHum, double outTemp) {
+        String temp = "Cool";
         if (outTemp > 85) {
             temp = "Hot";
         } else if (outTemp > 70) {
@@ -387,7 +347,7 @@ public class WirelessConsole {
         } else {
             temp = "Cool";
         }
-        
+
         String hum = "not humid";
         if (outHum > 65) {
             hum = "Very Humid";
@@ -397,181 +357,178 @@ public class WirelessConsole {
             hum = "Not Humid";
         }
         return temp + " and " + hum + ". Temperature is " + outTemp + " degrees.";
-	}
+    }
 
-	/**
-	 * Initialize the combo buttons based on user choice.
-	 */
-    private void initializeComboButtons() throws Exception{
+    /**
+     * Initialize the combo buttons based on user choice.
+     */
+    private void initializeComboButtons() throws Exception {
         JPanel weatherStationsPanel = new JPanel();
         contentPanel.add(weatherStationsPanel, BorderLayout.NORTH);
-        
+
         JLabel stationsLabel = new JLabel("Stations:");
         weatherStationsPanel.add(stationsLabel);
-        
+
         JComboBox station1 = new JComboBox();
-        station1.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
+        station1.setModel(new DefaultComboBoxModel(new String[]{"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
         weatherStationsPanel.add(station1);
         station1.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent event1) {
-        		String choice = station1.getSelectedItem().toString();
-        		try {
-					initializeComboSelection(choice, comboStation1);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-        	}
+            public void actionPerformed(ActionEvent event1) {
+                String choice = station1.getSelectedItem().toString();
+                try {
+                    initializeComboSelection(choice, comboStation1);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         });
-        
+
         JComboBox station2 = new JComboBox();
-        station2.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
+        station2.setModel(new DefaultComboBoxModel(new String[]{"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
         weatherStationsPanel.add(station2);
         station2.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent event2) {
-        		String choice = station2.getSelectedItem().toString();
-        		try {
-        			initializeComboSelection(choice, comboStation2);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-        	}
+            public void actionPerformed(ActionEvent event2) {
+                String choice = station2.getSelectedItem().toString();
+                try {
+                    initializeComboSelection(choice, comboStation2);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         });
-        
-        
-        
+
+
         JComboBox station3 = new JComboBox();
-        station3.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
+        station3.setModel(new DefaultComboBoxModel(new String[]{"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
         weatherStationsPanel.add(station3);
         station3.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent event3) {
-        		String choice = station3.getSelectedItem().toString();
-        		try {
-        			initializeComboSelection(choice, comboStation3);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-        	}
+            public void actionPerformed(ActionEvent event3) {
+                String choice = station3.getSelectedItem().toString();
+                try {
+                    initializeComboSelection(choice, comboStation3);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         });
-        
-        
-        
+
+
         JComboBox station4 = new JComboBox();
-        station4.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
+        station4.setModel(new DefaultComboBoxModel(new String[]{"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
         weatherStationsPanel.add(station4);
         station4.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent event4) {
-        		String choice = station4.getSelectedItem().toString();
-        		try {
-        			initializeComboSelection(choice, comboStation4);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-        	}
+            public void actionPerformed(ActionEvent event4) {
+                String choice = station4.getSelectedItem().toString();
+                try {
+                    initializeComboSelection(choice, comboStation4);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         });
-        
-        
-        
+
+
         JComboBox station5 = new JComboBox();
-        station5.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
+        station5.setModel(new DefaultComboBoxModel(new String[]{"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
         weatherStationsPanel.add(station5);
         station5.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent event5) {
-        		String choice = station5.getSelectedItem().toString();
-        		try {
-        			initializeComboSelection(choice, comboStation5);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-        	}
+            public void actionPerformed(ActionEvent event5) {
+                String choice = station5.getSelectedItem().toString();
+                try {
+                    initializeComboSelection(choice, comboStation5);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         });
-        
-        
-        
+
+
         JComboBox station6 = new JComboBox();
-        station6.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
+        station6.setModel(new DefaultComboBoxModel(new String[]{"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
         weatherStationsPanel.add(station6);
         station6.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent event6) {
-        		String choice = station6.getSelectedItem().toString();
-        		try {
-        			initializeComboSelection(choice, comboStation6);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-        	}
+            public void actionPerformed(ActionEvent event6) {
+                String choice = station6.getSelectedItem().toString();
+                try {
+                    initializeComboSelection(choice, comboStation6);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         });
-          
-        
+
+
         JComboBox station7 = new JComboBox();
-        station7.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
+        station7.setModel(new DefaultComboBoxModel(new String[]{"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
         weatherStationsPanel.add(station7);
         station7.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent event7) {
-        		String choice = station7.getSelectedItem().toString();
-        		try {
-        			initializeComboSelection(choice, comboStation7);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-        	}
+            public void actionPerformed(ActionEvent event7) {
+                String choice = station7.getSelectedItem().toString();
+                try {
+                    initializeComboSelection(choice, comboStation7);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         });
-        
-        
+
+
         JComboBox station8 = new JComboBox();
-        station8.setModel(new DefaultComboBoxModel(new String[] {"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
+        station8.setModel(new DefaultComboBoxModel(new String[]{"TYPE 1", "TYPE 2", "TYPE 3", "TYPE 4", "TYPE 5"}));
         weatherStationsPanel.add(station8);
         station1.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent event8) {
-        		String choice = station8.getSelectedItem().toString();
-        		try {
-        			initializeComboSelection(choice, comboStation8);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-        	}
+            public void actionPerformed(ActionEvent event8) {
+                String choice = station8.getSelectedItem().toString();
+                try {
+                    initializeComboSelection(choice, comboStation8);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         });
-        
-        
-        
+
+
     }
-    
-    /**This method changes the weather station the GUI is connected to based 
-     * on the user's choice in the comboBoxes. Type 1 corresponds to station 1, 
-     * Type 2 corresponds to station 2, Type 3 corresponds to station 3, etc. 
-     * @param theChoice - the users choice for which station they want to connect.
+
+    /**
+     * This method changes the weather station the GUI is connected to based
+     * on the user's choice in the comboBoxes. Type 1 corresponds to station 1,
+     * Type 2 corresponds to station 2, Type 3 corresponds to station 3, etc.
+     *
+     * @param theChoice    - the users choice for which station they want to connect.
      * @param comboStation - the weatherStation object associated with the combo box.
-     * */
+     */
     public void initializeComboSelection(String theChoice, WeatherStation comboStation) throws Exception {
-    	comboStation.setConnected(false);
-    	comboStation = null;
-    	if(theChoice.equals("TYPE 1")) {
-			comboStation = new WeatherStation1(integrater);
-		}else if(theChoice.equals("TYPE 2")) {
-			comboStation = new WeatherStation2(integrater);
-		}else if(theChoice.equals("TYPE 3")) {
-			comboStation = new WeatherStation3(integrater);
-		}else if(theChoice.equals("TYPE 4")) {
-			comboStation = new WeatherStation4(integrater);
-		}else if(theChoice.equals("TYPE 5")) {
-			comboStation = new WeatherStation5(integrater);
-		}
-    	try {
-			comboStation.run();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	    comboStation.setConnected(true);
+        comboStation.setConnected(false);
+        comboStation.kill();
+        if (theChoice.equals("TYPE 1")) {
+            comboStation = new WeatherStation1(integrater);
+        } else if (theChoice.equals("TYPE 2")) {
+            comboStation = new WeatherStation2(integrater);
+        } else if (theChoice.equals("TYPE 3")) {
+            comboStation = new WeatherStation3(integrater);
+        } else if (theChoice.equals("TYPE 4")) {
+            comboStation = new WeatherStation4(integrater);
+        } else if (theChoice.equals("TYPE 5")) {
+            comboStation = new WeatherStation5(integrater);
+        }
+        try {
+            comboStation.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        comboStation.setConnected(true);
     }
 
     /**
      * Initialize the primary buttons
      */
     private void initializePrimaryButtons() {
-	  //the control buttons
+        //the control buttons
         JPanel controlsPanel = new JPanel();
         contentPanel.add(controlsPanel, BorderLayout.EAST);
         controlsPanel.setLayout(new BoxLayout(controlsPanel, BoxLayout.Y_AXIS));
-        
+
         // 2ND Button
         secondButton = new JButton("2ND");
         secondButton.setFocusable(false);
@@ -585,7 +542,7 @@ public class WirelessConsole {
             }
         });
         controlsPanel.add(secondButton);
-        
+
         // Temperature and Heat Indices button
         JButton tempHeatButton = new JButton("TEMP/HEAT");
         tempHeatButton.addActionListener(e -> {
@@ -609,7 +566,7 @@ public class WirelessConsole {
             }
         });
         controlsPanel.add(tempHeatButton);
-        
+
         // Humidity and Dew Point button
         JButton humDewButton = new JButton("HUM/DEW");
         humDewButton.addActionListener(e -> {
@@ -628,7 +585,7 @@ public class WirelessConsole {
             }
         });
         controlsPanel.add(humDewButton);
-        
+
         // Wind and Wind Chill button
         JButton windChillButton = new JButton("WIND/CHILL");
         windChillButton.addActionListener(e -> {
@@ -641,7 +598,7 @@ public class WirelessConsole {
                     currentVar = Vars.WIND_DIRECTION;
                     compassPanel.toggleSpeedDirection(false);
                     System.out.println("Wind Direction selected");
-                    
+
                 } else {
                     currentVar = Vars.WIND_SPEED;
                     compassPanel.toggleSpeedDirection(true);
@@ -650,7 +607,7 @@ public class WirelessConsole {
             }
         });
         controlsPanel.add(windChillButton);
-        
+
         // Daily Rain and Solar Radiation button
         JButton rainSolarButton = new JButton("RAINDAY/SOLAR");
         rainSolarButton.addActionListener(e -> {
@@ -669,7 +626,7 @@ public class WirelessConsole {
             }
         });
         controlsPanel.add(rainSolarButton);
-        
+
         // Rain rates and UV Indices buttons
         JButton rainUVButton = new JButton("RAINYR/UV");
         rainUVButton.addActionListener(e -> {
@@ -696,7 +653,7 @@ public class WirelessConsole {
             }
         });
         controlsPanel.add(rainUVButton);
-        
+
         // Barometric Pressure and Evapotranspiration button
         JButton barETButton = new JButton("BAR/ET");
         barETButton.addActionListener(e -> {
@@ -718,7 +675,7 @@ public class WirelessConsole {
             }
         });
         controlsPanel.add(barETButton);
-        
+
         // Graph button
         var graphButton = new JButton("GRAPH");
         graphButton.addActionListener(e -> {
@@ -728,8 +685,8 @@ public class WirelessConsole {
             }
         });
         controlsPanel.add(graphButton);
-	}
-	
+    }
+
     /**
      * Deactivate functions provided by the 2ND button
      */
@@ -737,69 +694,69 @@ public class WirelessConsole {
         secondButtonActivated = false;
         secondButton.setBackground(Color.RED);
     }
-    
+
     /**
      * Loads all of the moon icon images
      */
-     private void loadMoonIcons() {
-         try {
-             firstQuarterImageIcon = new ImageIcon(new File("moonImages/first-quarter.png").toURI().toURL());
-             fullMoonImageIcon = new ImageIcon(new File("moonImages/full-moon.png").toURI().toURL());
-             lastQuarterImageIcon = new ImageIcon(new File("moonImages/last-quarter.png").toURI().toURL());
-             newMoonImageIcon = new ImageIcon(new File("moonImages/new-moon.png").toURI().toURL());
-             waningCrescentImageIcon = new ImageIcon(new File("moonImages/waning-crescent.png").toURI().toURL());
-             waxingCrescentImageIcon = new ImageIcon(new File("moonImages/waxing-crescent.png").toURI().toURL());
-             waningGibbousImageIcon = new ImageIcon(new File("moonImages/waning-gibbous.png").toURI().toURL());
-             waxingGibbousImageIcon = new ImageIcon(new File("moonImages/waxing-gibbous.png").toURI().toURL());    
-         } catch (Exception e) {
-             System.out.println("WARNING: Some or all of the moon images failed to load");
-         }
-     }
-     
-     /**
-      * Updates the moon phase and label icons
-      */
-     private void updateMoonPhaseIconAndLabel() {
-         int myMoon = checkPhase();
-         if(myMoon == 0) {
-             moonPhaseTextLbl = new JLabel("New Moon");
-             moonLabel.setIcon(newMoonImageIcon);
-         } else if (myMoon == 1) {
-             moonPhaseTextLbl = new JLabel("Waxing Crescent");
-             moonLabel.setIcon(waxingCrescentImageIcon);
-         } else if (myMoon == 2) {
-             moonPhaseTextLbl = new JLabel("First Quarter");
-             moonLabel.setIcon(firstQuarterImageIcon);
-         } else if (myMoon == 3) {
-             moonPhaseTextLbl = new JLabel("Waxing Gibbous");
-             moonLabel.setIcon(waxingGibbousImageIcon);
-         } else if (myMoon == 4) {
-             moonPhaseTextLbl = new JLabel("Full Moon");
-             moonLabel.setIcon(fullMoonImageIcon);
-         } else if (myMoon == 5) {
-             moonPhaseTextLbl = new JLabel("Waning Gibbous");
-             moonLabel.setIcon(waningGibbousImageIcon);
-         } else if (myMoon == 6) {
-             moonPhaseTextLbl = new JLabel("Last Quarter");
-             moonLabel.setIcon(lastQuarterImageIcon);
-         } else {
-             moonPhaseTextLbl = new JLabel("Waning Crescent");
-             moonLabel.setIcon(waningCrescentImageIcon);
-         }
-     }
-    
-	/**
-	 * Returns a number indicating the phase of the moon.
-	 * For now, this number is a random integer in the 
-	 * interval [0, 7]
-	 * 
-	 * @return A number indicating the phase of the moon
-	 */
-	private int checkPhase() {
+    private void loadMoonIcons() {
+        try {
+            firstQuarterImageIcon = new ImageIcon(new File("moonImages/first-quarter.png").toURI().toURL());
+            fullMoonImageIcon = new ImageIcon(new File("moonImages/full-moon.png").toURI().toURL());
+            lastQuarterImageIcon = new ImageIcon(new File("moonImages/last-quarter.png").toURI().toURL());
+            newMoonImageIcon = new ImageIcon(new File("moonImages/new-moon.png").toURI().toURL());
+            waningCrescentImageIcon = new ImageIcon(new File("moonImages/waning-crescent.png").toURI().toURL());
+            waxingCrescentImageIcon = new ImageIcon(new File("moonImages/waxing-crescent.png").toURI().toURL());
+            waningGibbousImageIcon = new ImageIcon(new File("moonImages/waning-gibbous.png").toURI().toURL());
+            waxingGibbousImageIcon = new ImageIcon(new File("moonImages/waxing-gibbous.png").toURI().toURL());
+        } catch (Exception e) {
+            System.out.println("WARNING: Some or all of the moon images failed to load");
+        }
+    }
+
+    /**
+     * Updates the moon phase and label icons
+     */
+    private void updateMoonPhaseIconAndLabel() {
+        int myMoon = checkPhase();
+        if (myMoon == 0) {
+            moonPhaseTextLbl = new JLabel("New Moon");
+            moonLabel.setIcon(newMoonImageIcon);
+        } else if (myMoon == 1) {
+            moonPhaseTextLbl = new JLabel("Waxing Crescent");
+            moonLabel.setIcon(waxingCrescentImageIcon);
+        } else if (myMoon == 2) {
+            moonPhaseTextLbl = new JLabel("First Quarter");
+            moonLabel.setIcon(firstQuarterImageIcon);
+        } else if (myMoon == 3) {
+            moonPhaseTextLbl = new JLabel("Waxing Gibbous");
+            moonLabel.setIcon(waxingGibbousImageIcon);
+        } else if (myMoon == 4) {
+            moonPhaseTextLbl = new JLabel("Full Moon");
+            moonLabel.setIcon(fullMoonImageIcon);
+        } else if (myMoon == 5) {
+            moonPhaseTextLbl = new JLabel("Waning Gibbous");
+            moonLabel.setIcon(waningGibbousImageIcon);
+        } else if (myMoon == 6) {
+            moonPhaseTextLbl = new JLabel("Last Quarter");
+            moonLabel.setIcon(lastQuarterImageIcon);
+        } else {
+            moonPhaseTextLbl = new JLabel("Waning Crescent");
+            moonLabel.setIcon(waningCrescentImageIcon);
+        }
+    }
+
+    /**
+     * Returns a number indicating the phase of the moon.
+     * For now, this number is a random integer in the
+     * interval [0, 7]
+     *
+     * @return A number indicating the phase of the moon
+     */
+    private int checkPhase() {
 		/*
 		Below is the beginning of an implementation of a true moon phase calculator
-		
-        SimpleDateFormat dateForm = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+
+        SimpleDateFormat dateForm = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date today = new Date();
         String dateString = dateForm.format(today).toString();
         String monthString = dateString.substring(3, 5);
@@ -807,13 +764,13 @@ public class WirelessConsole {
         int month = Integer.parseInt(monthString);
         int day = Integer.parseInt(dayString);
 		*/
-	    return (new Random()).nextInt(8);
-	}
+        return (new Random()).nextInt(8);
+    }
 
     /**
      * Receives data from integrater and update GUI views.
      */
-	public void updateGUI() {
+    public void updateGUI() {
         // only one thread at a time can update the GUI.
         List<List<Double>> lists = this.integrater.getWeatherDataListsCopy();
         updateJTextFields(lists);
@@ -827,12 +784,12 @@ public class WirelessConsole {
      * Update weather data fields on GUI.
      */
     private void updateJTextFields(List<List<Double>> lists) {
-    	double outHum = 0;
-    	double outTemp = 0;
+        double outHum = 0;
+        double outTemp = 0;
         for (int i = 0; i < lists.size(); i++) {
             List<Double> list = lists.get(i);
             String average = getAverage(list);
-            switch(i) {
+            switch (i) {
                 case 0:
                     outHumValue.setText(average);
                     inHumValue.setText(average);
@@ -862,12 +819,11 @@ public class WirelessConsole {
         double windSpeed = weatherData.get(2);
         double rainfall = weatherData.get(3);
         forecast.updateWeather(humidity, windSpeed, temperature, rainfall);
-        System.out.println(forecast.getCurrentWeather().getImageFilePath());
     }
 
     private void updateCompass(List<List<Double>> lists) {
         var windSpeedList = lists.get(2);
-        // getAverage returns a string, but my 
+        // getAverage returns a string, but my
         //    setDisplayData requires a doubles.
         var avg = 0;
         for (var entry : windSpeedList) {
@@ -925,7 +881,7 @@ public class WirelessConsole {
             graphComponent.repaint();
         }
     }
-    
+
     /**
      * Log weather data from weather station integrater.
      */
@@ -956,5 +912,34 @@ public class WirelessConsole {
             sum += num;
         }
         return sum;
+    }
+
+    /**
+     * Enum for determining which weather variables have been selected
+     */
+    private static enum Vars {
+        NONE,
+        WIND_SPEED,
+        WIND_DIRECTION,
+        OUTER_TEMP,
+        INNER_TEMP,
+        OUTER_HUMIDITY,
+        INNER_HUMIDITY,
+        WIND_CHILL,
+        DEW_POINT,
+        BAROMETRIC_PRESSURE,
+        CURRENT_UV_INDEX,
+        DAILY_ACCUMULATED_UV_INDEX,
+        HEAT_INDEX,
+        THSW_INDEX, // Temperature Humidity Sun Wind Index
+        CURRENT_RAIN_RATE,
+        MONTH_TO_DATE_PRECIPITATION,
+        YEAR_TO_DATE_PRECIPITATION,
+        DAILY_RAIN,
+        RAIN_STORM,
+        CURRENT_SOLAR_RADIATION,
+        CURRENT_ET,
+        MONTHLY_ET,
+        YEARLY_ET,
     }
 }

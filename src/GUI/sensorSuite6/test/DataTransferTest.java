@@ -2,14 +2,14 @@
  * A set of unit tests covering the serialization features of the
  * DataRelay class.
  */
-package GUI.sensorSuites.sensorSuite6.test;
+package GUI.sensorSuite6.test;
 
-import GUI.sensorSuites.sensorSuite6.src.DataRelay;
-import GUI.sensorSuites.sensorSuite6.src.WeatherData.DataType;
-import GUI.sensorSuites.sensorSuite6.src.WeatherData.HistoricalDataPoint;
+import GUI.sensorSuite6.src.DataRelay;
+import GUI.sensorSuite6.src.WeatherData.DataType;
+import GUI.sensorSuite6.src.WeatherData.HistoricalDataPoint;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-import org.junit.Assert;
 import java.io.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -25,7 +25,9 @@ import java.util.Scanner;
 
 public class DataTransferTest {
 
-    /** The static testCalendar used in the testTextFileGeneration method. */
+    /**
+     * The static testCalendar used in the testTextFileGeneration method.
+     */
     private final GregorianCalendar testCal = new GregorianCalendar(0, 0, 0, 0, 0, 0);
 
     /**
@@ -128,7 +130,7 @@ public class DataTransferTest {
         testRelay.incrementCal(Calendar.DAY_OF_YEAR, 11);
         String stringChanged = cal.toString();
 
-        Assert.assertNotEquals(string,stringChanged);
+        Assert.assertNotEquals(string, stringChanged);
     }
 
     /**
@@ -167,6 +169,7 @@ public class DataTransferTest {
     /**
      * Creates a new DataRelay with all possible sensor types and
      * populates the data points with random values.
+     *
      * @return a new DataRelay populated with random values
      */
     private DataRelay genRandomRelay() {

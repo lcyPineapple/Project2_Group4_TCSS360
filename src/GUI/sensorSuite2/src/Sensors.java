@@ -8,37 +8,36 @@ import java.util.Random;
 public class Sensors {
 
     private static Random rand = new Random();
-    
+
     // Port for server to listen on
     private static int port = 9876;
-    
+
     public static void main(String[] theArgs) throws IOException {
-    	
-    	// Try to create an open socket
-    	try (var listener = new ServerSocket(port)) {
-				
-			System.out.println("Sensors Online");
-				
-			// Continually run the server
-			while (true) {
-				
-				// Try to accept a connection to the server
-				try (var socket = listener.accept()) {
-					
-					// Send the data to the connected client
-					var out = new PrintWriter(socket.getOutputStream(), true);
-					out.println(getWindSpeed() + " " + getWindDirection() + " "
-								+ getTemperature() + " " + getHumidity() + " " + getBar() + " " + getRain());
-				}
-				catch (IOException e){
-					System.exit(1);
-				}
-			}
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-    	
-    	
+
+        // Try to create an open socket
+        try (var listener = new ServerSocket(port)) {
+
+            System.out.println("Sensors Online");
+
+            // Continually run the server
+            while (true) {
+
+                // Try to accept a connection to the server
+                try (var socket = listener.accept()) {
+
+                    // Send the data to the connected client
+                    var out = new PrintWriter(socket.getOutputStream(), true);
+                    out.println(getWindSpeed() + " " + getWindDirection() + " "
+                            + getTemperature() + " " + getHumidity() + " " + getBar() + " " + getRain());
+                } catch (IOException e) {
+                    System.exit(1);
+                }
+            }
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
+
     }
 
     public static int getWindSpeed() {
@@ -54,7 +53,7 @@ public class Sensors {
                 return "East";
             case 2:
                 return "South";
-            case 3: 
+            case 3:
                 return "West";
             case 4:
                 return "Northeast";
@@ -78,9 +77,9 @@ public class Sensors {
     public static int getBar() {
         return rand.nextInt(100);
     }
-    
+
     public static int getRain() {
-    	return rand.nextInt(2);
+        return rand.nextInt(2);
     }
 
 }
