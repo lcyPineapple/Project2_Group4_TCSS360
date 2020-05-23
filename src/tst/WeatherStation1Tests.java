@@ -74,5 +74,6 @@ class WeatherStation1Tests {
         ws.getHeatIndex();
         ws.getDewPoint();
         ws.getRainfallRate();
+        ws.getWindDir();
     }
 }
