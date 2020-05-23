@@ -37,8 +37,6 @@ public class WeatherStation4 extends WeatherStation {
                     sensorSuite.run();
                 }
             } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             }
         });
         integraterThread.start();
@@ -49,8 +47,6 @@ public class WeatherStation4 extends WeatherStation {
                     updateList();
                 }
             } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             }
         });
         integraterThread2.start();

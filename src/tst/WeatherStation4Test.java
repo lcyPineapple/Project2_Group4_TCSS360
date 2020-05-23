@@ -7,6 +7,7 @@ import GUI.weatherStations.WeatherStation4;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -31,22 +32,21 @@ class WeatherStation4Test {
     }
 
     @Test
-    void testSetUp() throws Exception, IllegalAccessException {
-//		WirelessConsole wc = new WirelessConsole();
-//		WeatherStationIntegrater in = new WeatherStationIntegrater(wc);
-//		WeatherStation4 ws4 = new WeatherStation4(in);
-//		ws4.run();
-        Method method = WeatherStation4.class.getDeclaredMethod("setUp");
-        boolean setup = (boolean) method.invoke(ws4);
-        assertTrue(setup);
-    }
-
-    @Test
     void testUpdateList() throws Exception {
         Method method = WeatherStation4.class.getDeclaredMethod("updateList");
+        method.setAccessible(true);
         WeatherStation4 ws4c = new WeatherStation4(in);
         List<Double> setup = (List<Double>) method.invoke(ws4c);
         assertEquals(4, setup.size());
+    }
+    
+    
+    @Test
+    void testSetUp() throws Exception, IllegalAccessException {
+        Method method = WeatherStation4.class.getDeclaredMethod("setUp");
+        method.setAccessible(true);
+        boolean setup = (boolean) method.invoke(ws4);
+        assertTrue(setup);
     }
 
 }
