@@ -1,3 +1,5 @@
+package tst;
+
 import GUI.WeatherStationIntegrater;
 import GUI.weatherStations.WeatherStation3;
 import org.junit.Test;

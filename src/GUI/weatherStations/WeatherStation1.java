@@ -273,7 +273,7 @@ public class WeatherStation1 extends WeatherStation {
      * @return The latest integer from the given file
      */
     private int getLatestIntFrom(File f) {
-        int retr = Integer.MIN_VALUE;
+        int retr = 0;
         try {
             var dStrArr = getDataStringArrFrom(f);
             retr = Integer.parseInt(dStrArr[dStrArr.length - 1]);
@@ -290,7 +290,7 @@ public class WeatherStation1 extends WeatherStation {
      * @return The latest double from the given file
      */
     private double getLatestDoubleFrom(File f) {
-        double retr = Double.NEGATIVE_INFINITY;
+        double retr = 0;
         try {
             var dStrArr = getDataStringArrFrom(f);
             retr = Double.parseDouble(dStrArr[dStrArr.length - 1]);

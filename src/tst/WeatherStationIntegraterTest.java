@@ -1,3 +1,5 @@
+package tst;
+
 import GUI.WeatherStationIntegrater;
 import org.junit.jupiter.api.Test;
 
