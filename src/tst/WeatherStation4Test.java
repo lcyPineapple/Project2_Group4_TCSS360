@@ -15,6 +15,12 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
+ /**
+ * Weather Station Integration test for ISS7.
+ *
+ * @author Yolanda Xu
+ */
 class WeatherStation4Test {
 
     WirelessConsole c;
@@ -40,6 +46,10 @@ class WeatherStation4Test {
         while (System.currentTimeMillis() - timeA <= 3000) {};
     }
 
+    /**
+     * This tests for the updateList method, which should contain 4 elements.
+     * @throws Exception
+     */
     @Test
     void testUpdateList() throws Exception {
         Method method = WeatherStation4.class.getDeclaredMethod("updateList");
@@ -49,7 +59,11 @@ class WeatherStation4Test {
         assertEquals(4, setup.size());
     }
     
-    
+    /**
+     * The setUp method is from Project 1's weather station.
+     * @throws Exception
+     * @throws IllegalAccessException
+     */
     @Test
     void testSetUp() throws Exception, IllegalAccessException {
         Method method = WeatherStation4.class.getDeclaredMethod("setUp");
