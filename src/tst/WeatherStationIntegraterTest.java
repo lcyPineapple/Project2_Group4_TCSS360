@@ -19,8 +19,9 @@ public class WeatherStationIntegraterTest {
         }
         integrater.setState(list);
         List<List<Double>> weatherDataLists = integrater.getWeatherDataListsCopy();
-        for (List<Double> weatherDataList : weatherDataLists) {
-            assertEquals(weatherDataList.get(0), 1);
+        
+        for (int i = 0; i < 4; i++) {
+            assertEquals(weatherDataLists.get(i).get(0), 1);
         }
     }
 }
