@@ -28,6 +28,9 @@ public class WeatherStation4 extends WeatherStation {
         super(integrater);
     }
 
+    /**
+     * This method runs the weather station by receiving and transferring data.
+     */
     @Override
     public void run() throws Exception {
         integraterThread = new Thread(() -> {
@@ -65,6 +68,11 @@ public class WeatherStation4 extends WeatherStation {
         }
     }
 
+    /**
+     * Method obtained in Project 1 to set up the sensors.
+     * @return
+     * @throws Exception
+     */
     private boolean setUp() throws Exception {
         sensorSuite = new SensorSuite();
         consoleReceiver = new ConsoleReceiver(sensorSuite);
@@ -72,6 +80,10 @@ public class WeatherStation4 extends WeatherStation {
         return true;
     }
 
+    /**
+     * Method to update the list with sensor data.
+     * @return
+     */
     private List<Double> updateList() {
         List<Double> weatherDataList4 = new ArrayList<>();
         weatherDataList4.add(sc.nextDouble());
