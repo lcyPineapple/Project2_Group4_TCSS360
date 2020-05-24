@@ -2,26 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40b1ea84-4cb6-4dc7-b333-e89efc20135b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/tst/WeatherStation3Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tst/WeatherStationIntegraterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iss7.tests/sensorSuite/SensorSuiteTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/iss7/tests/sensorSuite/SensorSuiteTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iss7.tests/sensors/AnemometerSensorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/iss7/tests/sensors/AnemometerSensorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iss7.tests/sensors/HumiditySensorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/iss7/tests/sensors/HumiditySensorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iss7.tests/sensors/RainSensorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/iss7/tests/sensors/RainSensorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iss7.tests/sensors/TemperatureSensorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/iss7/tests/sensors/TemperatureSensorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iss7.tests/views/ConsoleReceiverTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/iss7/tests/views/ConsoleReceiverTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iss7.tests/views/WeatherEnvoyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/iss7/tests/views/WeatherEnvoyTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/output4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serializedData/dewpointSerializedOutput.txt" beforeDir="false" afterPath="$PROJECT_DIR$/serializedData/dewpointSerializedOutput.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serializedData/heatIndexSerializedOutput.txt" beforeDir="false" afterPath="$PROJECT_DIR$/serializedData/heatIndexSerializedOutput.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serializedData/humiditySerializedOutput.txt" beforeDir="false" afterPath="$PROJECT_DIR$/serializedData/humiditySerializedOutput.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serializedData/rainfallRateSerializedOutput.txt" beforeDir="false" afterPath="$PROJECT_DIR$/serializedData/rainfallRateSerializedOutput.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serializedData/rainfallSerializedOutput.txt" beforeDir="false" afterPath="$PROJECT_DIR$/serializedData/rainfallSerializedOutput.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serializedData/temperatureSerializedOutput.txt" beforeDir="false" afterPath="$PROJECT_DIR$/serializedData/temperatureSerializedOutput.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serializedData/windChillSerializedOutput.txt" beforeDir="false" afterPath="$PROJECT_DIR$/serializedData/windChillSerializedOutput.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serializedData/windSpeedSerializedOutput.txt" beforeDir="false" afterPath="$PROJECT_DIR$/serializedData/windSpeedSerializedOutput.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/WeatherStationIntegrater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/WeatherStationIntegrater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/weatherStations/WeatherStation3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/weatherStations/WeatherStation3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Project2_Group4_TCSS360.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project2_Group4_TCSS360.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/WirelessConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/WirelessConsole.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +61,21 @@
       <recent name="$PROJECT_DIR$/src/GUI/iss7" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in Project2_Group4_TCSS360">
+  <component name="RunManager" selected="Application.WirelessConsole">
+    <configuration name="WirelessConsole" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.WirelessConsole" />
+      <module name="Project2_Group4_TCSS360" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
@@ -94,7 +91,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WeatherStation4Test.testSetUp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WeatherStation3Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Project2_Group4_TCSS360" />
       <extension name="coverage">
         <pattern>
@@ -103,15 +100,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="tst.WeatherStation4Test" />
-      <option name="METHOD_NAME" value="testSetUp" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="tst.WeatherStation3Test" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WeatherStation4Test.testUpdateList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WeatherStation3Test.testReadData" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Project2_Group4_TCSS360" />
       <extension name="coverage">
         <pattern>
@@ -120,8 +116,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="tst.WeatherStation4Test" />
-      <option name="METHOD_NAME" value="testUpdateList" />
+      <option name="MAIN_CLASS_NAME" value="tst.WeatherStation3Test" />
+      <option name="METHOD_NAME" value="testReadData" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
@@ -139,17 +135,6 @@
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="tst.WeatherStation5Test" />
       <option name="TEST_OBJECT" value="class" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WeatherStationIntegraterTest.testIntegrater" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Project2_Group4_TCSS360" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="WeatherStationIntegraterTest" />
-      <option name="METHOD_NAME" value="testIntegrater" />
-      <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -173,11 +158,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.WirelessConsole" />
+        <item itemvalue="JUnit.WeatherStation3Test.testReadData" />
+        <item itemvalue="JUnit.WeatherStation3Test" />
         <item itemvalue="JUnit.All in Project2_Group4_TCSS360" />
         <item itemvalue="JUnit.WeatherStation5Test" />
-        <item itemvalue="JUnit.WeatherStation4Test.testUpdateList" />
-        <item itemvalue="JUnit.WeatherStation4Test.testSetUp" />
-        <item itemvalue="JUnit.WeatherStationIntegraterTest.testIntegrater" />
       </list>
     </recent_temporary>
   </component>
@@ -205,6 +190,7 @@
       <workItem from="1589604008853" duration="1398000" />
       <workItem from="1589686261283" duration="1447000" />
       <workItem from="1589760784538" duration="761000" />
+      <workItem from="1590355876777" duration="455000" />
     </task>
     <servers />
   </component>
@@ -220,38 +206,47 @@
       <screen x="1920" y="-437" width="1200" height="1897" />
     </state>
     <state x="2333" y="219" key="#com.intellij.ide.util.MemberChooser/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1097@1920.-437.1200.1897" timestamp="1589338938264" />
-    <state width="1156" height="566" key="GridCell.Tab.0.bottom" timestamp="1589761596171">
-      <screen x="1920" y="-437" width="1200" height="1897" />
+    <state width="1876" height="207" key="GridCell.Tab.0.bottom" timestamp="1590357057440">
+      <screen x="0" y="23" width="1920" height="1097" />
     </state>
+    <state width="1876" height="207" key="GridCell.Tab.0.bottom/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1097@0.23.1920.1097" timestamp="1590357057440" />
     <state width="1156" height="566" key="GridCell.Tab.0.bottom/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1097@1920.-437.1200.1897" timestamp="1589761596171" />
     <state width="1876" height="303" key="GridCell.Tab.0.bottom/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1099@0.23.1920.1099" timestamp="1589237516409" />
     <state width="1156" height="567" key="GridCell.Tab.0.bottom/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1099@1920.-437.1200.1897" timestamp="1589229315906" />
+    <state width="1396" height="207" key="GridCell.Tab.0.bottom/0.23.1440.807@0.23.1440.807" timestamp="1590355911832" />
     <state width="1156" height="566" key="GridCell.Tab.0.bottom/0.23.1440.815@0.23.1440.815" timestamp="1589611946098" />
-    <state width="1156" height="566" key="GridCell.Tab.0.center" timestamp="1589761596169">
-      <screen x="1920" y="-437" width="1200" height="1897" />
+    <state width="1876" height="207" key="GridCell.Tab.0.center" timestamp="1590357057438">
+      <screen x="0" y="23" width="1920" height="1097" />
     </state>
+    <state width="1876" height="207" key="GridCell.Tab.0.center/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1097@0.23.1920.1097" timestamp="1590357057438" />
     <state width="1156" height="566" key="GridCell.Tab.0.center/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1097@1920.-437.1200.1897" timestamp="1589761596169" />
     <state width="1876" height="303" key="GridCell.Tab.0.center/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1099@0.23.1920.1099" timestamp="1589237516408" />
     <state width="1156" height="567" key="GridCell.Tab.0.center/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1099@1920.-437.1200.1897" timestamp="1589229315905" />
+    <state width="1396" height="207" key="GridCell.Tab.0.center/0.23.1440.807@0.23.1440.807" timestamp="1590355911831" />
     <state width="1156" height="566" key="GridCell.Tab.0.center/0.23.1440.815@0.23.1440.815" timestamp="1589611946097" />
-    <state width="1156" height="566" key="GridCell.Tab.0.left" timestamp="1589761596169">
-      <screen x="1920" y="-437" width="1200" height="1897" />
+    <state width="1876" height="207" key="GridCell.Tab.0.left" timestamp="1590357057438">
+      <screen x="0" y="23" width="1920" height="1097" />
     </state>
+    <state width="1876" height="207" key="GridCell.Tab.0.left/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1097@0.23.1920.1097" timestamp="1590357057438" />
     <state width="1156" height="566" key="GridCell.Tab.0.left/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1097@1920.-437.1200.1897" timestamp="1589761596169" />
     <state width="1876" height="303" key="GridCell.Tab.0.left/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1099@0.23.1920.1099" timestamp="1589237516407" />
     <state width="1156" height="567" key="GridCell.Tab.0.left/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1099@1920.-437.1200.1897" timestamp="1589229315905" />
+    <state width="1396" height="207" key="GridCell.Tab.0.left/0.23.1440.807@0.23.1440.807" timestamp="1590355911831" />
     <state width="1156" height="566" key="GridCell.Tab.0.left/0.23.1440.815@0.23.1440.815" timestamp="1589611946097" />
-    <state width="1156" height="566" key="GridCell.Tab.0.right" timestamp="1589761596170">
-      <screen x="1920" y="-437" width="1200" height="1897" />
+    <state width="1876" height="207" key="GridCell.Tab.0.right" timestamp="1590357057439">
+      <screen x="0" y="23" width="1920" height="1097" />
     </state>
+    <state width="1876" height="207" key="GridCell.Tab.0.right/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1097@0.23.1920.1097" timestamp="1590357057439" />
     <state width="1156" height="566" key="GridCell.Tab.0.right/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1097@1920.-437.1200.1897" timestamp="1589761596170" />
     <state width="1876" height="303" key="GridCell.Tab.0.right/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1099@0.23.1920.1099" timestamp="1589237516408" />
     <state width="1156" height="567" key="GridCell.Tab.0.right/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1099@1920.-437.1200.1897" timestamp="1589229315906" />
+    <state width="1396" height="207" key="GridCell.Tab.0.right/0.23.1440.807@0.23.1440.807" timestamp="1590355911832" />
     <state width="1156" height="566" key="GridCell.Tab.0.right/0.23.1440.815@0.23.1440.815" timestamp="1589611946098" />
-    <state x="2008" y="93" key="SettingsEditor" timestamp="1589338563626">
-      <screen x="1920" y="-437" width="1200" height="1897" />
+    <state x="106" y="23" key="SettingsEditor" timestamp="1590355886262">
+      <screen x="0" y="23" width="1440" height="807" />
     </state>
     <state x="2008" y="93" key="SettingsEditor/-1440.190.1440.877/1920.-437.1200.1897/0.23.1920.1097@1920.-437.1200.1897" timestamp="1589338563626" />
+    <state x="106" y="23" key="SettingsEditor/0.23.1440.807@0.23.1440.807" timestamp="1590355886262" />
     <state x="2246" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1589149659030">
       <screen x="1920" y="-437" width="1200" height="1897" />
     </state>
