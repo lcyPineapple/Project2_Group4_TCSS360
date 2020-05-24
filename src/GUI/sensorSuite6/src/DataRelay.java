@@ -139,7 +139,7 @@ public class DataRelay implements Serializable {
      * Writes the data in each file object to a unified text file.
      */
     private void writeData() {
-        String timeStamp = String.join("_", (new Date()).toString().split(" "));
+        String timeStamp = String.join("_", new Date().toString().replace(':', '_').split(" "));
         StringBuilder data = new StringBuilder();
         for (HistoricalDataPoint dp : aggregators) {
             data.append(dp.getType().toString() + " (" + dp.getUnit() + ") ");
@@ -167,7 +167,6 @@ public class DataRelay implements Serializable {
             System.out.println("Error occurred while writing to data file.");
         }
     }
-
 
     /**
      * Compares this DataRelay with another by comparing

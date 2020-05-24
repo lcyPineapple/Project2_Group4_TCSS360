@@ -17,7 +17,7 @@ public class WeatherStation3Test {
         WeatherStationIntegrater integrater = new WeatherStationIntegrater();
         WeatherStation3 weatherStation3 = new WeatherStation3(integrater);
         weatherStation3.readData();
-        String fileName = "WDATA_" + String.join("_", (new Date()).toString().split(" ")) + ".txt";
+        String fileName = "WDATA_" + String.join("_", new Date().toString().replace(':', '_').split(" ")) + ".txt";
         assertTrue(Files.isReadable(Path.of(fileName)));
     }
 }
