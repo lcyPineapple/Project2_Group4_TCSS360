@@ -10,8 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Main console GUI that allows the user to choose up to 8 weather stations to attach to.
@@ -130,7 +133,7 @@ public class WirelessConsole {
      */
     private void initialize() throws Exception {
         frame = new JFrame("Wireless Controller");
-        frame.setBounds(100, 100, 900, 500);
+        frame.setBounds(100, 100, 1000, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         contentPanel = new JPanel(new BorderLayout(10, 10));
@@ -226,6 +229,14 @@ public class WirelessConsole {
         timeDate = new JTextField();
         timeDate.setText("Time/Date");
         timeDate.setEditable(false);
+        
+        Timer timeDateTimer = new Timer();
+        timeDateTimer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                timeDate.setText((new Date()).toString());
+            }
+        }, 0, 1000);
+        
         tdPanel.add(timeDate);
         moonAndDatePanel.add(tdPanel);
         // Moon
