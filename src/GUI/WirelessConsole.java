@@ -542,7 +542,7 @@ public class WirelessConsole {
         // Humidity and Dew Point button
         JButton humDewButton = new JButton("HUMIDITY");
         humDewButton.addActionListener(e -> {
-            graphComponent.setUnits("hPa");
+            graphComponent.setUnits("%");
             currentVar = Vars.OUTER_HUMIDITY;
         });
         controlsPanel.add(humDewButton);
