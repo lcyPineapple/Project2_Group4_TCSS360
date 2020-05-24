@@ -7,6 +7,11 @@ import GUI.weatherStations.WeatherStation2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests for weatherstation 2 (aka group 3's weather station)
+ *
+ * @author Daniel Machen
+ */
 public class WeatherStation2Test {
     WirelessConsole c;
     WeatherStationIntegrater in;

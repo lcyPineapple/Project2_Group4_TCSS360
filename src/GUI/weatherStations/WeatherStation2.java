@@ -8,6 +8,13 @@ import java.net.Socket;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * A weather station integration for group 3 weather station. Provides functionality
+ * needed for an integrater.
+ *
+ * @author Daniel Machen
+ * @version 5/24/2020
+ */
 public class WeatherStation2 extends WeatherStation {
     public static final int UPDATE_INTERVAL = 1000 * 10;
     public static Thread myServer;
@@ -53,9 +60,15 @@ public class WeatherStation2 extends WeatherStation {
         }
     }
 
-    private void getDataAndUpdate(String host, int port) {
+    /**
+     * Connects to a server that provides weather data and passes it along
+     *
+     * @param theHost - The host of the server
+     * @param thePort - The port of the server
+     */
+    private void getDataAndUpdate(String theHost, int thePort) {
         try {
-            Socket socket = new Socket(host, port);
+            Socket socket = new Socket(theHost, thePort);
             Scanner in = new Scanner(socket.getInputStream());
 
             int windSpeed = in.nextInt();

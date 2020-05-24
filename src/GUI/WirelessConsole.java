@@ -23,6 +23,7 @@ import java.util.TimerTask;
  * @author Benjamin Munoz
  * @author Leika Yamada
  * @author Aaron Lam
+ * @author Daniel Machen
  */
 public class WirelessConsole {
     private WeatherStationIntegrater integrater;
@@ -70,12 +71,6 @@ public class WirelessConsole {
     private JLabel moonLabel;
 
     /**
-     * Flag to indicate whether or not the 2ND
-     * button has been pressed.
-     */
-    private boolean secondButtonActivated;
-
-    /**
      * The compass panel
      */
     private Compass compassPanel;
@@ -94,11 +89,7 @@ public class WirelessConsole {
      */
     private Vars currentVar;
 
-    ;
-    /**
-     * The 2ND button
-     */
-    private JButton secondButton;
+
     private JPanel bottomStatusPanel;
 
     /**
@@ -540,170 +531,38 @@ public class WirelessConsole {
         contentPanel.add(controlsPanel, BorderLayout.EAST);
         controlsPanel.setLayout(new BoxLayout(controlsPanel, BoxLayout.Y_AXIS));
 
-        // 2ND Button
-        secondButton = new JButton("2ND");
-        secondButton.setFocusable(false);
-        deactivateSecondFunctions();
-        secondButton.addActionListener(e -> {
-            if (secondButtonActivated) {
-                deactivateSecondFunctions();
-            } else {
-                secondButtonActivated = true;
-                secondButton.setBackground(Color.GREEN);
-            }
-        });
-        controlsPanel.add(secondButton);
-
         // Temperature and Heat Indices button
-        JButton tempHeatButton = new JButton("TEMP/HEAT");
+        JButton tempHeatButton = new JButton("TEMP");
         tempHeatButton.addActionListener(e -> {
-            if (secondButtonActivated) {
-                if (currentVar == Vars.HEAT_INDEX) {
-                    currentVar = Vars.THSW_INDEX;
-                    System.out.println("Temperature-Humidity-Sun-Wind Index selected");
-                } else {
-                    currentVar = Vars.HEAT_INDEX;
-                    System.out.println("Heat Index selected");
-                }
-                deactivateSecondFunctions();
-            } else {
-                if (currentVar == Vars.OUTER_TEMP) {
-                    currentVar = Vars.INNER_TEMP;
-                    System.out.println("Inside temperature selected");
-                } else {
-                    currentVar = Vars.OUTER_TEMP;
-                    System.out.println("Outside temperature selected");
-                }
-            }
+            graphComponent.setUnits("C");
+            currentVar = Vars.OUTER_TEMP;
         });
         controlsPanel.add(tempHeatButton);
 
         // Humidity and Dew Point button
-        JButton humDewButton = new JButton("HUM/DEW");
+        JButton humDewButton = new JButton("HUMIDITY");
         humDewButton.addActionListener(e -> {
-            if (secondButtonActivated) {
-                currentVar = Vars.DEW_POINT;
-                System.out.println("Dew point selected");
-                deactivateSecondFunctions();
-            } else {
-                if (currentVar == Vars.OUTER_HUMIDITY) {
-                    currentVar = Vars.INNER_HUMIDITY;
-                    System.out.println("Inside humidity selected");
-                } else {
-                    currentVar = Vars.OUTER_HUMIDITY;
-                    System.out.println("Outside humidity selected");
-                }
-            }
+            graphComponent.setUnits("hPa");
+            currentVar = Vars.OUTER_HUMIDITY;
         });
         controlsPanel.add(humDewButton);
 
         // Wind and Wind Chill button
-        JButton windChillButton = new JButton("WIND/CHILL");
+        JButton windChillButton = new JButton("WIND SPEED");
         windChillButton.addActionListener(e -> {
-            if (secondButtonActivated) {
-                currentVar = Vars.WIND_CHILL;
-                System.out.println("Wind Chill selected");
-                deactivateSecondFunctions();
-            } else {
-                if (currentVar == Vars.WIND_SPEED) {
-                    currentVar = Vars.WIND_DIRECTION;
-                    compassPanel.toggleSpeedDirection(false);
-                    System.out.println("Wind Direction selected");
-
-                } else {
-                    currentVar = Vars.WIND_SPEED;
-                    compassPanel.toggleSpeedDirection(true);
-                    System.out.println("Wind Speed selected");
-                }
-            }
+            currentVar = Vars.WIND_SPEED;
+            graphComponent.setUnits("MPH");
         });
         controlsPanel.add(windChillButton);
 
         // Daily Rain and Solar Radiation button
-        JButton rainSolarButton = new JButton("RAINDAY/SOLAR");
+        JButton rainSolarButton = new JButton("RAIN RATE");
         rainSolarButton.addActionListener(e -> {
-            if (secondButtonActivated) {
-                currentVar = Vars.CURRENT_SOLAR_RADIATION;
-                System.out.println("Current Solar Radiation selected");
-                deactivateSecondFunctions();
-            } else {
-                if (currentVar == Vars.DAILY_RAIN) {
-                    currentVar = Vars.RAIN_STORM;
-                    System.out.println("\"Rain Storm\" selected");
-                } else {
-                    currentVar = Vars.DAILY_RAIN;
-                    System.out.println("Daily rain accumulation selected");
-                }
-            }
+            currentVar = Vars.CURRENT_RAIN_RATE;
+            graphComponent.setUnits("in/min");
         });
         controlsPanel.add(rainSolarButton);
 
-        // Rain rates and UV Indices buttons
-        JButton rainUVButton = new JButton("RAINYR/UV");
-        rainUVButton.addActionListener(e -> {
-            if (secondButtonActivated) {
-                if (currentVar == Vars.CURRENT_UV_INDEX) {
-                    currentVar = Vars.DAILY_ACCUMULATED_UV_INDEX;
-                    System.out.println("Daily Accumulated UV selected");
-                } else {
-                    currentVar = Vars.CURRENT_UV_INDEX;
-                    System.out.println("Current UV Index selected");
-                }
-                deactivateSecondFunctions();
-            } else {
-                if (currentVar == Vars.MONTH_TO_DATE_PRECIPITATION) {
-                    currentVar = Vars.YEAR_TO_DATE_PRECIPITATION;
-                    System.out.println("Year-to-Date precipitation selected");
-                } else if (currentVar == Vars.CURRENT_RAIN_RATE) {
-                    currentVar = Vars.MONTH_TO_DATE_PRECIPITATION;
-                    System.out.println("Month-to-Date precipitation selected");
-                } else {
-                    currentVar = Vars.CURRENT_RAIN_RATE;
-                    System.out.println("Current Rain Rate selected");
-                }
-            }
-        });
-        controlsPanel.add(rainUVButton);
-
-        // Barometric Pressure and Evapotranspiration button
-        JButton barETButton = new JButton("BAR/ET");
-        barETButton.addActionListener(e -> {
-            if (secondButtonActivated) {
-                if (currentVar == Vars.MONTHLY_ET) {
-                    currentVar = Vars.YEARLY_ET;
-                    System.out.println("Yearly Evapotranspiration selected");
-                } else if (currentVar == Vars.CURRENT_ET) {
-                    currentVar = Vars.MONTHLY_ET;
-                    System.out.println("Montly Evapotranspiration selected");
-                } else {
-                    currentVar = Vars.CURRENT_ET;
-                    System.out.println("Current Evapotranspiration selected");
-                }
-                deactivateSecondFunctions();
-            } else {
-                currentVar = Vars.BAROMETRIC_PRESSURE;
-                System.out.println("Barometric Pressure selected");
-            }
-        });
-        controlsPanel.add(barETButton);
-
-        // Graph button
-        var graphButton = new JButton("GRAPH");
-        graphButton.addActionListener(e -> {
-            System.out.println("GRAPH Button selected");
-            if (secondButtonActivated) {
-                deactivateSecondFunctions();
-            }
-        });
-        controlsPanel.add(graphButton);
-    }
-
-    /**
-     * Deactivate functions provided by the 2ND button
-     */
-    private void deactivateSecondFunctions() {
-        secondButtonActivated = false;
-        secondButton.setBackground(Color.RED);
     }
 
     /**
@@ -856,13 +715,32 @@ public class WirelessConsole {
         double max = Double.MIN_VALUE;
         double min = Double.MAX_VALUE;
 
+        int index = 1;
+        switch (currentVar) {
+            case WIND_SPEED:
+                index = 2;
+                break;
+            case OUTER_TEMP:
+                index = 1;
+                break;
+            case OUTER_HUMIDITY:
+                index = 0;
+                break;
+            case CURRENT_RAIN_RATE:
+                index = 3;
+                break;
+            default:
+                index = 1;
+                break;
+
+        }
         // Average data withen a second
         int samplesSoFar = 0;
         Double currentClusterSample = null;
         Double lastTime = null;
 
-        for (int i = 0; i < lists.get(1).size(); i++) {
-            double value = lists.get(1).get(i);
+        for (int i = 0; i < lists.get(index).size(); i++) {
+            double value = lists.get(index).get(i);
             if (currentClusterSample == null) {
                 // average the value for this sample
                 currentClusterSample = value;
@@ -887,10 +765,10 @@ public class WirelessConsole {
         }
 
         if (min < max) {
-            graphComponent.setMinimum(min);
-            graphComponent.setMaximum(max);
-            graphComponent.repaint();
+            graphComponent.setMinimum(min - Math.abs((max - min) * 0.3));
+            graphComponent.setMaximum(max + Math.abs((max - min) * 0.3));
         }
+        graphComponent.repaint();
     }
 
     /**
