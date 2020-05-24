@@ -10,7 +10,7 @@ import java.util.List;
  * given.
  *
  * @author Daniel Machen
- * @version 5/1/2020
+ * @version 5/24/2020
  */
 public class GraphComponent extends JComponent {
     /**
@@ -84,6 +84,14 @@ public class GraphComponent extends JComponent {
     synchronized public void resetData() {
         myValues = new LinkedList<>();
     }
+
+    /**
+     * Set the value of the units being measured
+     */
+    synchronized public void setUnits(String units) {
+        myUnitLabel = units;
+    }
+
 
     /**
      * Add a data point to the graph.
@@ -182,12 +190,12 @@ public class GraphComponent extends JComponent {
      */
     private void drawLabels(Graphics2D theG) {
         // Draw maximum value label
-        String maximumUnitLabel = myMaximum + myUnitLabel + " ";
+        String maximumUnitLabel = Math.round(myMaximum) + myUnitLabel + " ";
         theG.drawString(maximumUnitLabel,
                 LEFT_MARGIN - theG.getFontMetrics().stringWidth(maximumUnitLabel),
                 theG.getFontMetrics().getHeight());
         // Draw minimum value
-        String minimumUnitLabel = myMinimum + myUnitLabel + " ";
+        String minimumUnitLabel = Math.round(myMinimum) + myUnitLabel + " ";
         theG.drawString(minimumUnitLabel,
                 LEFT_MARGIN - theG.getFontMetrics().stringWidth(minimumUnitLabel),
                 getGridHeight());
