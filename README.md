@@ -1,2 +1,5 @@
 # Project2_Group4_TCSS360
-Project 2 Group 4
+
+### How to run the program
+
+Run `src/GUI/WirelessConsole.java`.
