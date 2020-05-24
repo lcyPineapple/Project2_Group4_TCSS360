@@ -13,7 +13,7 @@ import java.util.Scanner;
 /**
  * Weather Station for ISS7.
  *
- * @author yolandaxu
+ * @author Yolanda Xu
  */
 public class WeatherStation4 extends WeatherStation {
 

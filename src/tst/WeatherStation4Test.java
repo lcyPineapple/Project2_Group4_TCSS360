@@ -15,6 +15,12 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
+ /**
+ * Weather Station Integration test for ISS7.
+ *
+ * @author Yolanda Xu
+ */
 class WeatherStation4Test {
 
     WirelessConsole c;
