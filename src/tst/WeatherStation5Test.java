@@ -19,8 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @version 5.15.2020
  */
 class WeatherStation5Test {
-    //private static Double[] testArray;
-    //ADD moon phase Tests
 
     /**
      * This test ensures that the collectData method
