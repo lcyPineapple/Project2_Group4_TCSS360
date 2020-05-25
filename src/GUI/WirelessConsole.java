@@ -151,23 +151,6 @@ public class WirelessConsole {
     private void initializeWeatherStations() throws Exception {
         this.integrater = new WeatherStationIntegrater(this);
 
-        ///Previous Version
-
-//        WeatherStation weatherStation1 = new WeatherStation1(integrater);
-//        weatherStation1.run();
-//
-//        WeatherStation weatherStation2 = new WeatherStation2(integrater);
-//        weatherStation2.run();
-//
-//        WeatherStation weatherStation3 = new WeatherStation3(integrater);
-//        weatherStation3.run();
-//
-//        WeatherStation weatherStation4 = new WeatherStation4(integrater);
-//        weatherStation4.run();
-//
-//        WeatherStation weatherStation5 = new WeatherStation5(integrater);
-//        weatherStation5.run();
-
         comboStation1 = new WeatherStation1(integrater);
         comboStation2 = new WeatherStation2(integrater);
         comboStation3 = new WeatherStation3(integrater);
@@ -568,7 +551,7 @@ public class WirelessConsole {
     /**
      * Loads all of the moon icon images
      */
-    private void loadMoonIcons() {
+    public void loadMoonIcons() {
         try {
             firstQuarterImageIcon = new ImageIcon(new File("moonImages/first-quarter.png").toURI().toURL());
             fullMoonImageIcon = new ImageIcon(new File("moonImages/full-moon.png").toURI().toURL());
@@ -586,7 +569,7 @@ public class WirelessConsole {
     /**
      * Updates the moon phase and label icons
      */
-    private void updateMoonPhaseIconAndLabel() {
+    public void updateMoonPhaseIconAndLabel() {
         int myMoon = checkPhase();
         if (myMoon == 0) {
             moonPhaseTextLbl = new JLabel("New Moon");
@@ -616,24 +599,47 @@ public class WirelessConsole {
     }
 
     /**
+     * This method is the overloaded version of the updateMoonPhase method.
+     * It exists for testing purposes only. To ensure version above works
+     * for any value chosen by the checkPhase method.
+     *@Overload Updates the moon phase and label icons
+     */
+    public void updateMoonPhaseIconAndLabel(int myMoon) {
+        if (myMoon == 0) {
+            moonPhaseTextLbl = new JLabel("New Moon");
+            moonLabel.setIcon(newMoonImageIcon);
+        } else if (myMoon == 1) {
+            moonPhaseTextLbl = new JLabel("Waxing Crescent");
+            moonLabel.setIcon(waxingCrescentImageIcon);
+        } else if (myMoon == 2) {
+            moonPhaseTextLbl = new JLabel("First Quarter");
+            moonLabel.setIcon(firstQuarterImageIcon);
+        } else if (myMoon == 3) {
+            moonPhaseTextLbl = new JLabel("Waxing Gibbous");
+            moonLabel.setIcon(waxingGibbousImageIcon);
+        } else if (myMoon == 4) {
+            moonPhaseTextLbl = new JLabel("Full Moon");
+            moonLabel.setIcon(fullMoonImageIcon);
+        } else if (myMoon == 5) {
+            moonPhaseTextLbl = new JLabel("Waning Gibbous");
+            moonLabel.setIcon(waningGibbousImageIcon);
+        } else if (myMoon == 6) {
+            moonPhaseTextLbl = new JLabel("Last Quarter");
+            moonLabel.setIcon(lastQuarterImageIcon);
+        } else{
+            moonPhaseTextLbl = new JLabel("Waning Crescent");
+            moonLabel.setIcon(waningCrescentImageIcon);
+        }
+    }
+    
+    /**
      * Returns a number indicating the phase of the moon.
      * For now, this number is a random integer in the
      * interval [0, 7]
      *
      * @return A number indicating the phase of the moon
      */
-    private int checkPhase() {
-		/*
-		Below is the beginning of an implementation of a true moon phase calculator
-
-        SimpleDateFormat dateForm = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date today = new Date();
-        String dateString = dateForm.format(today).toString();
-        String monthString = dateString.substring(3, 5);
-        String dayString = dateString.substring(0, 2);
-        int month = Integer.parseInt(monthString);
-        int day = Integer.parseInt(dayString);
-		*/
+    public int checkPhase() {
         return (new Random()).nextInt(8);
     }
 
